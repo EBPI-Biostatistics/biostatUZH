@@ -43,9 +43,32 @@ echo $contents; } ?>
 
 <!-- end of project description -->
 
-<p> No content added. </p>
+<hr />
 
-<p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. </p>
+<h2>Description</h2>
+
+<p> This <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/">R-Forge project</a> hosts the R package <strong>biostatUZH</strong>. </p>
+
+<p> For information about the package contents see the
+<a href="https://<?php echo $domain; ?>/scm/viewvc.php/*checkout*/pkg/biostatUZH/DESCRIPTION?root=<?php echo $group_name; ?>&content-type=text%2Fplain">DESCRIPTION file</a>
+and the
+<a href="https://<?php echo $domain; ?>/scm/viewvc.php/*checkout*/pkg/biostatUZH/inst/NEWS.Rd?root=<?php echo $group_name; ?>&content-type=text%2Fplain">latest NEWS</a>.</p>
+
+<h2>Download</h2>
+
+<p> You can download the current version
+<a href="https://r-forge.r-project.org/R/?group_id=2036">here</a>.</p>
+
+<h2>Installation</h2>
+
+<p> You can easily install the current package version in <tt>R</tt>: </p>
+<div style="text-align:center; font-size:x-large">
+<tt>install.packages("biostatUZH", repos = "http://R-Forge.R-project.org")</tt>
+</div>
+<p> (Note for Mac OS X users:
+Since R-Forge does not offer binaries for MacOS X,
+it might be necessary to specify the additional argument
+<tt>type = "source"</tt> in the above call.) </p>
 
 </body>
 </html>
