@@ -6,18 +6,22 @@
 \name{NEWS}
 \title{News for Package 'biostatUZH'}
 
-\section{Changes in biostatUZH version 1.5.0 (2015-02-09)}{
+\section{Changes in biostatUZH version 1.5.0 (2015-02-10)}{
   \itemize{
-    \item Accommodated R CMD check.
+    \item Bugfix in \code{confIntAUC()}: the argument \code{conf.level}
+    was ignored when calculating Wilson confidence intervals for
+    specificity, sensitivity, PPV, and NPV.
+    \item Migrated package development to the R-Forge project \dQuote{ebuzh}.
+    \item Accommodated R CMD check issues.
     \item Updated institute name.
     \item Standardized \file{NEWS} file format.
-    \item The \pkg{boot} package is no longer attached.
+    \item The \pkg{boot} package is no longer attached (but only imported).
   }
 }
 
 \section{Changes in biostatUZH version 1.4.9 (2014-04-15)}{
   \itemize{
-    \item \code{confIntIndependentProportion()}: the Newcombe interval
+    \item Bugfix in \code{confIntIndependentProportion()}: the Newcombe interval
     was wrong due to wrong internal use of the \code{conf.level} argument
     (spotted by Andrea Kraus). The bug was probably introduced in
     version 1.1.0, when all \code{alpha} arguments were changed to

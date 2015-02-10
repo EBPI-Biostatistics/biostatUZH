@@ -34,7 +34,7 @@ Description: Various functions developed at the Department of Biostatistics,
              hazard ratio and event time ratio interpretations,
              a plot to check the adequacy of the Weibull model.
 License: GPL (>=2)
-URL: http://www.biostat.uzh.ch
+URL: http://www.biostat.uzh.ch, http://ebuzh.r-forge.r-project.org
 Depends: R (>= 2.14.0), graphics, stats, survival (>= 2.35), reporttools
 Imports: boot
 Suggests: Hmisc, cmprsk, lme4, prodlim, psy, xtable, surveillance

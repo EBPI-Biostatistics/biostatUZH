@@ -48,10 +48,10 @@ confIntAUC <- function(cases, controls, conf.level = 0.95){
     npvs.ci <- spec.ci
     
     for (i in 1:n){
-        spec.ci[i, ] <- wilson(x = tns[i], n = (tns + fps)[i])[c(1, 3)]
-        sens.ci[i, ] <- wilson(x = tps[i], n = (tps + fns)[i])[c(1, 3)]
-        ppvs.ci[i, ] <- wilson(x = tps[i], n = (tps + fps)[i])[c(1, 3)]
-        npvs.ci[i, ] <- wilson(x = tns[i], n = (fns + tns)[i])[c(1, 3)]
+        spec.ci[i, ] <- wilson(x = tns[i], n = (tns + fps)[i], conf.level = conf.level)[c(1, 3)]
+        sens.ci[i, ] <- wilson(x = tps[i], n = (tps + fns)[i], conf.level = conf.level)[c(1, 3)]
+        ppvs.ci[i, ] <- wilson(x = tps[i], n = (tps + fps)[i], conf.level = conf.level)[c(1, 3)]
+        npvs.ci[i, ] <- wilson(x = tns[i], n = (fns + tns)[i], conf.level = conf.level)[c(1, 3)]
     }
     
     # compute q2 and q1
@@ -97,10 +97,3 @@ confIntAUC <- function(cases, controls, conf.level = 0.95){
         
     return(res)
 }
-
-
-
-
-
-
-
