@@ -1,0 +1,56 @@
+## fully import the required base packages and the survival framework
+import(graphics, stats, survival)
+
+## bootstrapping facilities
+importFrom(boot, boot, boot.ci)
+
+## we internally use only few things from reporttools, but we Depend on it
+## (i.e., attach it) due to its general importance for consulting reports
+importFrom(reporttools, displayCI)
+
+
+## which functions shall be accessible by the users?
+export(
+    Aalpha,
+    agresti,
+    AUCbinorm,
+    BlandAltman,
+    clopperPearson,
+    computeICCrater,
+    confIntAUC,
+    confIntAUCbinorm,
+    confIntFisherTrafo,
+    confIntICC,
+    confIntIndependentProportion,
+    confIntKappa,
+    confIntKM_t0,
+    confIntMedian,
+    confIntPairedProportion,
+    confIntProportion,
+    confIntRiskDiff,
+    ConvertWeibull,
+    faganLine,
+    faganPlot,
+    formatPercent,
+    formatPval,
+    ilogit,
+    jeffrey,
+    lamAlpha,
+    logit,
+    mantelCoxHR,
+    mantelHaenszel,
+    populationSamplePlot,
+    quantileCumInc,
+    quantileKM,
+    rootFct,
+    sampleSizeMcNemar,
+    sampleSizePhase2BinaryTest,
+    sampleSizePhase2BinaryTestSimulated,
+    sampleSizeWilcoxTwoSample,
+    survrep,
+    tableRegression,
+    wald,
+    WeibullDiag,
+    WeibullReg,
+    wilson
+)

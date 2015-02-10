@@ -1,0 +1,59 @@
+\name{confIntIndependentProportion}
+\alias{confIntIndependentProportion}
+\alias{Newcombe}
+
+\title{Compute confidence interval for the risk difference of two independent samples}
+\description{Compute confidence interval for the risk difference of two independent samples based on individual Wilson intervals using Newcombe's method.}
+\usage{confIntIndependentProportion(x, n, conf.level = 0.95)}
+\arguments{
+  \item{x}{Vector with two entries, the successes in the two groups.}
+  \item{n}{Vector with two entries, the number of trials.}
+  \item{conf.level}{Confidence level for confidence interval.}
+}
+
+\value{
+A list with the entries:
+  \item{p1}{Estimated proportion in first sample.}
+  \item{p2}{Estimated proportion in second sample.}
+  \item{d}{Estimated difference \eqn{p_1 - p_2} of proportions.}
+  \item{newcombeCI}{Confidence interval for the difference of independent proportions, computed according to Newcombe's method.}
+  \item{waldCI}{Wald confidence interval for the difference of independent proportions.}
+}
+\references{
+The Newcombe interval is introduced in 
+
+Newcombe, R.G. (1998).
+Interval estimation for the difference between independent proportions: Comparison of eleven methods.
+\emph{Stat. Med.}, \bold{17}, 873--890.
+
+A worked out example can be found in 
+
+Altman, D.G., Machin, D., Bryant, T.N., Gardner, M.J. (2000).
+Statistics with confidence (p. 49).
+University Press Belfast.
+}
+
+\author{Leonhard Held}
+
+\examples{
+# Example from Significance (2010), 7(4), p. 146, "Untimely ripped ?"
+n <- c(1515, 108000)
+x <- c(0, 100)
+confIntIndependentProportion(x, n)
+
+# Fisher p-values
+t <- matrix(c(x, n - x), nrow = 2, ncol = 2)
+f.t <- fisher.test(t)
+f.t$p.value
+
+\dontrun{
+# exact test
+library("exact2x2")
+exact2x2(t, tsmethod = "minlike")$p.value
+exact2x2(t, tsmethod = "central")$p.value
+exact2x2(t, tsmethod = "blaker")$p.value
+}
+}
+
+\keyword{univar}
+\keyword{htest}
