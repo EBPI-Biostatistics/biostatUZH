@@ -38,18 +38,10 @@ res <- boot(data = dat, statistic = kappam.boot, R = M)
 quantil <- quantile(res$t, c(alpha / 2, 1 - alpha / 2)) 
 
 ## adjusted bootstrap percentile (BCa) confidence interval (better)
-#adj.boot <- boot.ci(res, type = "bca")$bca[4:5]        
-adj.boot <- NA   
+#adj.boot <- boot.ci(res, conf = conf.level, type = "bca")$bca[4:5]        
 
 ## generate output
-res <- list("n" = n, "kappa" = k, "boot.quant" = quantil, "adj.boot" = adj.boot)
+res <- list("n" = n, "kappa" = k, "boot.quant" = quantil)#, "adj.boot" = adj.boot)
 return(res)
 }
 
-
-
-
-
-
-
-#
