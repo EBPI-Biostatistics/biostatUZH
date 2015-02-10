@@ -1,22 +1,23 @@
 \name{tableRegression}
 \alias{tableRegression}
-\title{Present regression output}
-\description{Modifies regression output in a desired way.}
+\title{Format Coefficient Tables of Regression Models}
+\description{Shows regression output in a desired way.}
+
 \usage{
-tableRegression(model, stats = NULL,
-                col.nam = NULL, row.nam = NULL, intercept = NULL,
-                text = "english", text.ci = text, 
-                eps.pvalue = 0.0001, digits = NULL, big.mark = "'",
-                xtable = TRUE, align = NULL, caption = NULL, label = NULL)
+tableRegression(model,
+    stats = NULL, col.nam = NULL, row.nam = NULL, intercept = NULL,
+    text = "english", text.ci = text, 
+    eps.pvalue = 0.0001, digits = NULL, big.mark = "'",
+    xtable = TRUE, align = NULL, caption = NULL, label = NULL, ...)
 }
+
 \arguments{
   \item{model}{Object of class \code{lm},  \code{glm}, \code{coxph}, or
     \code{list} (for Weibull models).}
   \item{stats}{character vector with stats, choose from \code{"estimate",
       "exp.estimate", "standarderror", "t.value", "ci.95", "p.value"}.}
   \item{col.nam}{character vector, same length and order as in
-    \code{stats}. If the percentage sign is used, two
-    backslashes are needed.}
+    \code{stats}. A percentage sign must be escaped by two backslashes.}
   \item{row.nam}{Names of rows, character vector}
   \item{intercept}{logical, should intercept be provided or not. If
     model is a binomial regression, intercept is set \code{FALSE}. If intercept is set \code{TRUE}, the first line of the
@@ -31,15 +32,20 @@ tableRegression(model, stats = NULL,
   \item{digits}{Vector of length \code{stats}, digits used for each column.}
   
   \item{big.mark}{Character vector, see \code{\link{format}}.}
-  \item{align}{Character vector, see \code{\link[xtable]{xtable}}}
-  \item{xtable}{Logical, presented as \code{xtable} or just matrix?}
-  \item{caption}{Character vector, see \code{\link[xtable]{xtable}}}
-  \item{label}{Character vector, see \code{\link[xtable]{xtable}}}
+  \item{xtable}{Logical indicating if a LaTeX table should be produced
+    (default) or just a data frame be returned.}
+  \item{align,caption,label}{see \code{\link[xtable]{xtable}}.}
+  \item{\dots}{Arguments passed to \code{\link[xtable]{print.xtable}}.}
 }
 
-\value{Depending on the value of the argument \code{xtable} a
-  matrix or a \code{xtable} object is returned.}
-\details{In \code{stats}: 
+\value{
+  Depending on the value of the \code{xtable} argument, the function
+  either prints and returns LaTeX code representing the produced table
+  of coefficients, or it returns the corresponding data frame.
+}
+
+\details{
+  In \code{stats}: 
   \itemize{
     \item If \code{t.value} is choosen, the
     \code{z.value} might be taken, depending on the model.
@@ -47,15 +53,11 @@ tableRegression(model, stats = NULL,
     for the estimate.
     \item For glm- anx coxph-models: \code{ci.95} calculates a confidence interval
     for the exp(estimate).
-  }}
+  }
+}
 
 \author{Sina Rueeger\cr \email{sina.rueeger@uzh.ch}}
 \seealso{\code{\link[xtable]{xtable}}}
-\note{If the percentage sign is used, two
-    backslashes are needed (not only one as in latex). Because of
-    problems when running the package, the two backslashes and the
-    percent sign are omitted
-    in the examples.}
 
 \examples{
 

@@ -11,6 +11,8 @@
     \item Bugfix in \code{confIntAUC()}: the argument \code{conf.level}
     was ignored when calculating Wilson confidence intervals for
     specificity, sensitivity, PPV, and NPV.
+    \item \code{tableRegression()}: arguments can now be passed to
+    \code{print.xtable} and row names are sanitized by default.
     \item Migrated package development to the R-Forge project \dQuote{ebuzh}.
     \item Accommodated R CMD check issues.
     \item Updated institute name.

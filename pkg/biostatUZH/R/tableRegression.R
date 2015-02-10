@@ -1,6 +1,6 @@
 ################################################################################
 ## Author: Sina Rueeger [sina *.* rueeger *a*t* ifspm *.* uzh *.* ch]
-## Time-stamp: <[tableRegression.R] 2015-02-10 11:18 (CET) by SM>
+## Time-stamp: <[tableRegression.R] 2015-02-10 14:29 (CET) by SM>
 ################################################################################
 
 
@@ -17,7 +17,8 @@ tableRegression <- function(model,
                             xtable = TRUE,
                             align = NULL,
                             caption = NULL,
-                            label = NULL
+                            label = NULL,
+                            ...
                             )
 {
     
@@ -283,14 +284,23 @@ tableRegression <- function(model,
 
     ## table
     ## --------
-    if (xtable && requireNamespace("xtable"))
-    {
-        if (is.null(align)) align <- paste(rep("r", length(stats)+1), collapse = "")
+    if (xtable && requireNamespace("xtable")) {
+        if (is.null(align))
+            align <- paste(rep("r", length(stats)+1), collapse = "")
         xtab <- xtable::xtable(output.return, caption = caption, label = label, align = align)
-        return(print(xtab, include.rownames = TRUE, floating = TRUE, type = "latex", size = "footnotesize",
-                sanitize.text.function = function(x){x}, table.placement = "h!"))
-    }else{
-        return(output.return)
+        ## options for print.xtable (can be overridden by ... arguments)
+        oopt <- options(
+            xtable.include.rownames = TRUE,
+            xtable.floating = TRUE,
+            xtable.type = "latex",
+            xtable.size = "footnotesize",
+            xtable.table.placement = "!h",
+            xtable.sanitize.colnames.function = identity  # do not escape "$"
+        )
+        on.exit(options(oopt))
+        print(xtab, ...)
+    } else {
+        output.return
     }
 }
 
