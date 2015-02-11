@@ -1,3 +1,4 @@
+
 faganPlot <- function(prob.pre.init = c(.1, .2, .5, 1, 2, 5, 10, 20, 30, 40, 50, 70, 85), text = 0.8, 
     language = c("german", "english")[1], tit = "Fagan - Nomogramm"){
 
