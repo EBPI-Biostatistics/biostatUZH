@@ -47,17 +47,12 @@ echo $contents; } ?>
 
 <h2>Description</h2>
 
-<p> This <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/">R-Forge project</a> hosts the R package <strong>biostatUZH</strong>. </p>
+<p> The <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/">R-Forge project <tt>ebuzh</tt></a> currently hosts a single R package: <strong>biostatUZH</strong>. </p>
 
 <p> For information about the package contents see the
 <a href="https://<?php echo $domain; ?>/scm/viewvc.php/*checkout*/pkg/biostatUZH/DESCRIPTION?root=<?php echo $group_name; ?>&content-type=text%2Fplain">DESCRIPTION file</a>
 and the
 <a href="https://<?php echo $domain; ?>/scm/viewvc.php/*checkout*/pkg/biostatUZH/inst/NEWS.Rd?root=<?php echo $group_name; ?>&content-type=text%2Fplain">latest NEWS</a>.</p>
-
-<h2>Download</h2>
-
-<p> You can download the current version
-<a href="https://r-forge.r-project.org/R/?group_id=2036">here</a>.</p>
 
 <h2>Installation</h2>
 
