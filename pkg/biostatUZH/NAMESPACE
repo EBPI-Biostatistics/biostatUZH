@@ -35,6 +35,7 @@ export(
     logit,
     mantelCoxHR,
     mantelHaenszel,
+    plotcorr,
     populationSamplePlot,
     quantileCumInc,
     quantileKM,

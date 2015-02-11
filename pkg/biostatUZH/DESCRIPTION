@@ -1,17 +1,17 @@
 Package: biostatUZH
 Title: Misc Tools of the Department of Biostatistics, EBPI, University of Zurich
 Version: 1.5.0
-Date: 2015-02-11
+Date: 2015-02-12
 Authors@R: c(person(c("Sarah", "R."), "Haile", role = "aut",
                     email = "sarah.haile@kssg.ch"),
              person("Leonhard", "Held", role = "aut",
                     email = "leonhard.held@uzh.ch"),
+             person("Sebastian", "Meyer", role = c("aut","cre"),
+                    email = "sebastian.meyer@uzh.ch"),
              person("Sina", "Rueeger", role = "aut",
                     email = "sina.rueger@isb-sib.ch"),
              person("Kaspar", "Rufibach", role = "aut",
                     email = "kaspar.rufibach@gmail.com"),
-             person("Sebastian", "Meyer", role = c("cre","ctb"),
-                    email = "sebastian.meyer@uzh.ch"),
              person("Daniel", "Sabanes Bove", role = "ctb"))
 Description: Various functions developed at the Department of Biostatistics,
              Epidemiology, Biostatistics and Prevention Institute,
@@ -37,5 +37,6 @@ License: GPL (>=2)
 URL: http://www.biostat.uzh.ch, http://ebuzh.r-forge.r-project.org
 Depends: R (>= 2.15.0), graphics, stats, survival (>= 2.35)
 Imports: boot
-Suggests: cmprsk, lme4, prodlim, psy, xtable, reporttools, Hmisc, surveillance
-Enhances: MASS
+Suggests: cmprsk, lme4, prodlim, psy, xtable,
+        reporttools, Hmisc, surveillance
+Enhances: MASS, ellipse
