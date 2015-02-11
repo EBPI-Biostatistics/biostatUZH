@@ -33,8 +33,7 @@ Interval Estimation for a Binomial Proportion.
 \seealso{Functions for some of the intervals provided here are available in \pkg{Hmisc} (see the examples).}
 
 \examples{
-# Calculate confidence bounds for a binomial parameter by different methods. 
-
+## Calculate confidence bounds for a binomial parameter by different methods. 
 x <- 50
 n <- 100
 ci <- confIntProportion(x, n)$CIs
@@ -53,12 +52,11 @@ text(0.5, 2.85, 'agresti')
 text(0.5, 3.85, 'jeffrey')
 text(0.5, 4.85, 'clopper')
 
-\dontrun{
-# compare intervals to those received by the function binconf in Hmisc:
-library(Hmisc)
-binconf(x, n, method = "asymptotic")         # Wald
-binconf(x, n, method = "wilson")             # Wilson
-binconf(x, n, alpha = a, method = "exact")   # Clopper-Pearson
+## compare intervals to those received by the function binconf in Hmisc:
+if (require("Hmisc")) {
+    binconf(x, n, method = "asymptotic")   # Wald
+    binconf(x, n, method = "wilson")       # Wilson
+    binconf(x, n, method = "exact")        # Clopper-Pearson
 }
 }
 
