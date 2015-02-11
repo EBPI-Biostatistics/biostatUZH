@@ -4,7 +4,7 @@
 ### or later) a copy of which is available at http://www.R-project.org/Licenses
 ###
 ### Copyright (C) 2012-2013 Sina Ruegger, 2015 Sebastian Meyer
-### Time-stamp: <[tableRegression.R] 2015-02-11 16:09 (CET) by SM>
+### Time-stamp: <[tableRegression.R] 2015-02-11 21:53 (CET) by SM>
 ################################################################################
 
 
@@ -173,7 +173,7 @@ tableRegression <- function(model,
         standarderror <- summary(model)$coef[,2]
         t.value <- summary(model)$coef[,3]
         p.value <- summary(model)$coef[,4]
-        ci.95 <- displayCI(confint(model), digit = digits.ci, text = text.ci)
+        ci.95 <- formatCI(confint(model), digits = digits.ci, text = text.ci)
     }
 
     ## glm
@@ -186,7 +186,7 @@ tableRegression <- function(model,
         t.value <- summary(model)$coef[,3]
         p.value <- summary(model)$coef[,4]
         ## confint for exp.estimate
-        ci.95 <- displayCI(exp(confint(model)), digit = digits.ci, text = text.ci)
+        ci.95 <- formatCI(exp(confint(model)), digits = digits.ci, text = text.ci)
     }
 
 
@@ -199,7 +199,7 @@ tableRegression <- function(model,
         standarderror <- summary(model)$coefficients[,3]
         t.value <- summary(model)$coefficients[,4]
         p.value <- summary(model)$coefficients[,5]
-        ci.95 <- displayCI(cbind(summary(model)$conf.int[,3], summary(model)$conf.int[,4]), digit = digits.ci, text = text.ci) 
+        ci.95 <- formatCI(cbind(summary(model)$conf.int[,3], summary(model)$conf.int[,4]), digits = digits.ci, text = text.ci) 
 
        # col.nam[stats == "exp.estimate"] <- c("Hazard Ratio")
        ## cl.2 <- "survival"
@@ -216,7 +216,7 @@ tableRegression <- function(model,
         p.value <- 2 * pnorm(- abs(estimate / standarderror))
         ci1 <- estimate - qnorm(0.975) * standarderror
         ci2 <- estimate + qnorm(0.975) * standarderror
-        ci.95 <- displayCI(exp(cbind(ci1, ci2)), digit = digits.ci, text = text.ci) 
+        ci.95 <- formatCI(exp(cbind(ci1, ci2)), digits = digits.ci, text = text.ci) 
 
         col.nam[stats == "exp.estimate"] <- c("Hazard Ratio")
        ## cl.2 <- "survival"

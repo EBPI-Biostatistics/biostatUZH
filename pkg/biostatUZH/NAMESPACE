@@ -4,11 +4,6 @@ import(graphics, stats, survival)
 ## bootstrapping facilities
 importFrom(boot, boot, boot.ci)
 
-## we internally use only few things from reporttools, but we Depend on it
-## (i.e., attach it) due to its general importance for consulting reports
-importFrom(reporttools, displayCI)
-
-
 ## which functions shall be accessible by the users?
 export(
     Aalpha,
@@ -31,6 +26,7 @@ export(
     ConvertWeibull,
     faganLine,
     faganPlot,
+    formatCI,
     formatPercent,
     formatPval,
     ilogit,

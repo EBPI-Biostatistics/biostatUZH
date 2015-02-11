@@ -35,7 +35,7 @@ Description: Various functions developed at the Department of Biostatistics,
              a plot to check the adequacy of the Weibull model.
 License: GPL (>=2)
 URL: http://www.biostat.uzh.ch, http://ebuzh.r-forge.r-project.org
-Depends: R (>= 2.14.0), graphics, stats, survival (>= 2.35), reporttools
+Depends: R (>= 2.15.0), graphics, stats, survival (>= 2.35)
 Imports: boot
-Suggests: Hmisc, cmprsk, lme4, prodlim, psy, xtable, surveillance
+Suggests: cmprsk, lme4, prodlim, psy, xtable, reporttools, Hmisc, surveillance
 Enhances: MASS

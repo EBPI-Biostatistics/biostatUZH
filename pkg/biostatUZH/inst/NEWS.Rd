@@ -8,6 +8,8 @@
 
 \section{Changes in biostatUZH version 1.5.0 (2015-02-11)}{
   \itemize{
+    \item New function \code{formatCI()}, a re-implementation of
+    \code{displayCI()} from package \pkg{reporttools}.
     \item Bugfix in \code{confIntAUC()}: the argument \code{conf.level}
     was ignored when calculating Wilson confidence intervals for
     specificity, sensitivity, PPV, and NPV.
@@ -22,7 +24,8 @@
     \item Accommodated R CMD check issues.
     \item Updated institute name.
     \item Standardized \file{NEWS} file format.
-    \item The \pkg{boot} package is no longer attached (but only imported).
+    \item The \pkg{boot} and \pkg{reporttools} packages are no longer
+    automatically attached when attaching package \pkg{biostatUZH}. 
   }
 }
 
