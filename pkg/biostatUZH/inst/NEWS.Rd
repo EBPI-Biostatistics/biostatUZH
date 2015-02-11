@@ -6,13 +6,18 @@
 \name{NEWS}
 \title{News for Package 'biostatUZH'}
 
-\section{Changes in biostatUZH version 1.5.0 (2015-02-10)}{
+\section{Changes in biostatUZH version 1.5.0 (2015-02-11)}{
   \itemize{
     \item Bugfix in \code{confIntAUC()}: the argument \code{conf.level}
     was ignored when calculating Wilson confidence intervals for
     specificity, sensitivity, PPV, and NPV.
-    \item \code{tableRegression()}: arguments can now be passed to
-    \code{print.xtable} and row names are sanitized by default.
+    \item \code{tableRegression()} ...
+    \itemize{
+      \item supports negative binomial models fit by \code{glm.nb} from
+      package \pkg{MASS}.
+      \item passes additional arguments to \code{print.xtable} and
+      sanitizes row names by default.
+    }
     \item Migrated package development to the R-Forge project \dQuote{ebuzh}.
     \item Accommodated R CMD check issues.
     \item Updated institute name.

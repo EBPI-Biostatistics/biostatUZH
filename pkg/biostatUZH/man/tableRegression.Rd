@@ -12,8 +12,9 @@ tableRegression(model,
 }
 
 \arguments{
-  \item{model}{Object of class \code{lm},  \code{glm}, \code{coxph}, or
-    \code{list} (for Weibull models).}
+  \item{model}{an object of class \code{"lm"}, \code{"glm"},
+    \code{"negbin"} (fitted by \code{\link[MASS]{glm.nb}} in package \pkg{MASS}),
+    \code{"coxph"}, or \code{"list"} (for Weibull models).}
   \item{stats}{character vector with stats, choose from \code{"estimate",
       "exp.estimate", "standarderror", "t.value", "ci.95", "p.value"}.}
   \item{col.nam}{character vector, same length and order as in
@@ -56,7 +57,8 @@ tableRegression(model,
   }
 }
 
-\author{Sina Rueeger\cr \email{sina.rueeger@uzh.ch}}
+\author{Sina Rueeger with contributions by Sebastian Meyer}
+
 \seealso{\code{\link[xtable]{xtable}}}
 
 \examples{
@@ -84,6 +86,19 @@ treatment <- gl(3,3)
 d.AD <- data.frame(treatment, outcome, counts)
 mod.glm.pois <- glm(counts ~ outcome + treatment, family=poisson())
 tableRegression(mod.glm.pois)
+
+
+## Negative binomial model
+## --------------
+if (require("MASS")) {
+    mod.glm.nb <- glm.nb(Days ~ Sex + Age, data = quine)
+    tableRegression(
+        mod.glm.nb,
+        caption = paste("NegBin model. Estimated dispersion:",
+            sprintf("\%4.2f ($se=\%4.2f$).", mod.glm.nb$theta, mod.glm.nb$SE.theta)),
+        label = "tab:glm.nb"
+    )
+}
 
 
 ## Logistic model
@@ -127,7 +142,7 @@ tableRegression(mod.cox2)
 ## Weibull
 ## (example from biostatUZH::WeibullReg)
 ## -------------
-data(larynx)
+data("larynx")
 mod.wb <- WeibullReg(Surv(time, death) ~ factor(stage) + age, data=larynx)
 tableRegression(mod.wb)
 

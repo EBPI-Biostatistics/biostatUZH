@@ -1,6 +1,10 @@
 ################################################################################
-## Author: Sina Rueeger [sina *.* rueeger *a*t* ifspm *.* uzh *.* ch]
-## Time-stamp: <[tableRegression.R] 2015-02-10 14:29 (CET) by SM>
+### Part of the R package "biostatUZH".
+### Free software under the terms of the GNU General Public License (version 2
+### or later) a copy of which is available at http://www.R-project.org/Licenses
+###
+### Copyright (C) 2012-2013 Sina Ruegger, 2015 Sebastian Meyer
+### Time-stamp: <[tableRegression.R] 2015-02-11 16:09 (CET) by SM>
 ################################################################################
 
 
@@ -38,6 +42,7 @@ tableRegression <- function(model,
     ## poisson >> generalized linear model
     ## list >> weibull
     ## coxph >> survivalc
+    ## negbin >> negative binomial model (fit by MASS::glm.nb)
     
     ## LM
     ## -------------
@@ -74,23 +79,16 @@ tableRegression <- function(model,
         ## digits
         if(is.null(digits)) digits <- rep(2, length(stats))
 
-    }
-
-
+    } else {
     ## rest
     ## -------------
-    if (cl != "lm")
-    {
+        
         ## intercept
         if(is.null(intercept))
         {
-            if(cl %in% c("list", "binomial", "coxph")) ## intercept is omitted when having weibull
-                ## or logit regression or coxph
-                {
-                    intercept <- FALSE 
-                }else{
-                    intercept <- TRUE
-                }
+            ## intercept is omitted when having weibull
+            ## or logit regression or coxph
+            intercept <- ! cl %in% c("list", "binomial", "coxph")
         }
         
         ## stats
@@ -101,25 +99,25 @@ tableRegression <- function(model,
         ind <- sapply(stats, function(x) which(x == raw.stats))#which(raw.stats %in% stats)
         if(is.null(col.nam))
         {
-            exp.nam <- "Exp(Coefficient)"
-            if("exp.estimate" %in% stats & cl == "poisson") exp.nam <- "Rate Ratio"
-            if("exp.estimate" %in% stats & cl == "binomial") exp.nam <- "Odds Ratio"
-            if("exp.estimate" %in% stats & cl == "coxph") exp.nam <- "Hazard Ratio"
+            exp.nam <- switch(
+                cl,
+                "poisson" =, "negbin" = "Rate Ratio",
+                "binomial" = "Odds Ratio",
+                "coxph" = "Hazard Ratio",
+                "Exp(Coefficient)"
+            )
             
             ind.exp <- raw.stats == "exp.estimate"
             raw.col.nam.german[ind.exp] <- exp.nam
             raw.col.nam.english[ind.exp] <- exp.nam
             
-            
             if(text == "german") col.nam <- raw.col.nam.german[ind]
             if(text == "english") col.nam <- raw.col.nam.english[ind]
-               
         }
         
         ## row.nam >> dependent on intercept & text
         if(is.null(row.nam))
         {
-            
             if(cl == "list")
             {
                 row.nam <- rownames(model$coef)[-c(1,2)]
@@ -138,7 +136,6 @@ tableRegression <- function(model,
                 if(text == "english") intercept.nam <- "Intercept"
                 row.nam <- c(intercept.nam, row.nam)
             }
-            
         }
         
         ## digits
@@ -181,7 +178,7 @@ tableRegression <- function(model,
 
     ## glm
     ## ----------------------------
-    if (cl %in% c("binomial", "poisson"))
+    if (cl %in% c("binomial", "poisson", "negbin"))
     {
         estimate <- summary(model)$coef[,1]
         exp.estimate <- exp(estimate)
