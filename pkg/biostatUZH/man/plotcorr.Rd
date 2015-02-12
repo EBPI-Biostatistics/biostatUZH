@@ -23,7 +23,8 @@ original sense of the function.
 plotcorr(corr, outline = TRUE, col = 'grey',
          lower.panel = "ellipse", upper.panel = "number", diag.panel = NULL,
          bty = "n", axes = FALSE, xlab = "", ylab = "", asp = 1,
-	 cex.lab = par("cex.lab"), cex = 0.75*par("cex"), mar = 0.1 + c(2,2,4,2), ...)
+         cex.lab = par("cex.lab"), cex = 0.75*par("cex"),
+         mar = 0.1 + c(2,2,4,2), ...)
 }
 
 \arguments{
