@@ -9,10 +9,10 @@
 \section{Changes in biostatUZH version 1.5.0 (2015-02-12)}{
   \itemize{
     \item New function \code{formatCI()}, a re-implementation of
+    \code{displayCI()} from package \pkg{reporttools}.
     \item New function \code{plotcorr()}, a fork from package
     \pkg{ellipse}, which enables ellipses in the lower and numbers in
     the upper triangle (or vice versa).
-    \code{displayCI()} from package \pkg{reporttools}.
     \item Bugfix in \code{confIntAUC()}: the argument \code{conf.level}
     was ignored when calculating Wilson confidence intervals for
     specificity, sensitivity, PPV, and NPV.
