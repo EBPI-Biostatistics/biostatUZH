@@ -56,14 +56,21 @@ and the
 
 <h2>Installation</h2>
 
-<p> You can easily install the current package version in <tt>R</tt>: </p>
-<div style="text-align:center; font-size:x-large">
-<tt>install.packages("biostatUZH", repos = "http://R-Forge.R-project.org")</tt>
+<p> You can easily install the current package version in <tt>R</tt>. </p>
+
+<h3>Windows &amp; Linux</h3>
+
+<div style="text-align:center; font-size:x-large; font-family:monospace">
+install.packages("biostatUZH", repos = "http://R-Forge.R-project.org")
 </div>
-<p> (Note for Mac OS X users:
-Since R-Forge does not offer binaries for MacOS X,
-it might be necessary to specify the additional argument
-<tt>type = "source"</tt> in the above call.) </p>
+
+<h3>Mac OS X</h3>
+
+<p> Since R-Forge does no longer offer binaries for MacOS X,
+it is necessary to specify the additional argument <tt>type = "source"</tt>: </p>
+<div style="text-align:center; font-size:x-large; font-family:monospace">
+install.packages("biostatUZH", repos = "http://R-Forge.R-project.org", type = "source")
+</div>
 
 </body>
 </html>
