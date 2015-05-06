@@ -1,15 +1,10 @@
-jeffrey <- function(x, n, conf.level = 0.95){
+jeffrey <- function(x, n, conf.level = 0.95)
+{
+    a <- 1 - conf.level
+    
+    ll <- if (x == 0) 0 else qbeta(a / 2, x + 0.5, n - x + 0.5)  
+    ul <- if (x == n) 1 else qbeta(1 - a / 2, x + 0.5, n - x + 0.5)
 
-a <- 1 - conf.level
-if (x == 0){ll <- 0}
-if (x == n){ul <- 1}
-if ((x != 0) & (x != n)){
-    ll <- qbeta(a / 2, x + 0.5, n - x + 0.5)  
-    ul <- qbeta(1 - a / 2, x + 0.5, n - x + 0.5)}
-
-res <- c("lower" = ll, "prop" = x / n, "upper" = ul)
-   
-return(res)
+    res <- c("lower" = ll, "prop" = x / n, "upper" = ul)
+    return(res)
 }
-
-

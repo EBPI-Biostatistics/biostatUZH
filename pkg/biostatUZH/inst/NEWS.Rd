@@ -6,6 +6,13 @@
 \name{NEWS}
 \title{News for Package 'biostatUZH'}
 
+\section{Changes in biostatUZH version 1.5.1 (2015-05-06)}{
+  \itemize{
+    \item \code{jeffrey()} and thus \code{confIntProportion()} now also
+    work in the boundary cases \code{x = 0} and \code{x = n}.
+  }
+}
+
 \section{Changes in biostatUZH version 1.5.0 (2015-02-12)}{
   \itemize{
     \item New function \code{formatCI()}, a re-implementation of
