@@ -4,7 +4,7 @@
 ### or later) a copy of which is available at http://www.R-project.org/Licenses
 ###
 ### Copyright (C) 2012-2013 Sina Ruegger, 2015 Sebastian Meyer
-### Time-stamp: <[tableRegression.R] 2015-02-11 21:53 (CET) by SM>
+### Time-stamp: <[tableRegression.R] 2015-05-08 11:07 (CEST) by SM>
 ################################################################################
 
 
@@ -185,8 +185,12 @@ tableRegression <- function(model,
         standarderror <- summary(model)$coef[,2]
         t.value <- summary(model)$coef[,3]
         p.value <- summary(model)$coef[,4]
-        ## confint for exp.estimate
-        ci.95 <- formatCI(exp(confint(model)), digits = digits.ci, text = text.ci)
+        ## confint for exp.estimate (actually depends on MASS:::confint.glm)
+        ci.95 <- if (requireNamespace("MASS", quietly = FALSE)) {
+            formatCI(exp(confint(model)), digits = digits.ci, text = text.ci)
+        } else {
+            rep.int(NA_character_, length(estimate))
+        }
     }
 
 
@@ -224,7 +228,8 @@ tableRegression <- function(model,
 
     ## bring everything together
     ## --------------------------
-    output <- data.frame(estimate, exp.estimate, standarderror, t.value, ci.95, p.value)
+    output <- data.frame(estimate, exp.estimate, standarderror, t.value, ci.95, p.value,
+                         stringsAsFactors = FALSE)
 
     if(!intercept & !(cl %in% c("list", "coxph"))) ## in weibull and coxph there is anyway no intercept plotted #
     {

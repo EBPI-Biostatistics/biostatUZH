@@ -40,7 +40,9 @@ x <- c(1e-8, 0.00568, 0.0345, 0.885)
 biostatUZH::formatPval(x)  # "< 0.0001" "0.006" "0.035" "0.89"
 
 ## compare to formatting of other packages
-reporttools::formatPval(x) # "< 0.0001" "0.0057" "0.03" "0.88"
+if (requireNamespace("reporttools")) {
+    reporttools::formatPval(x) # "< 0.0001" "0.0057" "0.03" "0.88"
+}
 if (requireNamespace("Hmisc")) {
     Hmisc::format.pval(x)  # "0" "0.00568" "0.03450" "0.88500"
 }
