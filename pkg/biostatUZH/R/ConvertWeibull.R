@@ -1,7 +1,7 @@
 ConvertWeibull <- function (model, conf.level = 0.95)
 {
-    level <- 1 - conf.level
-    qa <- qnorm(1 - level/2)
+    alpha <- 1 - conf.level
+    qa <- qnorm(1 - alpha/2)
     Int.Only <- (nrow(summary(model)$table) == 2)
     sigma <- summary(model)$scale
     mu <- summary(model)$coef[1]
