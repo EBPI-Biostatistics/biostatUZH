@@ -6,6 +6,13 @@
 \name{NEWS}
 \title{News for Package 'biostatUZH'}
 
+\section{Changes in biostatUZH version 1.5.2 (2015-09-09)}{
+  \itemize{
+    \item Fixed yet another \code{conf.level} bug
+    (sitting in \code{WeibullReg()} since version 1.1.0).
+  }
+}
+
 \section{Changes in biostatUZH version 1.5.1 (2015-05-06)}{
   \itemize{
     \item \code{jeffrey()} and thus \code{confIntProportion()} now also
