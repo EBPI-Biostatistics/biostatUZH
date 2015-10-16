@@ -20,7 +20,7 @@ original sense of the function.
 }
 
 \usage{
-plotcorr(corr, outline = TRUE, col = 'grey',
+plotcorr(corr, outline = TRUE, col = TRUE,
          lower.panel = "ellipse", upper.panel = "number", diag.panel = NULL,
          bty = "n", axes = FALSE, xlab = "", ylab = "", asp = 1,
          cex.lab = par("cex.lab"), cex = 0.75*par("cex"),
@@ -37,6 +37,9 @@ Whether the ellipses should be outlined in the default colour.
 }
 \item{col}{
 Which colour(s) to use to fill the ellipses (recycled to \code{length(corr)}).
+The special setting \code{col = TRUE} will fill the ellipses according
+to the color range \code{colorRampPalette(c("blue", "white", "red"))(11)}
+mapped to the correlations as shown in the example below.
 }
 \item{lower.panel, upper.panel, diag.panel}{
 each panel can be either \code{NULL}, \code{"ellipse"}, or
@@ -76,13 +79,16 @@ if (requireNamespace("ellipse")) {
   data("mtcars")
   fit <- lm(mpg ~ ., mtcars)
   corr.fit <- summary(fit, correlation = TRUE)$correlation
-  plotcorr(corr.fit)
-  
+  plotcorr(corr.fit, col = "gray")
+
+  ## with default color coding
+  plotcorr(corr.fit, col = TRUE)
+
   ## Colour the ellipses and order by correlations with miles/gallon
   corr.mtcars <- cor(mtcars)
   ord <- order(corr.mtcars[1,])
   xc <- corr.mtcars[ord, ord]
-  colors <- colorRampPalette(c("red", "white", "blue"))(11)
+  colors <- colorRampPalette(c("blue", "white", "red"))(11)
   plotcorr(xc, col = colors[5*xc + 6])
 }
 }

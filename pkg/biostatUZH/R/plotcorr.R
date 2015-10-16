@@ -9,7 +9,7 @@
 ################################################################################
 
 "plotcorr" <-
-  function (corr, outline = TRUE, col = 'grey',
+  function (corr, outline = TRUE, col = TRUE,
             lower.panel = "ellipse", upper.panel = "number", diag.panel = NULL,
             bty = "n", axes = FALSE, xlab = "", ylab = "", asp = 1,
             cex.lab = par("cex.lab"), cex = 0.75*par("cex"), mar = 0.1 + c(2,2,4,2), ...)
@@ -35,7 +35,11 @@
     rowlabs <- as.character(rowlabs)
     collabs <- as.character(collabs)
 
-    col <- rep(col, length.out = length(corr))
+    col <- if (isTRUE(col)) {
+        colorRampPalette(c("blue", "white", "red"))(11)[5*corr + 6]
+    } else {
+        rep(col, length.out = length(corr))
+    }
     dim(col) <- dim(corr)
 
     if (!is.null(lower.panel)) {

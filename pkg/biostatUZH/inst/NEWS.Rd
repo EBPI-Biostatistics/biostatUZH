@@ -6,6 +6,14 @@
 \name{NEWS}
 \title{News for Package 'biostatUZH'}
 
+\section{Changes in biostatUZH version 1.5.3 (2015-10-16)}{
+  \itemize{
+    \item Added a convenient shortcut \code{plotcorr(..., col = TRUE)}
+    to fill the ellipses with colors mapped to the correlations (which
+    is the new default).
+  }
+}
+
 \section{Changes in biostatUZH version 1.5.2 (2015-09-09)}{
   \itemize{
     \item Fixed yet another \code{conf.level} bug

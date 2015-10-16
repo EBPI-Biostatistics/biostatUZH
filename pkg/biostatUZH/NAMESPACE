@@ -1,5 +1,5 @@
 ## fully import the required base packages and the survival framework
-import(graphics, stats, survival)
+import(grDevices, graphics, stats, survival)
 
 ## bootstrapping facilities
 importFrom(boot, boot, boot.ci)
