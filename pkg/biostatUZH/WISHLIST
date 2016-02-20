@@ -1,1 +1,3 @@
 tableRegression: pooled p-values for factor variables
+
+confidence interval for the AUC difference (paired and unpaired)
