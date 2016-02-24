@@ -1,16 +1,10 @@
-
-# calculates limits of Jeffreys confidence interval
-# with suitable point estimate
-# newly written by LH on 17.02.2016
-
-jeffreys <- function(x, n, conf.level = 0.95){
-    q <- (1-conf.level)/2
-    alpha <- x + 0.5
-    beta <- n - x + 0.5
-    point <- qbeta(0.5, alpha, beta)
-    ll <- qbeta(q, alpha, beta)
-    ul <- qbeta(1 - q, alpha, beta)
+jeffrey <- function(x, n, conf.level = 0.95)
+{
+    a <- 1 - conf.level
     
-    res <- c("lower" = ll, "prop" = pi, "upper" = ul)
+    ll <- if (x == 0) 0 else qbeta(a / 2, x + 0.5, n - x + 0.5)  
+    ul <- if (x == n) 1 else qbeta(1 - a / 2, x + 0.5, n - x + 0.5)
+
+    res <- c("lower" = ll, "prop" = x / n, "upper" = ul)
     return(res)
 }
