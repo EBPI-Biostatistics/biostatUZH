@@ -1,6 +1,5 @@
-agresti <- function(x, n, conf.level = 0.95){
-    is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x-round(x)) < tol
-    
+agresti <- function(x, n, conf.level = 0.95)
+{
     stopifnot(is.wholenumber(x), is.wholenumber(n), (x<=n), (n>=1),  conf.level<1, conf.level>0)
     
     k <- qnorm(p = (conf.level + 1) / 2)
@@ -15,5 +14,3 @@ agresti <- function(x, n, conf.level = 0.95){
     
     return(res)
 }
-
-

@@ -1,12 +1,14 @@
 
-# calculates limits of Wilson confidence interval
-# newly written by LH on 17.02.2016
+# Wilson confidence interval for a proportion
+# similar to Hmisc::binconf(x, n, method = "wilson")
+#
+# newly written by LH on 17.02.2016, based on a previous version by KR
 
-wilson <- function(x, n, conf.level = 0.95){
-
-    is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x-round(x)) < tol
-
-    stopifnot(is.wholenumber(x), is.wholenumber(n), (x<=n), (n>=1),  conf.level<1, conf.level>0)
+wilson <- function(x, n, conf.level = 0.95)
+{
+    stopifnot(is.wholenumber(x), is.wholenumber(n),
+              x<=n, n>=0, # n=0 yields NaN results, but allow for confIntAUC()
+              conf.level<1, conf.level>0)
     q <- qnorm(p=(1+conf.level)/2)
     q2 <- q^2
     prop <- x/n
@@ -16,5 +18,3 @@ wilson <- function(x, n, conf.level = 0.95){
     res <- c("lower"=limits[1], "prop"=prop, "upper"=limits[2])
     return(res)
 }
-
-

@@ -1,11 +1,11 @@
 
 # calculates limits of equi-tailed Jeffreys credible interval
 # with suitable point estimate (posterior median)
+#
 # newly written by LH on 17.02.2016
 
-jeffreys <- function(x, n, conf.level = 0.95){
-    
-    is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x-round(x)) < tol
+jeffreys <- function(x, n, conf.level = 0.95)
+{
     stopifnot(is.wholenumber(x), is.wholenumber(n), (x<=n), (n>=1),  conf.level<1, conf.level>0)
     q <- (1-conf.level)/2
     alpha <- x + 0.5

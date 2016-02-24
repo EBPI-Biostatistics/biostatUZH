@@ -6,6 +6,24 @@
 \name{NEWS}
 \title{News for Package 'biostatUZH'}
 
+
+\section{Changes in biostatUZH version 1.6.0 (2016-02-24)}{
+  \itemize{
+    \item New function \code{jeffreys()} supersedes \code{jeffrey()}
+    and returns the posterior median as the point estimate instead of
+    \eqn{x/n}. Furthermore, the CI limits for the special cases
+    \eqn{x=0} and \eqn{x=n} are no longer forced to 0 and 1,
+    respectively.
+    \item \code{wald()} now truncates confidence limits at 0 and 1.
+    \item Functions \code{confIntProportion()}, \code{wald()},
+    \code{wilson()}, \code{agresti()}, and \code{clopperPearson()} now
+    check their input arguments.
+    \item In \code{confIntProportion()$CIs$type}, the name
+    \code{"clopperPearson"} has been changed to \code{"ClopperPearson"}.
+    \item New alias \code{expit()} for \code{ilogit()}.
+  }
+}
+
 \section{Changes in biostatUZH version 1.5.3 (2015-10-16)}{
   \itemize{
     \item Added a convenient shortcut \code{plotcorr(..., col = TRUE)}

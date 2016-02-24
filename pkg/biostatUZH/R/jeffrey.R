@@ -1,5 +1,6 @@
 jeffrey <- function(x, n, conf.level = 0.95)
 {
+    .Deprecated("jeffreys")
     a <- 1 - conf.level
     
     ll <- if (x == 0) 0 else qbeta(a / 2, x + 0.5, n - x + 0.5)  

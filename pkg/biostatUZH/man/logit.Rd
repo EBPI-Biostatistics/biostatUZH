@@ -2,8 +2,9 @@
 
 \alias{logit}
 \alias{ilogit}
+\alias{expit}
 
-\title{Logit and inverse logit function.}
+\title{Logit and inverse-logit function}
 
 \description{Compute logit and inverse logit function.
 

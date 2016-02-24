@@ -4,11 +4,16 @@
 \alias{wilson}
 \alias{agresti}
 \alias{jeffrey}
+\alias{jeffreys}
 \alias{clopperPearson}
 
 \title{Compute confidence interval for a binomial proportion via different methods}
-\description{Several asymptotic and exact methods to compute a confidence interval for a binomial proportion
-are provided.}
+\description{
+  Compute a confidence interval for a binomial proportion using several
+  asymptotic and exact methods. The individual methods are also
+  available as separate functions \code{wald}, \code{wilson},
+  \code{agresti}, \code{jeffreys}, and \code{clopperPearson}.
+}
 \usage{confIntProportion(x, n, conf.level = 0.95)}
 \arguments{
   \item{x}{Number of successes.}
@@ -29,7 +34,7 @@ Interval Estimation for a Binomial Proportion.
 \emph{Statistical Science}, \bold{16(2)}, 101--133.
 }
 
-\author{Kaspar Rufibach \cr \email{kaspar.rufibach@gmail.com}}
+\author{Kaspar Rufibach and Leonhard Held}
 \seealso{Functions for some of the intervals provided here are available in \pkg{Hmisc} (see the examples).}
 
 \examples{
@@ -49,7 +54,7 @@ lines(ci[5, 2:3], c(5, 5))
 text(0.5, 0.85, 'wald')
 text(0.5, 1.85, 'wilson')
 text(0.5, 2.85, 'agresti')
-text(0.5, 3.85, 'jeffrey')
+text(0.5, 3.85, 'jeffreys')
 text(0.5, 4.85, 'clopper')
 
 ## compare intervals to those received by the function binconf in Hmisc:

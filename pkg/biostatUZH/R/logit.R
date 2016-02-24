@@ -9,4 +9,4 @@ logit <- function (x)
 }
 
 ilogit <- function (x) plogis(x) # = exp(x)/(1 + exp(x))
-expit <- function (x) plogis(x) # = exp(x)/(1 + exp(x))
+expit <- ilogit
