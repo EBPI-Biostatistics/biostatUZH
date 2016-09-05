@@ -1,12 +1,12 @@
 Package: biostatUZH
 Title: Misc Tools of the Department of Biostatistics, EBPI, University of Zurich
-Version: 1.6.0
+Version: 1.7.0
 Date: 2016-02-24
 Authors@R: c(person(c("Sarah", "R."), "Haile", role = "aut",
                     email = "sarah.haile@kssg.ch"),
-             person("Leonhard", "Held", role = "aut",
+             person("Leonhard", "Held", role = c("aut","cre"),
                     email = "leonhard.held@uzh.ch"),
-             person("Sebastian", "Meyer", role = c("aut","cre"),
+             person("Sebastian", "Meyer", role = "aut",
                     email = "sebastian.meyer@uzh.ch"),
              person("Sina", "Rueeger", role = "aut",
                     email = "sina.rueger@isb-sib.ch"),
@@ -19,6 +19,7 @@ Description: Various functions developed at the Department of Biostatistics,
              University of Zurich, Zurich, Switzerland.
              Currently implemented topics:
              several CI's for proportions,
+             several CI's for diagnostic tests,
              Fagan-Nomogram,
              bootstrap CI's for the kappa coefficient,
              intraclass-correlation coefficients including CI's,

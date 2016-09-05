@@ -8,10 +8,11 @@
 
 \description{
   The package \pkg{biostatUZH} collects various functions developed at
-  the Division of Biostatistics, Institute of Social and Preventive
-  Medicine, University of Zurich, Switzerland.
+  the Department of Biostatistics at the Epidemiology, Biostatisics and
+  Prevention Institute, University of Zurich, Switzerland.
   Currently implemented topics:
   several CI's for proportions,
+  several CI's for operating characteristics of diagnostic tests,
   Fagan-Nomogram,
   bootstrap CI's for the kappa coefficient,
   intraclass-correlation coefficients including CI's,
@@ -23,7 +24,7 @@
   CI for quantile of a Kaplan-Meier or cumulative incidence estimate,
   sample size computations for two-sample Mann-Whitney test,
   McNemar test,
-  binary diagnostic test (via normal approximation and simulation),
+  a binary diagnostic test (via normal approximation and simulation),
   natural re-parametrization of Weibull output from survreg,
   hazard ratio and event time ratio interpretations,
   plot to check the adequacy of the Weibull model.
@@ -42,9 +43,12 @@ elsewhere are, to the best of our knowledge: \cr
 \code{\link{computeICCrater}} \cr
 \code{\link{confIntAUC}} \cr
 \code{\link{confIntAUCbinorm}} \cr
+\code{\link{confIntDiagnostic}} \cr
 \code{\link{confIntICC}} \cr
 \code{\link{confIntKappa}} \cr
+\code{\link{confIntPairedDiagnostic}} \cr
 \code{\link{confIntPairedProportion}} \cr
+\code{\link{confIntIndependentDiagnostic}} \cr
 \code{\link{confIntIndependentProportion}} \cr
 \code{\link{confIntRiskDiff}} \cr
 \code{\link{ConvertWeibull}} \cr
@@ -59,11 +63,11 @@ elsewhere are, to the best of our knowledge: \cr
 }
 
 \author{
-  Main author: Kaspar Rufibach
+  Main authors: Leonhard Held, Kaspar Rufibach
   
-  Secondary authors: Sarah Haile, Leonhard Held, Sina Rueeger
+  Secondary authors: Sarah Haile, Sebastian Meyer, Sina Rueeger, 
 
-  Further contributions by: Sebastian Meyer, Daniel Sabanes Bove
+  Further contributions by: Andrea Riebler, Daniel Sabanes Bove
 
-  Maintainer: Sebastian Meyer \email{sebastian.meyer@uzh.ch}
+  Maintainer: Leonhard Held \email{leonhard.held@uzh.ch}
 }
