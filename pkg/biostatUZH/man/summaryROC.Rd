@@ -53,7 +53,7 @@ truth <- c(rep(0, ns[1]), rep(1, ns[2]))
 estimates <- c(rnorm(ns[1]), rnorm(ns[2], mean = 0.5, sd = 1.5))
 cases <- estimates[truth == 1]
 controls <- estimates[truth == 0]
-res <- summaryAUC(cases, controls, conf.level = 0.95)
+res <- summaryROC(cases, controls, conf.level = 0.95)
 
 # display results
 res

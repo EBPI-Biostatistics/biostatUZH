@@ -8,7 +8,7 @@
   original and on the logit scale. 
   
 }
-\usage{confIntAUC(case, controls, conf.level = 0.95)}
+\usage{confIntAUC(cases, controls, conf.level = 0.95)}
 \arguments{
   \item{cases}{Values of the continuous variable for the cases.}
   \item{controls}{Values of the continuous variable for the controls.}
