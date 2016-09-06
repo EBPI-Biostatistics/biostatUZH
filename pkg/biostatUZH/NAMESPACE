@@ -49,6 +49,7 @@ export(
     sampleSizePhase2BinaryTestSimulated,
     sampleSizeWilcoxTwoSample,
     survrep,
+    summaryROC,
     tableRegression,
     wald,
     WeibullDiag,
