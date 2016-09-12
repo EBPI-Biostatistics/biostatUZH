@@ -1,4 +1,5 @@
 \name{standardErrorAUC}
+\alias{standardErrorAUC}
 
 \title{Standard Error of AUC}
 \description{

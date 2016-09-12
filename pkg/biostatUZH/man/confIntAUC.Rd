@@ -1,6 +1,5 @@
 \name{confIntAUC}
 \alias{confIntAUC}
-\alias{standardErrorAUC.R}
 
 \title{Compute confidence interval for AUC}
 \description{
