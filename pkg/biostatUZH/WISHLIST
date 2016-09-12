@@ -1,3 +1,7 @@
-tableRegression: pooled p-values for factor variables
+* tableRegression: pooled p-values for factor variables (LR test)
 
-confidence interval for the AUC difference (paired and unpaired)
+* tableRegression for lme4 (use broom?)
+
+* tableRegression: binomial with non-canonical link -> exp(beta) is not OR!! -> write Exp(Coefficient)
+
+* confidence interval for the AUC difference (paired and unpaired)
