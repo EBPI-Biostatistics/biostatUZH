@@ -33,6 +33,7 @@ export(
     formatCI,
     formatPercent,
     formatPval,
+    behrensTest,
     ilogit, expit,
     jeffrey, jeffreys,
     lamAlpha,
