@@ -5,12 +5,15 @@
 
 \description{Formats p-values in a desired manner.}
 
-\usage{formatPval(x, break.eps = 1e-04, break.middle = 0.01, ...)}
+\usage{
+formatPval(x, break.eps = 1e-04, break.middle = 0.01, na.form = "NA", ...)
+}
 
 \arguments{
    \item{x}{a numeric vector.}
   \item{break.eps}{numeric value, see section details.}
   \item{break.middle}{numeric value, see section details.}
+  \item{na.form}{character representation of \code{NA}s.}
   \item{...}{additional arguments passed to \code{\link{format}}.}
 }
 

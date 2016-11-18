@@ -9,14 +9,17 @@
 ## * p-values lower than break.middle and larger than break.eps have ONE digit
 ## * p-values larger than break.middle have TWO digits
 
-formatPval <- function(x, break.eps = 1e-04, break.middle = 0.01, ...)
+formatPval <- function(x, break.eps = 1e-04, break.middle = 0.01, na.form = "NA", ...)
 {
-    sapply(x, function (xi) {
-        if (xi < break.eps) {
+    format1Pval <- function (pv) {
+        if (is.na(pv)) {
+            na.form 
+        } else if (pv < break.eps) {
             paste("<", format(break.eps, scientific=FALSE))
 	} else {
-            largep <- xi >= break.middle
-            format(xi, digits=1+largep, nsmall=1+largep, scientific=FALSE, ...)
+            largep <- pv >= break.middle
+            format(pv, digits=1+largep, nsmall=1+largep, scientific=FALSE, ...)
         }
-    }, simplify = TRUE, USE.NAMES = TRUE)
+    }
+    vapply(X = x, FUN = format1Pval, FUN.VALUE = "", USE.NAMES = TRUE)
 }
