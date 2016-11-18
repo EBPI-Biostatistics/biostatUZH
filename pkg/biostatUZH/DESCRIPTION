@@ -1,14 +1,13 @@
 Package: biostatUZH
-Title: Misc Tools of the Department of Biostatistics, EBPI, University
-        of Zurich
+Title: Misc Tools of the Department of Biostatistics, EBPI, University of Zurich
 Version: 1.7.0
-Date: 2016-09-12
+Date: 2016-11-18
 Authors@R: c(person(c("Sarah", "R."), "Haile", role = "aut",
                     email = "sarah.haile@kssg.ch"),
              person("Leonhard", "Held", role = c("aut","cre"),
                     email = "leonhard.held@uzh.ch"),
              person("Sebastian", "Meyer", role = "aut",
-                    email = "sebastian.meyer@uzh.ch"),
+                    email = "seb.meyer@fau.de"),
              person("Sina", "Rueeger", role = "aut",
                     email = "sina.rueger@isb-sib.ch"),
              person("Kaspar", "Rufibach", role = "aut",
@@ -40,16 +39,5 @@ License: GPL (>=2)
 URL: http://www.biostat.uzh.ch, http://ebuzh.r-forge.r-project.org
 Depends: R (>= 2.15.0), grDevices, graphics, stats, survival (>= 2.35)
 Imports: boot
-Suggests: cmprsk, lme4, prodlim, psy, xtable, reporttools, Hmisc,
-        surveillance
+Suggests: cmprsk, lme4, prodlim, psy, xtable, reporttools, Hmisc, surveillance
 Enhances: MASS, ellipse
-NeedsCompilation: no
-Packaged: 2016-09-05 14:51:52 UTC; rachel
-Author: Sarah R. Haile [aut],
-  Leonhard Held [aut, cre],
-  Sebastian Meyer [aut],
-  Sina Rueeger [aut],
-  Kaspar Rufibach [aut],
-  Daniel Sabanes Bove [ctb],
-  R Core Team [cph]
-Maintainer: Leonhard Held <leonhard.held@uzh.ch>
