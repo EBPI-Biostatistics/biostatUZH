@@ -7,6 +7,23 @@
 \title{News for Package 'biostatUZH'}
 
 
+\section{Changes in biostatUZH version 1.7.0 (2016-11-18)}{
+  \itemize{
+    \item The function \code{confIntAUC()} has been replaced by a new
+    version (with a different result) using the new function
+    \code{standardErrorAUC()}. The old implementation of
+    \code{confIntAUC()} is available as \code{summaryROC()}.
+    \item Several CI's for operating characteristics of diagnostic tests
+    have been implemented: \code{confIntDiagnostic()},
+    \code{confIntIndependentDiagnostic()},
+    \code{confIntPairedDiagnostic()}.
+    Furthermore, \code{confIntRiskRatio()} has been added.
+    \item The new function \code{behrensTest()} computes Behrens'
+    version of the t-test for unequal variances.
+    \item \code{formatPval()} now supports missing values.
+  }
+}
+
 \section{Changes in biostatUZH version 1.6.0 (2016-02-24)}{
   \itemize{
     \item New function \code{jeffreys()} supersedes \code{jeffrey()}
