@@ -1,6 +1,6 @@
 ################################################################################
 ## Author: Sebastian Meyer [sebastian *.* meyer *a*t* ifspm *.* uzh *.* ch]
-## Time-stamp: <[Makefile] 2015-03-30 14:09 (CEST) by SM>
+## Time-stamp: <[Makefile] 2016-11-18 12:20 (CET) by SM>
 ## Build/Check/Install a Package
 ################################################################################
 
@@ -22,7 +22,7 @@ install: build
 	$R CMD INSTALL ${PKG}_${VERSION}.tar.gz
 
 manual:
-	$R CMD Rd2pdf --batch --force --output=	${PKG}.pdf ${PKG}
+	$R CMD Rd2pdf --batch --force --output=${PKG}.pdf ${PKG}
 
 ## all targets are "phony"
 .PHONY: build check install manual
