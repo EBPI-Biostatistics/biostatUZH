@@ -59,7 +59,8 @@ elsewhere are, to the best of our knowledge: \cr
 \code{\link{WeibullReg}} \cr
 \code{\link{WeibullDiag}} \cr
 \code{\link{sampleSizePhase2BinaryTest}} \cr
-\code{\link{sampleSizePhase2BinaryTestSimulated}}
+\code{\link{sampleSizePhase2BinaryTestSimulated}} \cr
+\code{\link{summaryROC}}
 }
 
 \author{

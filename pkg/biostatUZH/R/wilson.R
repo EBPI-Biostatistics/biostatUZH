@@ -7,7 +7,7 @@
 wilson <- function(x, n, conf.level = 0.95)
 {
     stopifnot(is.wholenumber(x), is.wholenumber(n),
-              x<=n, n>=0, # n=0 yields NaN results, but allow for confIntAUC()
+              x<=n, n>=0, # n=0 yields NaN results, but allow for summaryROC()
               conf.level<1, conf.level>0)
     q <- qnorm(p=(1+conf.level)/2)
     q2 <- q^2
