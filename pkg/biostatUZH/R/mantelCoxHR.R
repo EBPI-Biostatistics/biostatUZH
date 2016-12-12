@@ -55,8 +55,7 @@ p.val <- pchisq(chi2, df = 1, lower.tail = FALSE)
 ## compare to HR computed from Cox-regression 
     obj2 <- Surv(time, event) 
     fit2 <- coxph(obj2 ~ group)
-    cfit2 <- coef(fit2)
-    rownames(cfit2) <- ""
+    cfit2 <- as.numeric(coef(fit2))
     hr.cox <- exp(cfit2)
 
 return(list("mantelCox.hr" = hr, "ci.hr" = ci.hr, "p.val.logrank" = p.val, "coxph.hr" = hr.cox))
