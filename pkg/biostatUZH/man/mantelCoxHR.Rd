@@ -16,7 +16,7 @@ that the hazard ratio is constant over the follow-up period.}
 \item{mantelCox.hr}{Hazard ratio estimate.}
 \item{ci.hr}{Wald confidence interval at the level specified by \code{conf.level}.}
 \item{p.val.logrank}{\eqn{p}-value of logrank test for a comparison of the survival curves between the two groups.}
-\item{Cox-reg}{Hazard ratio estimated via Cox-regression. }
+\item{Cox-reg}{Hazard ratio estimated via Cox-regression.}
 }
 
 \references{

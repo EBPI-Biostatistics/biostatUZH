@@ -1,6 +1,3 @@
-quantileKM <- function(time, event, group = NA, quant = 0.5, conf.level = 0.95, conftype = c("log","log-log","plain","none")[2],
-conflower = c("usual", "peto", "modified")[1]){
-
     # Compute basic quantities for Kaplan-Meier estimate, using
     # functions provided by library(survival)
     #
@@ -12,6 +9,12 @@ conflower = c("usual", "peto", "modified")[1]){
     #   - alpha:   confidence level for confidence intervals
     #
     # Kaspar Rufibach, October 2008
+    # Update Leonhard Held, November 2016 
+
+
+quantileKM <- function(time, event, group = NA, quant = 0.5, conf.level = 0.95, conftype = c("log","log-log","plain","none")[2],
+                       conflower = c("usual", "peto", "modified")[1]){
+
     
     ## initialization
     alpha <- 1 - conf.level

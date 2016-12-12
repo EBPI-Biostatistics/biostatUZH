@@ -53,7 +53,7 @@ qKM$quantities
 quant.surv <- survfit(Surv(time, status) ~ x, conf.int = 0.95)
 quant.surv
 
-## compute arbitrary quantile
+## compute 0.25 quantile
 qKM2 <- quantileKM(time, status, group = x, quant = 0.25, conf.level = 0.95, 
     conftype = "log")
 qKM2
