@@ -101,8 +101,8 @@ tableRegression <- function(model,
         {
             exp.nam <- switch(
                 cl,
-                "poisson" =, "negbin" = "Rate Ratio",
-                "binomial" = "Odds Ratio",
+                "poisson" =, "quasipoisson" =, "negbin" = "Rate Ratio",
+                "binomial" =, "quasibinomial" = "Odds Ratio",
                 "coxph" = "Hazard Ratio",
                 "Exp(Coefficient)"
             )
@@ -178,7 +178,7 @@ tableRegression <- function(model,
 
     ## glm
     ## ----------------------------
-    if (cl %in% c("binomial", "poisson", "negbin"))
+    if (cl %in% c("binomial", "poisson", "quasibinomial", "quasipoisson", "negbin"))
     {
         estimate <- summary(model)$coef[,1]
         exp.estimate <- exp(estimate)

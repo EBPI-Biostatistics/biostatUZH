@@ -77,7 +77,7 @@ tableRegression(mod.lm1, stats = c("estimate", "t.value", "p.value"), text = "ge
 ## adapt row names, plus special format for ci
 tableRegression(mod.lm, row.nam = c("Intercept", "Width Sepal"), text.ci = "none")
 
-## Poission model
+## Poisson model
 ## (example from ?glm)
 ## --------------
 counts <- c(18,17,15,20,10,20,25,13,12)
