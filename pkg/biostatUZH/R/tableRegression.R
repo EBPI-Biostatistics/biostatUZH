@@ -3,7 +3,7 @@
 ### Free software under the terms of the GNU General Public License (version 2
 ### or later) a copy of which is available at http://www.R-project.org/Licenses
 ###
-### Copyright (C) 2012-2013 Sina Ruegger, 2015 Sebastian Meyer
+### Copyright (C) 2012-2013 Sina Ruegger, 2015 Sebastian Meyer, 2017 Leonhard Held
 ### Time-stamp: <[tableRegression.R] 2015-05-08 11:07 (CEST) by SM>
 ################################################################################
 
@@ -32,8 +32,9 @@ tableRegression <- function(model,
     
     raw.stats <- c("estimate", "exp.estimate", "standarderror", "t.value", "ci.95", "p.value")
     
-    cl <- class(model)[1]
-    if(cl == "glm")
+    clm <- class(model)[1]
+    #if(clm == "glm")
+    if (clm %in% c("glm", "geeglm"))
     {
         cl <- model$family$family
     }
@@ -185,12 +186,20 @@ tableRegression <- function(model,
         standarderror <- summary(model)$coef[,2]
         t.value <- summary(model)$coef[,3]
         p.value <- summary(model)$coef[,4]
+        if (clm %in% c("glm")){
         ## confint for exp.estimate (actually depends on MASS:::confint.glm)
-        ci.95 <- if (requireNamespace("MASS", quietly = FALSE)) {
-            formatCI(exp(confint(model)), digits = digits.ci, text = text.ci)
-        } else {
-            rep.int(NA_character_, length(estimate))
+            ci.95 <- if (requireNamespace("MASS", quietly = FALSE)) {
+                         formatCI(exp(confint(model)), digits = digits.ci, text = text.ci)
+                     } else {
+                         rep.int(NA_character_, length(estimate))
+                     }
         }
+        if (clm %in% c("geeglm")){
+            lower <- exp(estimate - 1.96*standarderror)
+            upper <- exp(estimate + 1.96*standarderror)
+            ci.95 <- formatCI(cbind(lower, upper), digits = digits.ci, text = text.ci)
+        }
+        
     }
 
 
