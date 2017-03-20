@@ -38,8 +38,10 @@ tableRegression <- function(model,
     {
         cl <- model$family$family
     }
-    else cl <- clm
-    
+    else
+    {
+        cl <- clm
+    }
     ## lm >> linear model
     ## binomial >> generalized linear model
     ## poisson >> generalized linear model
@@ -181,14 +183,14 @@ tableRegression <- function(model,
 
     ## glm
     ## ----------------------------
-    if (cl %in% c("binomial", "poisson", "quasibinomial", "quasipoisson", "negbin"))
+    if ((cl %in% c("binomial", "poisson", "quasibinomial", "quasipoisson")) | (clm == "negbin"))
     {
         estimate <- summary(model)$coef[,1]
         exp.estimate <- exp(estimate)
         standarderror <- summary(model)$coef[,2]
         t.value <- summary(model)$coef[,3]
         p.value <- summary(model)$coef[,4]
-        if (clm %in% c("glm")){
+        if (clm %in% c("glm", "negbin")){
         ## confint for exp.estimate (actually depends on MASS:::confint.glm)
             ci.95 <- if (requireNamespace("MASS", quietly = FALSE)) {
                          formatCI(exp(confint(model)), digits = digits.ci, text = text.ci)
