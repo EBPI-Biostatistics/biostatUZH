@@ -38,17 +38,18 @@ tableRegression <- function(model,
     {
         cl <- model$family$family
     }
+    else cl <- clm
     
     ## lm >> linear model
     ## binomial >> generalized linear model
     ## poisson >> generalized linear model
     ## list >> weibull
-    ## coxph >> survivalc
+    ## coxph >> survival
     ## negbin >> negative binomial model (fit by MASS::glm.nb)
     
     ## LM
     ## -------------
-    if (cl == "lm")
+    if (clm == "lm")
     {
         ## intercept
         if(is.null(intercept)) intercept <- TRUE
@@ -90,7 +91,7 @@ tableRegression <- function(model,
         {
             ## intercept is omitted when having weibull
             ## or logit regression or coxph
-            intercept <- ! cl %in% c("list", "binomial", "coxph")
+            intercept <- ! ((clm %in% c("list", "coxph")) | (cl == "binomial"))
         }
         
         ## stats
@@ -120,11 +121,11 @@ tableRegression <- function(model,
         ## row.nam >> dependent on intercept & text
         if(is.null(row.nam))
         {
-            if(cl == "list")
+            if(clm == "list")
             {
                 row.nam <- rownames(model$coef)[-c(1,2)]
             }else{
-                if(cl == "coxph")
+                if(clm == "coxph")
                 {
                     row.nam <- names(model$coefficients)
                 }else{
@@ -147,7 +148,7 @@ tableRegression <- function(model,
 
 
     ## warning intercept
-    if(intercept & cl %in% c("list", "coxph"))
+    if(intercept & clm %in% c("list", "coxph"))
     {
         warning("Weibull and Cox models do not include an intercept. Set intercept = FALSE")
     }
@@ -168,7 +169,7 @@ tableRegression <- function(model,
        
     ## linear model
     ## ----------------------------
-    if (cl == "lm")
+    if (clm == "lm")
     {
         estimate <- summary(model)$coef[,1]
         exp.estimate <- exp(estimate)
@@ -206,7 +207,7 @@ tableRegression <- function(model,
 
     ## coxmod
     ## ----------------------------
-    if (cl == "coxph")
+    if (clm == "coxph")
     {
         estimate <- summary(model)$coefficients[,1]
         exp.estimate <- exp(estimate)
@@ -221,7 +222,7 @@ tableRegression <- function(model,
 
     ## weibull
     ## ----------------------------
-    if (cl == "list")
+    if (clm == "list")
     {
         estimate <- model$coef[-c(1:2),1]
         exp.estimate <- exp(estimate)
@@ -241,7 +242,7 @@ tableRegression <- function(model,
     output <- data.frame(estimate, exp.estimate, standarderror, t.value, ci.95, p.value,
                          stringsAsFactors = FALSE)
 
-    if(!intercept & !(cl %in% c("list", "coxph"))) ## in weibull and coxph there is anyway no intercept plotted #
+    if(!intercept & !(clm %in% c("list", "coxph"))) ## in weibull and coxph there is anyway no intercept plotted #
     {
         output <- output[-1,]
     }
