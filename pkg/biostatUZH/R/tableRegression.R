@@ -38,6 +38,7 @@ tableRegression <- function(model,
     {
         cl <- model$family$family
     }
+    
     ## lm >> linear model
     ## binomial >> generalized linear model
     ## poisson >> generalized linear model
