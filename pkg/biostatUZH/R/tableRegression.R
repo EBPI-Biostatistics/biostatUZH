@@ -92,8 +92,8 @@ tableRegression <- function(model,
         if(is.null(intercept))
         {
             ## intercept is omitted when having weibull
-            ## or logit regression or coxph
-            intercept <- ! ((clm %in% c("list", "coxph")) | (cl == "binomial"))
+            ## or logit or Poisson regression or coxph
+            intercept <- ! ((clm %in% c("list", "coxph")) | (cl %in% c("binomial", "quasibinomial", "poisson", "quasipoisson")))
         }
         
         ## stats
