@@ -20,12 +20,14 @@ confIntPairedDiagnostic <- function(Diseased, nonDiseased, conf.level = 0.95, ad
     se.log.rFPF <- sqrt((sum(nonDiseased)-sum(diag(nonDiseased)))/(rowSums(nonDiseased)[2]*colSums(nonDiseased)[2]))
     se.log.rTNF <- sqrt((sum(Diseased)-sum(diag(Diseased)))/(rowSums(Diseased)[1]*colSums(Diseased)[1]))
     se.log.rFNF <- sqrt((sum(nonDiseased)-sum(diag(nonDiseased)))/(rowSums(nonDiseased)[1]*colSums(nonDiseased)[1]))
-
+    se.log.rLRplus <- sqrt(se.log.rTPF^2 + se.log.rFPF^2)
+    se.log.rLRminus <- sqrt(se.log.rFNF^2 + se.log.rTNF^2)
+    
     rEstimates <- c(rPF[2], rPF[1], rNF[1], rNF[2], rLR)
     if(adjust)
         conf.level <- sqrt(conf.level)
     z <- qnorm((1 + conf.level) / 2)
-    EF <- exp(z*c(se.log.rTPF, se.log.rTNF, se.log.rFNF, se.log.rFPF, NA, NA))
+    EF <- exp(z*c(se.log.rTPF, se.log.rTNF, se.log.rFNF, se.log.rFPF, se.log.rLRplus, se.log.rLRminus))
 
     res <- data.frame(matrix(NA, ncol=4, nrow=6))
     colnames(res) <- c("type", "lower", "estimate", "upper")
