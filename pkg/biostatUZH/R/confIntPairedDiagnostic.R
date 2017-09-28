@@ -18,12 +18,12 @@ confIntPairedDiagnostic <- function(Diseased, nonDiseased, conf.level = 0.95, ad
     
     se.log.rTPF <- sqrt((sum(Diseased)-sum(diag(Diseased)))/(rowSums(Diseased)[2]*colSums(Diseased)[2]))
     se.log.rFPF <- sqrt((sum(nonDiseased)-sum(diag(nonDiseased)))/(rowSums(nonDiseased)[2]*colSums(nonDiseased)[2]))
-    se.log.rTNF <- sqrt((sum(Diseased)-sum(diag(Diseased)))/(rowSums(Diseased)[1]*colSums(Diseased)[1]))
-    se.log.rFNF <- sqrt((sum(nonDiseased)-sum(diag(nonDiseased)))/(rowSums(nonDiseased)[1]*colSums(nonDiseased)[1]))
+    se.log.rFNF <- sqrt((sum(Diseased)-sum(diag(Diseased)))/(rowSums(Diseased)[1]*colSums(Diseased)[1]))
+    se.log.rTNF <- sqrt((sum(nonDiseased)-sum(diag(nonDiseased)))/(rowSums(nonDiseased)[1]*colSums(nonDiseased)[1]))
     se.log.rLRplus <- sqrt(se.log.rTPF^2 + se.log.rFPF^2)
     se.log.rLRminus <- sqrt(se.log.rFNF^2 + se.log.rTNF^2)
     
-    rEstimates <- c(rPF[2], rPF[1], rNF[1], rNF[2], rLR)
+    rEstimates <- c(rPF[2], rNF[1], rPF[1], rNF[2], rLR)
     if(adjust)
         conf.level <- sqrt(conf.level)
     z <- qnorm((1 + conf.level) / 2)
