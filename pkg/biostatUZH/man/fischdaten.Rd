@@ -23,16 +23,17 @@ Schulgen (2002).}
     \item{\code{kalorie}}{Received reduced food (1) or not (0).}
   }
 }
-\source{This dataset is used in Schumacher and Schulgen (2002) and was adapted in the lecture notes 
-Held et al. (2008).
+\source{This dataset is used in Schumacher and Schulgen (2002) and 
+Held et al. (2013).
 }
 \references{
-Held, Leo, Rufibach, Kaspar, and Seifert, Burkhardt (2008).
-Einfuehrung in die Biostatistik.
-Lecture Notes, Biostatistics unit, Institute of Social and Preventive Medicine, University of Zurich.
+Held, Leonhard, Rufibach, Kaspar, and Seifert, Burkhardt (2013).
+Medizinische Statistik. Konzepte, Methoden, Anwendungen.
+Pearson Verlag, Halbergmoos, Germany. 
+
 
 Schumacher, Martin and Schulgen, Gabi. (2002).
 Methodik klinischer Studien.
-Springer, Berlin.
+Springer, Berlin, Germany.
 }
 \keyword{datasets}
