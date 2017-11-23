@@ -23,7 +23,7 @@ confIntPairedDiagnostic <- function(Diseased, nonDiseased, conf.level = 0.95, ad
     se.log.rLRplus <- sqrt(se.log.rTPF^2 + se.log.rFPF^2)
     se.log.rLRminus <- sqrt(se.log.rFNF^2 + se.log.rTNF^2)
     
-    rEstimates <- c(rPF[2], rNF[1], rPF[1], rNF[2], rLR)
+    rEstimates <- c(rPF[2], rNF[1], rPF[1], rNF[2], rev(rLR))
     if(adjust)
         conf.level <- sqrt(conf.level)
     z <- qnorm((1 + conf.level) / 2)
