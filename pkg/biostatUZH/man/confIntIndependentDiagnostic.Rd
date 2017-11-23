@@ -21,7 +21,7 @@
 
 \value{
 A dataframe containing the estimated confidence intervals for
-the measures of relative accuracy.}
+the measures of relative accuracy (first versus second test).}
 
 \references{
 Pepe, M.S. (2003) \emph{The statistical evaluation of medical tests for classification and prediction}.
