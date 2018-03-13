@@ -5,7 +5,10 @@
   independent samples.}
 \description{Computes confidence interval for the difference in the area
   under the curve based on two independent samples.}
-\usage{confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type="Wald", conf.level=0.95)}
+\usage{
+confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB,
+                          type = "Wald", conf.level = 0.95)
+}
 \arguments{
   \item{casesA}{Values of the continuous variable from Test A for the cases.}
   \item{controlsA}{Values of the continuous variable from Test A for the controls.}
