@@ -1,7 +1,7 @@
 Package: biostatUZH
 Title: Misc Tools of the Department of Biostatistics, EBPI, University of Zurich
-Version: 1.7.0
-Date: 2016-11-18
+Version: 1.8.0
+Date: 2017-11-23
 Authors@R: c(person(c("Sarah", "R."), "Haile", role = "aut",
                     email = "sarah.haile@kssg.ch"),
              person("Leonhard", "Held", role = c("aut","cre"),
