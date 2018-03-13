@@ -5,7 +5,7 @@
   independent samples.}
 \description{Computes confidence interval for the difference in the area
   under the curve based on two independent samples.}
-\usage{confIntAUC(casesA, controlsA, casesB, controlsB, type="Wald", conf.level = 0.95)}
+\usage{confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type="Wald", conf.level=0.95)}
 \arguments{
   \item{casesA}{Values of the continuous variable from Test A for the cases.}
   \item{controlsA}{Values of the continuous variable from Test A for the controls.}
@@ -43,8 +43,8 @@ controlsA <- rnorm(100)
 casesB <- rnorm(100, mean=1.5)
 controlsB <- rnorm(200)
 
-confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type="Wald", conf.level = 0.95)
-confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type="Logit", conf.level = 0.95)
+confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type="Wald")
+confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type="Logit")
 
 }
 

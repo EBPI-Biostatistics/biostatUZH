@@ -8,7 +8,7 @@
 difference in the area under the curve based on two paired samples.
 }
 
-\usage{confIntAUC(cases, controls, conf.level = 0.95)}
+\usage{confIntPairedAUCDiff(cases, controls, conf.level = 0.95)}
 \arguments{
   \item{cases}{Matrix with values of the continuous variable for the
     cases. First column gives values of test A, second gives values of
