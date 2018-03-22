@@ -4,7 +4,6 @@
 ### or later) a copy of which is available at http://www.R-project.org/Licenses
 ###
 ### Copyright (C) 2012-2013 Sina Ruegger, 2015 Sebastian Meyer, 2017 Leonhard Held
-### Time-stamp: <[tableRegression.R] 2015-05-08 11:07 (CEST) by SM>
 ################################################################################
 
 
@@ -28,7 +27,7 @@ tableRegression <- function(model,
     
     raw.col.nam.german <- c("Koeffizient", "Exp(Koeffizient)", "Standardfehler", "$t$-Wert", "95\\%-Konfidenzintervall", "$p$-Wert")
 
-    raw.col.nam.english <- c("Coefficent", "Exp(Coefficient)", "Standarderror", "$t$-value", "95\\%-confidence interval", "$p$-value")
+    raw.col.nam.english <- c("Coefficient", "Exp(Coefficient)", "Standarderror", "$t$-value", "95\\%-confidence interval", "$p$-value")
     
     raw.stats <- c("estimate", "exp.estimate", "standarderror", "t.value", "ci.95", "p.value")
     
