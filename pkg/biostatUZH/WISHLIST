@@ -5,3 +5,4 @@
 * tableRegression: binomial with non-canonical link -> exp(beta) is not OR!! -> write Exp(Coefficient)
 
 * confidence interval for the AUC difference (paired and unpaired)
+--> LH: IS NOW IMPLEMENTED!
