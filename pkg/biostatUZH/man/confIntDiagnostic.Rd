@@ -7,7 +7,7 @@ Compute confidence intervals for sensitivity, specificity, positive and
 negative likelihood ratio of a diagnostic test. Optionally also positive
 and negative predictive value. 
 }
-\usage{confIntDiagnostic(tp, fp, tn, fn, conf.level = 0.95, pv=FALSE, prev=NA)}
+\usage{confIntDiagnostic(tp, fp, tn, fn, conf.level = 0.95, pv=FALSE, pr=NA)}
 \arguments{
   \item{tp}{Number of true positives.}
   \item{fp}{Number of false positives.}
@@ -15,7 +15,7 @@ and negative predictive value.
   \item{fn}{Number of false negatives.}
   \item{conf.level}{Confidence level for confidence intervals.}
   \item{PV}{Confidence level for confidence intervals.}
-  \item{prev}{Prevalence.}
+  \item{pr}{Prevalence.}
 }
 
 \value{
@@ -36,7 +36,7 @@ Oxford: Oxford University Press.
 
 confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97)
 confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, pv=TRUE)
-confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, pv=TRUE, prev=0.045)
+confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, pv=TRUE, pr=0.045)
 
 }
 

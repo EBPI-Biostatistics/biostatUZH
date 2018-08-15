@@ -1,4 +1,4 @@
-confIntDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, pv=FALSE, prev=NA)
+confIntDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, pv=FALSE, pr=NA)
 {
     stopifnot(is.wholenumber(tp), is.wholenumber(fp),
               is.wholenumber(tn), is.wholenumber(fn),  conf.level<1,
@@ -18,16 +18,16 @@ confIntDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, pv=FALSE, prev=
     res[4, 2:4] <- LRminus
 
     if(pv==TRUE){
-        if(is.na(prev)){
+        if(is.na(pr)){
             res[5, 2:4] <- wilson(x=tp, n=tp+fp, conf.level = conf.level)
             res[6, 2:4] <- wilson(x=tn, n=tn+fn, conf.level = conf.level)
         }
-        if(!is.na(prev)){
-            stopifnot(prev>0, prev<1)
-            prev.odds <- prev/(1-prev)
-            PPV.odds <- prev.odds*LRplus
+        if(!is.na(pr)){
+            stopifnot(pr>0, pr<1)
+            pr.odds <- pr/(1-pr)
+            PPV.odds <- pr.odds*LRplus
             PPV <- PPV.odds/(1+PPV.odds)
-            NPV.inv.odds <- prev.odds*LRminus
+            NPV.inv.odds <- pr.odds*LRminus
             NPV <- rev(1/(1+NPV.inv.odds))
             res[5, 2:4] <- PPV
             res[6, 2:4] <- NPV
