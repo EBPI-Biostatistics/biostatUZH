@@ -3,7 +3,7 @@ confIntProportion <- function(x, n, conf.level = 0.95)
     stopifnot(is.wholenumber(x), is.wholenumber(n), (x<=n), (n>=1),  conf.level<1, conf.level>0)
 
     res <- data.frame(matrix(NA, ncol = 3))
-    colnames(res) <- c("type", "low", "up")
+    colnames(res) <- c("type", "lower", "upper")
 
     res[1, 2:3] <- wald(x, n, conf.level = conf.level)[c(1, 3)]
     res[2, 2:3] <- wilson(x, n, conf.level = conf.level)[c(1, 3)]

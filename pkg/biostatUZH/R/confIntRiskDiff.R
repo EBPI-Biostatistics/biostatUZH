@@ -17,7 +17,7 @@ confIntRiskDiff <- function(x, n, conf.level = 0.95){
     result[,2] <- c(wald.upper, score.upper)
 
     out <- data.frame(type = c("Wald", "Wilson"), result)
-    names(out) <- c("type", "low", "up")
+    names(out) <- c("type", "lower", "upper")
 
     ret.list <- list("rd" = diff, "CIs" = out)
     return(ret.list)
