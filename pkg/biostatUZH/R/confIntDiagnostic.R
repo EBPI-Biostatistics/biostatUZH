@@ -13,7 +13,7 @@ confIntDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95)
     res[4, 2:4] <- confIntRiskRatio(x=c(fn,tn), n=c(tp+fn, tn+fp), conf.level = conf.level)
 
     res[, 1] <- c("Sensitivity", "Specificity", "LRplus", "LRminus")
-
+    res <- res[,c(1,3,2,4)]
     return(res)
 
 }
