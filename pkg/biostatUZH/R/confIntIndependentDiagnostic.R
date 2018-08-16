@@ -37,6 +37,7 @@ confIntIndependentDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, adju
     res[, 2] <- rEstimates/EF
     res[, 3] <- rEstimates
     res[, 4] <- rEstimates*EF
+    res <- res[,c(1,3,2,4)]
     ## myorder <- c(1,4,2,3,5,6)
     ## res <- res[myorder,]
     return(res)

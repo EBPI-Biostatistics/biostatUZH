@@ -35,6 +35,7 @@ confIntPairedDiagnostic <- function(Diseased, nonDiseased, conf.level = 0.95, ad
     res[, 2] <- rEstimates/EF
     res[, 3] <- rEstimates
     res[, 4] <- rEstimates*EF
-    
+    res <- res[,c(1,3,2,4)]
+
     return(res)
 }

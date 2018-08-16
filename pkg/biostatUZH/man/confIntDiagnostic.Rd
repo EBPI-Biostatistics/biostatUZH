@@ -14,7 +14,7 @@ and negative predictive value.
   \item{tn}{Number of true negatives.}
   \item{fn}{Number of false negatives.}
   \item{conf.level}{Confidence level for confidence intervals.}
-  \item{PV}{Confidence level for confidence intervals.}
+  \item{cohort}{Logical indicator whether data comes from a cohort study.}
   \item{pr}{Prevalence.}
 }
 
@@ -35,8 +35,8 @@ Oxford: Oxford University Press.
 ## Calculate confidence intervals for data from the Million Women Study
 
 confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97)
-confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, pv=TRUE)
-confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, pv=TRUE, pr=0.045)
+confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, cohort=TRUE)
+confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, pr=0.045)
 
 }
 
