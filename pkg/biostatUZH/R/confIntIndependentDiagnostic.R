@@ -20,7 +20,7 @@ confIntIndependentDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, adju
     resultA <- confIntDiagnostic(tp[1], fp[1], tn[1], fn[1])
     resultB <- confIntDiagnostic(tp[2], fp[2], tn[2], fn[2])
 
-    rEstimates <- resultA[,3]/resultB[,3]
+    rEstimates <- resultA[,"estimate"]/resultB[,"estimate"]
     FNF <- fn/(fn+tp)
     rFNF <- FNF[1]/FNF[2] 
     FPF <- fp/(fp+tn)
