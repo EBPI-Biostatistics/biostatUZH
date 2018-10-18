@@ -6,6 +6,12 @@
 \name{NEWS}
 \title{News for Package 'biostatUZH'}
 
+\section{Changes in biostatUZH version 1.8.0 (2018-10-18)}{
+  \itemize{
+    \item The function \code{tableOR()} has been added to create
+    results tables from logistic regression fits for LaTeX.
+  }
+}
 
 \section{Changes in biostatUZH version 1.7.0 (2016-11-18)}{
   \itemize{
@@ -85,7 +91,7 @@
     \item Updated institute name.
     \item Standardized \file{NEWS} file format.
     \item The \pkg{boot} and \pkg{reporttools} packages are no longer
-    automatically attached when attaching package \pkg{biostatUZH}. 
+    automatically attached when attaching package \pkg{biostatUZH}.
   }
 }
 
@@ -117,7 +123,7 @@
 \section{Changes in biostatUZH version 1.4.6 (2013-04-05)}{
   \itemize{
     \item \code{tableRegression()}: removed default
-    \code{"coefficients"} from all non-lm objects 
+    \code{"coefficients"} from all non-lm objects
   }
 }
 
