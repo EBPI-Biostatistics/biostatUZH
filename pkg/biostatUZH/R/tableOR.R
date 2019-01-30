@@ -3,7 +3,7 @@
 ## 
 tableOR = function(model, caption="", label="", size="scriptsize", factorNames=NULL,
                    table.placement = "ht", refLevels=NULL, lang="english", short = FALSE,
-                   latex=TRUE) {
+                   latex=TRUE, rmStat=FALSE) {
   
   mySummary = summary(model)
   hasCategorial = !is.null(mySummary$contrasts)
@@ -19,7 +19,9 @@ tableOR = function(model, caption="", label="", size="scriptsize", factorNames=N
     if (mySummary$family$family != "binomial") {stop(error)}
   } 
   
-  if (length(attr(mySummary$terms, 'dataClasses')) <= 2) {
+  # if (length(attr(mySummary$terms, 'dataClasses')) <= 2) {
+  if (nrow(mySummary$coefficients) < 3) {  # min. requirements: intercept and two factors, or one factor
+    # with 2 levels or more (ignoring the baseline level here)
     stop("Table to small, model requires more than one regressor, or a categorial regressor with >2
          levels to create table.")
   }
@@ -30,8 +32,9 @@ tableOR = function(model, caption="", label="", size="scriptsize", factorNames=N
     k = length(mySummary$xlevels) # no. of regressors/factors
     table = as.data.frame(mySummary$coefficients[1:(nrow(mySummary$coefficients)-nIntercepts),]) # removing intercepts
     table$`p-value` = biostatUZH::formatPval((1 - pnorm(abs(table$`t value`))) * 2) # Check with Leo
-    table$`OR` = exp(table$Value)
+    table$OR  = sprintf('%.2f', exp(table$Value))
     table$CI = formatCI(exp(confint.default(model)), text = lang)
+    #table$CI = formatCI(exp(confint(model)), text = lang)
     table$`t value` = sprintf('%.2f', table$`t value`)
     
   } else if (isGlm) {
@@ -39,8 +42,9 @@ tableOR = function(model, caption="", label="", size="scriptsize", factorNames=N
     k = length(mySummary$contrasts) # no. of regressors/factors
     table = as.data.frame(mySummary$coefficients[-1,]) # removing intercepts
     table$`Pr(>|z|)` = biostatUZH::formatPval(table$`Pr(>|z|)`)
-    table$`OR` = exp(table$Estimate)
+    table$OR  = sprintf('%.2f', exp(table$Estimate))
     table$CI = formatCI(exp(confint.default(model)), text = lang)[2:(nrow(table)+1)]
+    #table$CI = formatCI(exp(confint(model)), text = lang)[2:(nrow(table)+1)]
     table$`z value` = sprintf('%.2f', table$`z value`)
     colnames(table)[4] = c("p-value")
   }
@@ -141,14 +145,15 @@ tableOR = function(model, caption="", label="", size="scriptsize", factorNames=N
   }
   
   ## Subset table and produce latex code
-  if (isPolr)  {
-    out = table[,c("OR", "95% CI", "t value", "p-value")]
-  } else if (isGlm) {
-    out = table[,c("OR", "95% CI", "z value", "p-value")]
+  if (rmStat) {
+    out = table[,c("OR", "95% CI", "p-value")]
+  } else {
+    if (isPolr) {out = table[,c("OR", "95% CI", "t value", "p-value")]}
+    else if (isGlm) {out = table[,c("OR", "95% CI", "z value", "p-value")]}
   }
   
   if (latex) {
-    print(xtable::xtable(out, align = rep("r", 5), caption = caption, label = label),
+    print(xtable::xtable(out, align = rep("r", ncol(out)+1), caption = caption, label = label),
           hline.after = hline, size = size, table.placement = table.placement)
     
   } else {return(out)}

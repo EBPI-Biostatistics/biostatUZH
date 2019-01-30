@@ -5,7 +5,7 @@
 
 \usage{
 tableOR(model, caption="", label="", size="scriptsize", factorNames=NULL,
-                   table.placement = "ht", refLevels=NULL, lang="english", short=FALSE, latex=TRUE)
+                   table.placement = "ht", refLevels=NULL, lang="english", short=FALSE, latex=TRUE, rmStat=FALSE)
 }
 
 \arguments{
@@ -19,6 +19,7 @@ tableOR(model, caption="", label="", size="scriptsize", factorNames=NULL,
   \item{lang}{Language of the confidence intervals term, "english"" (default) or "german".}
   \item{short}{A logical, if \code{TRUE} factor names are removed from factor levels. Default is \code{FALSE}.}
   \item{latex}{Logical, if \code{TRUE} (default) LateX output is produced.}
+  \item{rmStat}{Logical, if \code{FALSE} (default) output table inludes test statistics.}
 }
 
 \value{
