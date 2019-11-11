@@ -12,6 +12,7 @@ export(
     BlandAltman,
     behrensTest,
     clopperPearson,
+    combineSubgroups, 
     computeICCrater,
     confIntAUC,
     confIntAUCbinorm,

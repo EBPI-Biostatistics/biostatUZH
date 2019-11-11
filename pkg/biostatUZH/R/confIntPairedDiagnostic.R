@@ -23,15 +23,18 @@ confIntPairedDiagnostic <- function(Diseased, nonDiseased, conf.level = 0.95, ad
     se.log.rLRplus <- sqrt(se.log.rTPF^2 + se.log.rFPF^2)
     se.log.rLRminus <- sqrt(se.log.rFNF^2 + se.log.rTNF^2)
     
-    rEstimates <- c(rPF[2], rNF[1], rPF[1], rNF[2], rev(rLR))
+##    rEstimates <- c(rPF[2], rNF[1], rPF[1], rNF[2], rev(rLR))
+    rEstimates <- c(rPF[2], rNF[1], rev(rLR))
     if(adjust)
         conf.level <- sqrt(conf.level)
     z <- qnorm((1 + conf.level) / 2)
-    EF <- exp(z*c(se.log.rTPF, se.log.rTNF, se.log.rFNF, se.log.rFPF, se.log.rLRplus, se.log.rLRminus))
+##    EF <- exp(z*c(se.log.rTPF, se.log.rTNF, se.log.rFNF, se.log.rFPF, se.log.rLRplus, se.log.rLRminus))
+    EF <- exp(z*c(se.log.rTPF, se.log.rTNF, se.log.rLRplus, se.log.rLRminus))
 
-    res <- data.frame(matrix(NA, ncol=4, nrow=6))
+    res <- data.frame(matrix(NA, ncol=4, nrow=4))
     colnames(res) <- c("type", "lower", "estimate", "upper")
-    res[, 1] <- c("rTPF", "rTNF", "rFNF", "rFPF", "rLRplus", "rLRminus")
+##    res[, 1] <- c("rTPF", "rTNF", "rFNF", "rFPF", "rLRplus", "rLRminus")
+    res[, 1] <- c("rSens", "rSpec", "rLRplus", "rLRminus")
     res[, 2] <- rEstimates/EF
     res[, 3] <- rEstimates
     res[, 4] <- rEstimates*EF
