@@ -3,7 +3,7 @@
 ## 
 tableOR = function(model, caption="", label="", size="scriptsize", factorNames=NULL,
                    table.placement = "ht", refLevels=NULL, lang="english", short = FALSE,
-                   latex=TRUE, rmStat=FALSE) {
+                   latex=TRUE, rmStat=FALSE, Wald=FALSE) {
   
   mySummary = summary(model)
   hasCategorial = !is.null(mySummary$contrasts)
@@ -33,8 +33,11 @@ tableOR = function(model, caption="", label="", size="scriptsize", factorNames=N
     table = as.data.frame(mySummary$coefficients[1:(nrow(mySummary$coefficients)-nIntercepts),]) # removing intercepts
     table$`p-value` = biostatUZH::formatPval((1 - pnorm(abs(table$`t value`))) * 2) # Check with Leo
     table$OR  = sprintf('%.2f', exp(table$Value))
-    table$CI = formatCI(exp(confint.default(model)), text = lang)
-    #table$CI = formatCI(exp(confint(model)), text = lang)
+    if (Wald) {
+      table$CI = formatCI(exp(confint.default(model)), text = lang)
+    } else {
+      table$CI = formatCI(exp(confint(model)), text = lang)
+    }
     table$`t value` = sprintf('%.2f', table$`t value`)
     
   } else if (isGlm) {
@@ -43,8 +46,11 @@ tableOR = function(model, caption="", label="", size="scriptsize", factorNames=N
     table = as.data.frame(mySummary$coefficients[-1,]) # removing intercepts
     table$`Pr(>|z|)` = biostatUZH::formatPval(table$`Pr(>|z|)`)
     table$OR  = sprintf('%.2f', exp(table$Estimate))
-    table$CI = formatCI(exp(confint.default(model)), text = lang)[2:(nrow(table)+1)]
-    #table$CI = formatCI(exp(confint(model)), text = lang)[2:(nrow(table)+1)]
+    if(Wald) {
+      table$CI = formatCI(exp(confint.default(model)), text = lang)[2:(nrow(table)+1)]
+    } else {
+      table$CI = formatCI(exp(confint(model)), text = lang)[2:(nrow(table)+1)]
+    }
     table$`z value` = sprintf('%.2f', table$`z value`)
     colnames(table)[4] = c("p-value")
   }
