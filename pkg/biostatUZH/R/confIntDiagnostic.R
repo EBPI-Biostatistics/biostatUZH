@@ -9,10 +9,12 @@ confIntDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, cohort=FALSE, p
 
     res[1, 2:4] <- wilson(x=tp, n=tp+fn, conf.level = conf.level)
     res[2, 2:4] <- wilson(x=tn, n=tn+fp, conf.level = conf.level)
-    LRplus <- confIntRiskRatio(x=c(tp,fp), n=c(tp+fn, fp+tn), conf.level = conf.level)
-    LRminus <- confIntRiskRatio(x=c(fn,tn), n=c(tp+fn, tn+fp), conf.level = conf.level)
-    res[3, 2:4] <- LRplus
-    res[4, 2:4] <- LRminus
+    if((tp>0)&(fp>0)&(fn>0)&(tn>0)){
+        LRplus <- confIntRiskRatio(x=c(tp,fp), n=c(tp+fn, fp+tn), conf.level = conf.level)
+        LRminus <- confIntRiskRatio(x=c(fn,tn), n=c(tp+fn, tn+fp), conf.level = conf.level)
+        res[3, 2:4] <- LRplus
+        res[4, 2:4] <- LRminus
+    }
     
     if(!is.na(pr)){
         stopifnot(pr>0, pr<1)
