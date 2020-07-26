@@ -5,7 +5,8 @@
 
 \usage{
 tableOR(model, caption="", label="", size="scriptsize", factorNames=NULL,
-                   table.placement = "ht", refLevels=NULL, lang="english", short=FALSE, latex=TRUE, rmStat=FALSE)
+                   table.placement = "ht", refLevels=NULL, lang="english", 
+				   short=FALSE, latex=TRUE, rmStat=FALSE, Wald=FALSE)
 }
 
 \arguments{
@@ -20,6 +21,7 @@ tableOR(model, caption="", label="", size="scriptsize", factorNames=NULL,
   \item{short}{A logical, if \code{TRUE} factor names are removed from factor levels. Default is \code{FALSE}.}
   \item{latex}{Logical, if \code{TRUE} (default) LateX output is produced.}
   \item{rmStat}{Logical, if \code{FALSE} (default) output table inludes test statistics.}
+  \item{Wald}{Logical, if \code{FALSE} (default) Wilson confidence intervals are computed.}
 }
 
 \value{
@@ -37,10 +39,12 @@ dat$survived = relevel(dat$survived, ref = "yes") # relevel: baseline is survive
 model = glm(survived ~ sex + age + passengerClass,
             data = dat, family = binomial())
 labels = c("female", "1st") # reference levels of the two categorial variables
-tableOR(model, latex = FALSE, short = TRUE, refLevels = labels, caption = "Changes in odds for risk of death in the Titanic tragedy.")
+tableOR(model, latex = FALSE, short = TRUE, refLevels = labels, 
+		caption = "Changes in odds for risk of death in the Titanic tragedy.")
 
 ## using log regression for ordinal data
 dat$passengerClass = factor(dat$passengerClass, ordered = TRUE)
 model = MASS::polr(passengerClass ~ sex + age, data = dat, Hess = TRUE)
-tableOR(model, latex = FALSE, short = TRUE, caption = "Changes in odds for being in a lower class, i.e. 2nd or 3rd class")
+tableOR(model, latex = FALSE, short = TRUE, 
+		caption = "Changes in odds for being in a lower class, i.e. 2nd or 3rd class")
 }
