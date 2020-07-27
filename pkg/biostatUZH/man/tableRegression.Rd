@@ -8,7 +8,7 @@ tableRegression(model,
     stats = NULL, col.nam = NULL, row.nam = NULL, intercept = NULL,
     text = "english", text.ci = text, 
     eps.pvalue = 0.0001, digits = NULL, big.mark = "'",
-    xtable = TRUE, align = NULL, caption = NULL, label = NULL, ...)
+    xtable = TRUE, align = NULL, caption = NULL, label = NULL, vars = NULL, ...)
 }
 
 \arguments{
@@ -36,6 +36,8 @@ tableRegression(model,
   \item{xtable}{Logical indicating if a LaTeX table should be produced
     (default) or just a data frame be returned.}
   \item{align,caption,label}{see \code{\link[xtable]{xtable}}.}
+  \item{vars}{Specify the variables for which regression summaries should be printed.
+    The argument 'vars' takes a string vector with the names of the coefficients in the model.}
   \item{\dots}{Arguments passed to \code{\link[xtable]{print.xtable}}.}
 }
 

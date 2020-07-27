@@ -19,7 +19,7 @@ behrensTest(x, y, conf.level = 0.95, alternative = "two.sided")
 
 \value{
 	\item{lower}{Lower limit of the confidence interval of the difference.}
-	\item{lower}{Estimated difference in means.}
+	\item{diff}{Estimated difference in means.}
 	\item{upper}{Upper limit of the confidence interval of the difference.}
 	\item{t-value}{t-statistic.}
 	\item{df}{Degrees of freedom.}
