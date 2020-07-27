@@ -3,6 +3,10 @@ import(grDevices, graphics, stats, survival)
 
 ## bootstrapping facilities
 importFrom(boot, boot, boot.ci)
+importFrom(coxphf, coxphf)
+importFrom("utils", "head", "tail")
+importFrom("methods", "is")
+
 
 
 ## which functions shall be accessible by the users?

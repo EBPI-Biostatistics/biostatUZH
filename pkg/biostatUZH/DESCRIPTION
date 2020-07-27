@@ -42,6 +42,6 @@ Description: Various functions developed at the Department of Biostatistics,
 License: GPL (>=2)
 URL: http://www.biostat.uzh.ch, http://ebuzh.r-forge.r-project.org
 Depends: R (>= 2.15.0), grDevices, graphics, stats, survival (>= 2.35)
-Imports: boot
+Imports: boot, coxphf, methods
 Suggests: cmprsk, lme4, prodlim, psy, xtable, reporttools, Hmisc, surveillance, carData
 Enhances: MASS, ellipse
