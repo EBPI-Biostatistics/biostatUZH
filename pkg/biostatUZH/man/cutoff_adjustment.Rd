@@ -21,10 +21,10 @@ cutoff_adjustment(time, time2, event, outcome, trim = 2,
   \item{na.omit}{Logical value. If TRUE, rows with missing values will be excluded.
   Default is FALSE.}
   \item{data}{Data frame.}
-  \item{firth}{Logical value. If TRUE, then Firth Cox-Regression will be used (coxphf).
-  Default is FALSE.}
+  \item{firth}{Logical value. If TRUE, then Firth Cox-Regression will be used. 
+  Default is FALSE. Package "coxphf" must be installed.}
   \item{reverse}{Logical value. If TRUE, then the event variable will be switched within 
-  the cox regression. Default is FALSE}
+  the cox regression. Default is FALSE.}
   
 }
 
@@ -39,10 +39,10 @@ cutoff_adjustment(time, time2, event, outcome, trim = 2,
 	\item{cutoff}{Estimated cut-off value.}
 	\item{p.adj}{Adjusted p-value.}
 	\item{c.hat}{Estimated shrinkage coefficient.}
-	\item{beta.adj}{Adjusted beta coefficient.}
-	\item{ci.beta.adj}{95\% confidence interval for the adjusted beta coefficient.}
-	\item{hr.adj}{Adjusted hazard ratio.}
-	\item{ci.hr.adj}{95\% confidence interval for the adjusted hazard ratio.}
+	\item{beta.adj}{Adjusted beta coefficient. Direction depends on argument "reverse".}
+	\item{ci.beta.adj}{95\% confidence interval for the adjusted beta coefficient. Direction depends on argument "reverse".}
+	\item{hr.adj}{Adjusted hazard ratio. Direction depends on argument "reverse".}
+	\item{ci.hr.adj}{95\% confidence interval for the adjusted hazard ratio. Direction depends on argument "reverse".}
 }
 
 \author{Niels Hagenbuch, Klaus Steigmiller}

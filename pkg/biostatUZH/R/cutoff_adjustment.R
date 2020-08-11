@@ -71,27 +71,36 @@ cutoff_adjustment <- function(time, time2, event,
   
   
   if(firth){
-    
-    for(i in 1:.n.cuts) {
-      .threshold[i] <- cuts[i]
-      .x <- factor(x <= cuts[i], labels = c(paste(">", cuts[i], sep = ""), paste("<=", cuts[i], sep = "")))
+
+    if(requireNamespace("coxphf", quietly = TRUE)){
       
-      ##  firth Cox regression model.
-      .model <- tryCatch(coxphf(formula = Surv(time = , time2 = , event = ), 
-                                data = data.frame(data, x.tmp = .x)), 
-                         error = function(e) e, warning = function(w) w)
+      for(i in 1:.n.cuts) {
+        .threshold[i] <- cuts[i]
+        .x <- factor(x <= cuts[i], labels = c(paste(">", cuts[i], sep = ""), paste("<=", cuts[i], sep = "")))
+        
+        ##  firth Cox regression model.
+        .model <- tryCatch(coxphf::coxphf(formula = Surv(time = , time2 = , event = ), 
+                                          data = data.frame(data, x.tmp = .x)), 
+                           error = function(e) e, warning = function(w) w)
+        
+        pvals.score[i] <- NA # score test
+        pvals[i] <- ifelse(is(.model, "warning"), NA, summary(.model)$prob) # p.value estiamte
+        betas[i] <- ifelse(is(.model, "warning"), NA, coef(.model))
+        .ci.lower[i] <- ifelse(is(.model, "warning"), NA, log(summary(.model)$ci.lower))
+        .ci.upper[i] <- ifelse(is(.model, "warning"), NA, log(summary(.model)$ci.upper))
+        
+        .se.betas[i] <- ifelse(is(.model, "warning"), NA, sqrt(vcov(.model)))
+        .eps[i] <- ifelse(test = is(.model, "warning"), 
+                          yes = NA,
+                          no = mean(as.numeric(.x) - 1)) # "-1" due to numeric representation of level 1 = 1, level 2 = 2, ...
+      }
       
-      pvals.score[i] <- NA # score test
-      pvals[i] <- ifelse(is(.model, "warning"), NA, summary(.model)$prob) # p.value estiamte
-      betas[i] <- ifelse(is(.model, "warning"), NA, coef(.model))
-      .ci.lower[i] <- ifelse(is(.model, "warning"), NA, log(summary(.model)$ci.lower))
-      .ci.upper[i] <- ifelse(is(.model, "warning"), NA, log(summary(.model)$ci.upper))
-      
-      .se.betas[i] <- ifelse(is(.model, "warning"), NA, sqrt(vcov(.model)))
-      .eps[i] <- ifelse(test = is(.model, "warning"), 
-                        yes = NA,
-                        no = mean(as.numeric(.x) - 1)) # "-1" due to numeric representation of level 1 = 1, level 2 = 2, ...
+    }else{
+      stop("Package \"coxphf\" needed for this function to work if using Firth penalization. Please install it.",
+           call. = FALSE)
     }
+
+    
   }else{
     
     # normal coxph
