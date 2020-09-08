@@ -38,10 +38,29 @@ res <- boot(data = dat, statistic = kappam.boot, R = M)
 quantil <- quantile(res$t, c(alpha / 2, 1 - alpha / 2)) 
 
 ## adjusted bootstrap percentile (BCa) confidence interval (better)
-#adj.boot <- boot.ci(res, conf = conf.level, type = "bca")$bca[4:5]        
+#adj.boot <- boot.ci(res, conf = conf.level, type = "bca")$bca[4:5]    
+
+
+# package psy drops levels that are not present in the data for
+# ..function "ckappa" & "wkappa", this can lead to wrong calculations
+if(weights == "squared"){
+  message((paste0("Caution, used levels in weighted Kappa: ",
+                 paste0(levels(as.factor(c(as.character(dat[, 1]),
+                                           as.character(dat[, 2])))), 
+                        collapse = ", " ))))
+}
+
+
+
 
 ## generate output
 res <- list("n" = n, "kappa" = k, "boot.quant" = quantil)#, "adj.boot" = adj.boot)
 return(res)
 }
+
+
+
+
+
+
 
