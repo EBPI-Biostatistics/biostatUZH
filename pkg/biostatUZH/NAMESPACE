@@ -35,6 +35,7 @@ export(
     confIntPairedAUCDiff,
     confIntProportion,
     confIntRate,
+    confIntRateDiff,
     confIntRiskDiff,
     confIntRiskRatio,
     ConvertWeibull,
