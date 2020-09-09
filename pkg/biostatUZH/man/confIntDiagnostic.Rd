@@ -4,7 +4,7 @@
 \title{Compute confidence intervals for operating characteristics of a diagnostic test}
 \description{
 Compute confidence intervals for sensitivity, specificity, positive and
-negative likelihood ratio of a diagnostic test. Optionally also positive
+negative likelihood ratio and diagnostic odds ratio of a diagnostic test. Optionally also positive
 and negative predictive value. 
 }
 \usage{confIntDiagnostic(tp, fp, tn, fn, conf.level = 0.95, cohort=FALSE, pr=NA)}
