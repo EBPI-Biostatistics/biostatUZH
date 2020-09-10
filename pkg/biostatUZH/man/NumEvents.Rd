@@ -20,10 +20,6 @@ non.inf.margin=NULL, type="sup", alternative="two.sided")
     studies. Default is "sup".}
   \item{alternative}{In c("one.sided","two.sided"), depending on whether the
 alternative hypothesis is one or two-sided.}
-  \item{method}{In c("exact","approx","approximate"), depending on whether the integral for the
-probability of event is solved with the function integrate
-or approximated. If a non-parametric approach is chosen only
-the approximate approach is available.}
 }
 \value{Returns either the required total number of events or the power. 
   }
