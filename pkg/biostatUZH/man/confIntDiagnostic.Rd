@@ -7,7 +7,7 @@ Compute confidence intervals for sensitivity, specificity, positive and
 negative likelihood ratio and diagnostic odds ratio of a diagnostic test. Optionally also positive
 and negative predictive value. 
 }
-\usage{confIntDiagnostic(tp, fp, tn, fn, conf.level = 0.95, cohort=FALSE, pr=NA)}
+\usage{confIntDiagnostic(tp, fp, tn, fn, conf.level = 0.95, cohort=FALSE, pr=NA, digits=NA)}
 \arguments{
   \item{tp}{Number of true positives.}
   \item{fp}{Number of false positives.}
@@ -16,6 +16,7 @@ and negative predictive value.
   \item{conf.level}{Confidence level for confidence intervals.}
   \item{cohort}{Logical indicator whether data comes from a cohort study.}
   \item{pr}{Prevalence.}
+  \item{digits}{Number of digits.}
 }
 
 \value{
@@ -37,6 +38,7 @@ Oxford: Oxford University Press.
 confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97)
 confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, cohort=TRUE)
 confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, pr=0.045)
+confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, digits=2)
 
 }
 

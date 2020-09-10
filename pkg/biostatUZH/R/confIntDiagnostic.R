@@ -1,4 +1,4 @@
-confIntDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, cohort=FALSE, pr=NA)
+confIntDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, cohort=FALSE, pr=NA, digits=NA)
 {
     stopifnot(is.wholenumber(tp), is.wholenumber(fp),
               is.wholenumber(tn), is.wholenumber(fn),  conf.level<1,
@@ -37,6 +37,13 @@ confIntDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, cohort=FALSE, p
 
     res[, 1] <- c("Sensitivity", "Specificity", "LRplus", "LRminus", "DOR", "PPV", "NPV", "Prevalence")
     res <- res[,c(1,3,2,4)]
+    
+    if(!is.na(digits)){
+        stopifnot(is.wholenumber(digits))
+        res[, 2:4] <- as.numeric(sapply(res[, 2:4], 
+                                        function(x) format(x, nsmall = digits, digits = digits)))
+    }
+    
     return(res)
     
 }
