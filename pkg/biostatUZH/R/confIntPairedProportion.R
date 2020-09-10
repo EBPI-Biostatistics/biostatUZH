@@ -34,6 +34,6 @@ confIntPairedProportion <- function(x, conf.level = 0.95){
     newcombe2 <- D + sqrt((p2 - l2) ^ 2 - 2 * phi * (p2 - l2) * (u1 - p1) + (u1 - p1) ^ 2)
     
     newcombe <- c(newcombe1, newcombe2)
-    return(list("p1" = p1, "p2" = p2, "p1-p2" = D, "newcombeCI" = as.numeric(newcombe)))
+    return(list("p1" = p1, "p2" = p2, "diff" = D, "newcombeCI" = as.numeric(newcombe)))
 }
 
