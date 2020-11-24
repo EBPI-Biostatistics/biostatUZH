@@ -2,9 +2,13 @@
 \alias{sampleSizeSurvival}
 \alias{PrEvent}
 \title{Compute sample size for a survival endpoint}
-\description{Function sampleSizeSurvival calculates up to two quantities
-  out of the following: 
-  sample size, required number of events and power.}
+\description{Calculates two of the following quantities if one of them is given: 
+  Sample size, required number of events and power.
+  The distribution of survival times is assumed to be either non-parametric
+  given a Kaplan-Meier estimate or following an exponential or Weibull model 
+  given rate parameters or rate and shape parameters, respectively.
+  The same time unit should be used for the survival functions, 
+  the accrual period and the follow-up period.}
 \usage{
 sampleSizeSurvival(HR, a.length, f.length, sig.level=0.05, power=NULL,
                    n = NULL, n.events=NULL, alloc.ratio=1, drop.rate=0,
@@ -13,15 +17,15 @@ sampleSizeSurvival(HR, a.length, f.length, sig.level=0.05, power=NULL,
                    alternative="two.sided", method="exact")
 }
 \arguments{
-  \item{HR}{Hazard ratio.}
+  \item{HR}{Hazard ratio of experimental group vs. control group.}
   \item{a.length}{Length of accrual period.}
   \item{f.length}{Length of follow-up period.}
   \item{sig.level}{Significance level.}
-  \item{power}{Desired power, i.e. 1 - probability of type II error.}
+  \item{power}{Desired power.}
   \item{n}{Required sample size.}
-  \item{n.events}{Required number of events.}
-  \item{alloc.ratio}{Allocation ratio: Number of allocated patients to
-    the reference group relative to the treatment group.}
+  \item{n.events}{Required total number of events.}
+  \item{alloc.ratio}{Allocation ratio: Ratio of the number of patients in the 
+    experimental group divided by the number of patients in the control group.}
   \item{drop.rate}{Drop-out rate.}
   \item{non.inf.margin}{Non-inferiority margin.}
   \item{type}{Study type. Either "sup" or "superiority" for superiority
@@ -34,7 +38,7 @@ sampleSizeSurvival(HR, a.length, f.length, sig.level=0.05, power=NULL,
 parameter in the Weibull distribution.}
   \item{shape}{The shape parameter of the Weibull distribution}
   \item{survfit.ref}{The survfit object, i.e. the Kaplan-Meier estimate
-    of survival in the reference group.}
+    of survival in the control group.}
   \item{alternative}{In c("one.sided","two.sided"), depending on whether the
 alternative hypothesis is one or two-sided.}
   \item{method}{In c("exact","approx","approximate"), depending on whether the integral for the
@@ -44,19 +48,26 @@ the approximate approach is available.}
 }
 \value{A list with the entries
   \item{n}{Required sample size.}
-  \item{HR}{Hazard ratio.}
-  \item{power}{Desired power, i.e. 1 - probability of type II error.}
+  \item{HR}{Hazard ratio of experimental group vs. control group.}
+  \item{power}{Desired power.}
   \item{sig.level}{Significance level.}
   \item{alternative}{In c("one.sided","two.sided"), depending on whether the
-alternative hypothesis is one or two-sided.}
+    alternative hypothesis is one- or two-sided.}
   \item{distribution}{Distributional assumption for survival times. Either "exp"
     or "exponential" for exponential, "weib" or "weibull" for Weibull,
     or "nonp" or "non-parametric" for non-parametric. }
-  \item{PrEvent}{The probability that a patient will not experience the event during the study.}
-  \item{Events}{The required total number of events.}
+  \item{PrEvent}{Probability that a patient will experience the event during the study.}
+  \item{Events}{Required total number of events.}
 
 }
 \references{
+Collett, D. (2015).
+\emph{Modelling Survival Data in Medical Research}. 
+New York: Chapman and Hall/CRC.
+
+Schoenfeld, D.A. (1983).
+Sample-Size Formula for the Proportional-Hazards Regression Model. 
+\emph{Biometrics}, \bold{39}, 499--503.
 }
 \author{Uriah Daugaard and Leonhard Held \cr \email{leonhard.held@uzh.ch}}
 

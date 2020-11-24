@@ -6,15 +6,22 @@ sampleSizeSurvival <- function(HR, a.length, f.length, sig.level=0.05, power=NUL
                                non.inf.margin=NULL, type="sup", dist="exp",
                                lambda=NULL, shape=NULL, survfit.ref=NULL,
                                alternative="two.sided", method="exact") {
-    ## probability of event
-    pr.event <- PrEvent(HR = HR, a.length = a.length, f.length = f.length,
-                        dist = dist, lambda = lambda, shape = shape, method = method,
-                        survfit.ref = survfit.ref, alloc.ratio = alloc.ratio)
     ## number of events or power needed (depending on given arguments)
     if(is.null(power) & is.null(n.events) & is.null(n)){
         stop(paste("either the power or the number of events",
                    "or the sample size need to be specified", sep = "\n"))
     }
+    ## not allowed to overspecify number of events and power
+    if((!is.null(power) & !is.null(n.events)) |
+       (!is.null(power) & !is.null(n)) |
+       (!is.null(n) & !is.null(n.events))){
+        stop(paste("either the power or the number of events",
+                   "or the sample size may be specified", sep = "\n"))
+    }
+    ## probability of event
+    pr.event <- PrEvent(HR = HR, a.length = a.length, f.length = f.length,
+                        dist = dist, lambda = lambda, shape = shape, method = method,
+                        survfit.ref = survfit.ref, alloc.ratio = alloc.ratio)
     ## power calculation
     if(is.null(power)){
         if(is.null(n.events)){
@@ -34,14 +41,7 @@ sampleSizeSurvival <- function(HR, a.length, f.length, sig.level=0.05, power=NUL
                                  alternative = alternative)
         }
         n <- n.events/pr.event
-        n <- ceiling(n/(1-drop.rate))}
-    ## number of events calculation
-    ## (only happens when power and sample given, n.event=NULL)
-    if(is.null(n.events)){
-        n.events <- NumEvents(HR = HR, sig.level = sig.level, power = power,
-                             n.events = n.events, alloc.ratio = alloc.ratio,
-                             non.inf.margin = non.inf.margin, type = type,
-                             alternative = alternative)
+        n <- ceiling(n/(1-drop.rate))
     }
     ## return statement
     str <- structure(list(n=n, HR = HR, power=power, sig.level=sig.level,
