@@ -10,7 +10,7 @@ PrEvent <- function(HR, a.length, f.length, dist="exp", lambda=NULL,
     a <- a.length
     f <- f.length
     if(dist %in% c("exp","exponential")){
-        stopifnot(lambda>0)
+        stopifnot(!is.null(lambda), lambda>0)
         if(method=="exact"){
             pr.event.cnt <- 1-1/a*integrate(function(x){
                 1-pexp(x,lambda)
@@ -59,6 +59,6 @@ PrEvent <- function(HR, a.length, f.length, dist="exp", lambda=NULL,
         pr.event.cnt <- 1-1/6*(S1+4*S2+S3)
         pr.event.trt <- 1-1/6*(S1^HR+4*S2^HR+S3^HR)
     }
-    pr.event <- p1*pr.event.cnt + p2*pr.event.trt
+    pr.event <- p1*pr.event.trt + p2*pr.event.cnt
     return(pr.event)
 }
