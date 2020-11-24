@@ -29,22 +29,22 @@ sampleSizeSurvival(HR, a.length, f.length, sig.level=0.05, power=NULL,
   \item{drop.rate}{Drop-out rate.}
   \item{non.inf.margin}{Non-inferiority margin.}
   \item{type}{Study type. Either "sup" or "superiority" for superiority
-    studies or "non-inferiority" or "noninf" for non-inferiority
+    studies or "noninf" or "non-inferiority" for non-inferiority
     studies. Default is "sup".}
   \item{dist}{Distributional assumption for survival times. Either "exp"
     or "exponential" for exponential, "weib" or "weibull" for Weibull,
-    or "nonp" or "non-parametric" for non-parametric. Defaults to "exp".}
+    or "nonp" or "non-parametric" for non-parametric. Default is "exp".}
   \item{lambda}{The rate parameter in the exponential distribution and the scale
-parameter in the Weibull distribution.}
+  parameter in the Weibull distribution.}
   \item{shape}{The shape parameter of the Weibull distribution}
   \item{survfit.ref}{The survfit object, i.e. the Kaplan-Meier estimate
     of survival in the control group.}
   \item{alternative}{In c("one.sided","two.sided"), depending on whether the
-alternative hypothesis is one or two-sided.}
-  \item{method}{In c("exact","approx","approximate"), depending on whether the integral for the
-probability of event is solved with the function integrate
-or approximated. If a non-parametric approach is chosen only
-the approximate approach is available.}
+  alternative hypothesis is one- or two-sided.}
+  \item{method}{In c("exact","approx","approximate"), depending on whether the 
+  integral for the probability of event is solved with the function integrate or
+  approximated. If a non-parametric approach is chosen only the approximate 
+  approach is available.}
 }
 \value{A list with the entries
   \item{n}{Required sample size.}
