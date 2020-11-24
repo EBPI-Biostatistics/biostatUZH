@@ -6,8 +6,8 @@
   Sample size, required number of events and power.
   The distribution of survival times is assumed to be either non-parametric
   given a Kaplan-Meier estimate or following an exponential or Weibull model 
-  given rate parameters or rate and shape parameters, respectively.
-  The same time unit should be used for the survival functions, 
+  given rate parameters or scale and shape parameters, respectively.
+  The same time unit should be used for the survival times, 
   the accrual period and the follow-up period.}
 \usage{
 sampleSizeSurvival(HR, a.length, f.length, sig.level=0.05, power=NULL,
