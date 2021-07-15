@@ -1,8 +1,8 @@
 Package: biostatUZH
 Title: Misc Tools of the Department of Biostatistics, EBPI, University
         of Zurich
-Version: 1.8.0
-Date: 2017-11-23
+Version: 1.9.1
+Date: 2021-07-15
 Authors@R: c(person(c("Sarah", "R."), "Haile", role = "aut",
                     email = "sarah.haile@uzh.ch"),
              person("Leonhard", "Held", role = c("aut","cre"),
@@ -64,3 +64,4 @@ Repository/R-Forge/DateTimeStamp: 2020-11-24 14:47:32
 Date/Publication: 2020-11-24 14:47:32
 NeedsCompilation: no
 Packaged: 2020-11-24 15:08:31 UTC; rforge
+RoxygenNote: 7.1.1
