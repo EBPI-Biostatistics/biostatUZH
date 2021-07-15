@@ -1,5 +1,6 @@
 Package: biostatUZH
-Title: Misc Tools of the Department of Biostatistics, EBPI, University of Zurich
+Title: Misc Tools of the Department of Biostatistics, EBPI, University
+        of Zurich
 Version: 1.8.0
 Date: 2017-11-23
 Authors@R: c(person(c("Sarah", "R."), "Haile", role = "aut",
@@ -43,5 +44,23 @@ License: GPL (>=2)
 URL: http://www.biostat.uzh.ch, http://ebuzh.r-forge.r-project.org
 Depends: R (>= 2.15.0), grDevices, graphics, stats, survival (>= 2.35)
 Imports: boot, methods
-Suggests: cmprsk, lme4, prodlim, psy, xtable, reporttools, Hmisc, surveillance, carData
+Suggests: cmprsk, lme4, prodlim, psy, xtable, reporttools, Hmisc,
+        surveillance, carData
 Enhances: MASS, ellipse, coxphf
+Author: Sarah R. Haile [aut],
+  Leonhard Held [aut, cre],
+  Sebastian Meyer [aut],
+  Sina Rueeger [aut],
+  Kaspar Rufibach [aut],
+  Simon Schwab [aut],
+  Daniel Sabanes Bove [ctb],
+  Uriah Daugaard [ctb],
+  R Core Team [cph]
+Maintainer: Leonhard Held <leonhard.held@uzh.ch>
+Repository: R-Forge
+Repository/R-Forge/Project: ebuzh
+Repository/R-Forge/Revision: 103
+Repository/R-Forge/DateTimeStamp: 2020-11-24 14:47:32
+Date/Publication: 2020-11-24 14:47:32
+NeedsCompilation: no
+Packaged: 2020-11-24 15:08:31 UTC; rforge
