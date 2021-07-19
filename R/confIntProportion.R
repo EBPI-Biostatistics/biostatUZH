@@ -44,7 +44,8 @@
 #' @export
 confIntProportion <- function(x, n, conf.level = 0.95)
 {
-    stopifnot(is.wholenumber(x), is.wholenumber(n), (x<=n), (n>=1),  conf.level<1, conf.level>0)
+    stopifnot(is.wholenumber(x), is.wholenumber(n), x<=n, n>=1,
+              0 < conf.level, conf.level<1)
 
     res <- data.frame(matrix(NA, ncol = 3))
     colnames(res) <- c("type", "lower", "upper")
@@ -67,11 +68,11 @@ confIntProportion <- function(x, n, conf.level = 0.95)
 #' @export 
 wald <- function(x, n, conf.level = 0.95)
 {
-    stopifnot(is.wholenumber(x), is.wholenumber(n), (x<=n), (n>=1),  conf.level<1, conf.level>0)
+    stopifnot(is.wholenumber(x), is.wholenumber(n), x<=n, n>=1,
+              0 < conf.level, conf.level<1)
     q <- qnorm(p=(1+conf.level)/2)
     pi <- x/n         
     limits <- pi + c(-1, 1)*q*sqrt(pi*(1-pi)/n)
-    # NEW: truncate limits at 0 and 1
     res <- c("lower" = max(0, limits[1]), "prop" = pi, "upper" = min(1, limits[2]))
     return(res)
 }
@@ -83,9 +84,8 @@ wald <- function(x, n, conf.level = 0.95)
 #' @export 
 wilson <- function(x, n, conf.level = 0.95)
 {
-    stopifnot(is.wholenumber(x), is.wholenumber(n),
-              x<=n, n>=0, # n=0 yields NaN results, but allow for summaryROC()
-              conf.level<1, conf.level>0)
+    stopifnot(is.wholenumber(x), is.wholenumber(n), x<=n, n>=1,
+              0 < conf.level, conf.level<1) # n=0 yields NaN results, but allow for summaryROC()
     q <- qnorm(p=(1+conf.level)/2)
     q2 <- q^2
     prop <- x/n
@@ -101,11 +101,9 @@ wilson <- function(x, n, conf.level = 0.95)
 #' @export 
 agresti <- function(x, n, conf.level = 0.95)
 {
-    stopifnot(is.wholenumber(x), is.wholenumber(n), (x<=n), (n>=1),  conf.level<1, conf.level>0)
-    
+    stopifnot(is.wholenumber(x), is.wholenumber(n), x<=n, n>=1,
+              0 < conf.level, conf.level<1)
     k <- qnorm(p = (conf.level + 1) / 2)
-    
-    # Agresti-Coull
     ptilde <- (x + 2) / (n + 4)
     z <- abs(k)
     stderr <- sqrt(ptilde * (1 - ptilde) / (n + 4))
@@ -121,7 +119,8 @@ agresti <- function(x, n, conf.level = 0.95)
 #' @export 
 jeffreys <- function(x, n, conf.level = 0.95)
 {
-    stopifnot(is.wholenumber(x), is.wholenumber(n), (x<=n), (n>=1),  conf.level<1, conf.level>0)
+    stopifnot(is.wholenumber(x), is.wholenumber(n), x<=n, n>=1,
+              0 < conf.level, conf.level<1)
     q <- (1-conf.level)/2
     alpha <- x + 0.5
     beta <- n - x + 0.5
@@ -136,8 +135,8 @@ jeffreys <- function(x, n, conf.level = 0.95)
 #' @export 
 clopperPearson <- function(x, n, conf.level = 0.95)
 {
-    stopifnot(is.wholenumber(x), is.wholenumber(n), (x<=n), (n>=1),  conf.level<1, conf.level>0)
-
+    stopifnot(is.wholenumber(x), is.wholenumber(n), x<=n, n>=1,
+              0 < conf.level, conf.level<1)
     a <- 1 - conf.level
     if (x == 0){
         ll <- 0
