@@ -15,8 +15,8 @@ confIntRiskDiff(x, n, conf.level = 0.95)
 0.95.}
 }
 \value{
-A list with the entries: \itemize{ \itemrdEstimated risk difference.
-\itemCIsDataframe containing confidence intervals for the risk difference. }
+A list with the entries: \itemize{ \item rd Estimated risk difference.
+\item CIs Data.frame containing confidence intervals for the risk difference. }
 }
 \description{
 Two methods to compute a confidence interval for a risk difference based on

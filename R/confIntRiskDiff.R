@@ -8,8 +8,8 @@
 #' @param n Vector of length 2, total number of trials in each group.
 #' @param conf.level Confidence level for confidence interval. Default value is
 #' 0.95.
-#' @return A list with the entries: \itemize{ \itemrdEstimated risk difference.
-#' \itemCIsDataframe containing confidence intervals for the risk difference. }
+#' @return A list with the entries: \itemize{ \item rd Estimated risk difference.
+#' \item CIs Data.frame containing confidence intervals for the risk difference. }
 #' @author Leonhard Held
 #' @seealso \code{\link{wilson}}, \code{\link{confIntRiskRatio}},
 #' \code{\link{confIntOddsRatio}}.

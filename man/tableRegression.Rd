@@ -82,9 +82,9 @@ Formats output from the regression model functions: \code{\link[stats]{lm}},
 \code{\link[survival]{coxph}}, and \code{\link{Weibull}}.
 }
 \details{
-In \code{stats}: \itemize{ \itemIf \code{t.value} is chosen, the
-\code{z.value} might be taken, depending on the model.  \itemFor lm-models:
-\code{ci.95} calculates a confidence interval for the estimate.  \itemFor
+In \code{stats}: \itemize{ \item If \code{t.value} is chosen, the
+\code{z.value} might be taken, depending on the model.  \item For lm-models:
+\code{ci.95} calculates a confidence interval for the estimate.  \item For
 glm- and coxph-models: \code{ci.95} calculates a confidence interval for the
 exp(estimate). }
 }
