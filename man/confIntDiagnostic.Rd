@@ -24,8 +24,8 @@ confIntDiagnostic(
 
 \item{conf.level}{Confidence level for confidence interval. Default is 0.95.}
 
-\item{cohort}{Logical of length one indicating whether the data come from a cohort study.
-Default is FALSE.}
+\item{cohort}{Logical of length one indicating whether the data come from a
+cohort study. Default is FALSE.}
 
 \item{pr}{Prevalence.}
 
@@ -33,26 +33,27 @@ Default is FALSE.}
 }
 \value{
 A dataframe containing the estimated confidence intervals for
-sensitivity, specificity, positive and negative likelihood ratio.
-Optionally also positive and negative predictive value.
+sensitivity, specificity, positive and negative likelihood ratio. Optionally
+also positive and negative predictive value.
 }
 \description{
-Compute confidence intervals for sensitivity, specificity,
-positive and negative likelihood ratio and diagnostic odds ratio
-of a diagnostic test. Optionally also positive and negative
-predictive value.
+Compute confidence intervals for sensitivity, specificity, positive and
+negative likelihood ratio and diagnostic odds ratio of a diagnostic test.
+Optionally also positive and negative predictive value.
 }
 \examples{
+
 ## Calculate confidence intervals for data from the Million Women Study
 
 confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97)
 confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, cohort=TRUE)
 confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, pr=0.045)
 confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, digits=2)  
+
 }
 \references{
-Pepe, M.S. (2003) \emph{The statistical evaluation of medical tests for classification and prediction}.
-Oxford: Oxford University Press.
+Pepe, M.S. (2003) \emph{The statistical evaluation of medical
+tests for classification and prediction}. Oxford: Oxford University Press.
 }
 \author{
 Leonhard Held

@@ -1,30 +1,41 @@
 #' Confidence interval for binomial proportions
-#'
-#' Compute a confidence interval for binomial proportions
-#' using several asymptotic and exact methods.
-#'
-#' @rdname confIntProportion
+#' 
+#' Compute a confidence interval for binomial proportions using several
+#' asymptotic and exact methods.
+#' 
+#' 
+#' @aliases confIntProportion wald wilson agresti jeffreys clopperPearson
 #' @param x Number of successes.
 #' @param n Total number of trials.
 #' @param conf.level Confidence level for confidence interval. Default is 0.95.
-#' @return \code{confIntProportion} returns a data.frame with confidence intervals
-#' from the Wald, Wilson, Agresti, Jeffreys, and Clopper-Pearson methods.
-#' @references
-#' All the intervals provided in these functions are compared in:
-#'
-#' Brown, L.D., Cai, T.T., DasGupta, A. (2001).
-#' Interval Estimation for a Binomial Proportion.
-#' \emph{Statistical Science}, \bold{16(2)}, 101--133.
+#' @return \code{confIntProportion} returns a data.frame with confidence
+#' intervals from the Wald, Wilson, Agresti, Jeffreys, and Clopper-Pearson
+#' methods.
+#' 
+#' \code{wald} returns the Wald confidence interval.
+#' 
+#' \code{wilson} returns the Wilson confidence interval.
+#' 
+#' \code{agresti} returns the Agresti confidence interval.
+#' 
+#' \code{jeffreys} returns the Jeffreys confidence interval.
+#' 
+#' \code{clopperPearson} returns the Clopper-Pearson confidence interval.
 #' @author Kaspar Rufibach, Leonhard Held
-#' @seealso Functions for some of the intervals provided here
-#' are available in \pkg{Hmisc}; see the examples.
+#' @seealso Functions for some of the intervals provided here are available in
+#' \pkg{Hmisc}; see the examples.
+#' @references All the intervals provided in these functions are compared in:
+#' 
+#' Brown, L.D., Cai, T.T., DasGupta, A. (2001). Interval Estimation for a
+#' Binomial Proportion. \emph{Statistical Science}, \bold{16(2)}, 101--133.
 #' @examples
+#' 
 #' ## Calculate confidence bounds for a binomial parameter by different methods.
 #' x <- 50
 #' n <- 100
 #' ci <- confIntProportion(x, n)$CIs
 #' ci
-#'
+#' 
 #' plot(0, 0, type = 'n', ylim = c(0, 7), xlim = c(0, 1), xlab = 'p',
 #'      ylab = '', yaxt = 'n')
 #' for(i in 1:5)
@@ -34,14 +45,14 @@
 #' text(0.5, 2.85, 'agresti')
 #' text(0.5, 3.85, 'jeffreys')
 #' text(0.5, 4.85, 'clopper')
-#'
+#' 
 #' ## compare intervals to those received by the function binconf in Hmisc:
 #' if (require("Hmisc")) {
 #'     binconf(x, n, method = "asymptotic")   # Wald
 #'     binconf(x, n, method = "wilson")       # Wilson
 #'     binconf(x, n, method = "exact")        # Clopper-Pearson
 #' }
-#' @export
+#' 
 confIntProportion <- function(x, n, conf.level = 0.95)
 {
     stopifnot(is.wholenumber(x), is.wholenumber(n), x<=n, n>=1,

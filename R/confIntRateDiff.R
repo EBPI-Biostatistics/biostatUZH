@@ -1,4 +1,26 @@
-
+#' Compute confidence interval for a rate difference
+#' 
+#' Two methods to compute a confidence interval for a rate difference based on
+#' Wald and Wilson confidence intervals for the individual rates are provided.
+#' 
+#' 
+#' @param x vector of length 2, number of events in each group.
+#' @param t vector of length 2, total observation time in each group.
+#' @param conf.level Confidence level for confidence interval.
+#' @return A list with the entries: \item{rd}{Estimated rate difference.}
+#' \item{CIs}{Dataframe containing confidence intervals for the rate
+#' difference.}
+#' @author Leonhard Held
+#' @seealso \code{\link{wilsonRate}}
+#' @references Held, L., Rufibach, K. and Seifert, B. (2013). Medizinische
+#' Statistik - Konzepte, Methoden, Anwendungen.  Section 8.2.
+#' @keywords htest
+#' @examples
+#' 
+#' x <- c(30, 50)
+#' t <- c(100, 120)
+#' confIntRateDiff(x, t)$CIs
+#' 
 confIntRateDiff <- function(x, t, conf.level = 0.95){
 
     ci1 <-  wilsonRate(x[1], t[1], conf.level = conf.level)

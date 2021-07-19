@@ -1,3 +1,27 @@
+#' Compute sample size for McNemar test
+#' 
+#' Compute sample size to test the null hypothesis of the McNemar test.
+#' 
+#' Given two samples of paired binary observations, e.g. results of some
+#' positive/negative test on the same experimental units we want to assess the
+#' null hypothesis whether the probability of positives by the first method is
+#' equal that of positives by the second method.
+#' 
+#' @param p1 Assumed marginal probability of the first row.
+#' @param p2 Assumed marginal probability of the first column.
+#' @param alpha Significance level.
+#' @param power Desired power, i.e. 1 - probability of type II error.
+#' @return \item{N}{Vector of min, max, and mid sample size as explained in
+#' Lachenbruch (1982).}
+#' @author Kaspar Rufibach \cr \email{kaspar.rufibach@@gmail.com}
+#' @references Lachenbruch (1992). Sample Size for Studies based on McNemar's
+#' test \emph{Stat. Med.}, \bold{11}, 1521--1525.
+#' @keywords htest
+#' @examples
+#' 
+#' # example from Lachenbruch (1982), Table II, first row
+#' sampleSizeMcNemar(p1 = 0.8, p2 = 0.9, alpha = 0.05, power = 0.9)
+#' 
 sampleSizeMcNemar <- function(p1, p2, alpha = 0.05, power = 0.8){
 
 ## -------------------------------------------------

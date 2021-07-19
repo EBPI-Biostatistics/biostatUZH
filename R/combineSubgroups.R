@@ -1,18 +1,20 @@
 #' Combines summary data across subgroups
-#'
+#' 
 #' Combines summary data for a continuous outcome given in subgroups.
-#'
+#' 
+#' 
 #' @param n Vector with sample sizes in each subgroup.
 #' @param means Vector with sample means.
 #' @param variances Vector with sample variances.
-#' @param treatment Indicates which entries of each vector belong to the treatment group.
-#' @name combineSubgroups
+#' @param treatment Indicates which entries of each vector belong to the
+#' treatment group.
 #' @return Gives overall difference in means with a standard error.
 #' @author Leonhard Held
 #' @examples
+#' 
 #' combineSubgroups(n = c(10, 20, 30, 40), means = c(12, 11, 10, 9),
 #'                  variances = c(3, 4, 3, 4), treatment = c(2, 4))
-#' @export
+#' 
 combineSubgroups <- function(n, means, variances, treatment){
 
     stopifnot((length(n)==length(means)) & (length(n)==length(variances)))

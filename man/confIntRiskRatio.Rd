@@ -11,27 +11,32 @@ confIntRiskRatio(x, n, conf.level = 0.95)
 
 \item{n}{Vector of length 2, total number of trials in each group.}
 
-\item{conf.level}{Confidence level for confidence interval. Default value is 0.95.}
+\item{conf.level}{Confidence level for confidence interval. Default value is
+0.95.}
 }
 \value{
-A vector containing the risk ratio and the limits of the confidence interval.
+A vector containing the risk ratio and the limits of the confidence
+interval.
 }
 \description{
-Provides a confidence interval for a risk ratio.
-The method is based on a Wald interval for the log risk ratio.
-Used by \code{\link{confIntDiagnostic}}.
+Provides a confidence interval for a risk ratio. The method is based on a
+Wald interval for the log risk ratio. Used by
+\code{\link{confIntDiagnostic}}.
 }
 \examples{
+
 x <- c(30, 50)
 n <- c(100, 120)
 confIntRiskRatio(x, n)
+
 }
 \references{
-DG Altman, D Machin, TN Bryant, MJ Gardner.
-\emph{Statistics with confidence}, 2nd Edition, 2000, Chapter 7
+DG Altman, D Machin, TN Bryant, MJ Gardner. \emph{Statistics
+with confidence}, 2nd Edition, 2000, Chapter 7
 }
 \seealso{
-\code{\link{confIntDiagnostic}}, \code{\link{confIntRiskRatio}}, \code{\link{confIntOddsRatio}}.
+\code{\link{confIntDiagnostic}}, \code{\link{confIntRiskRatio}},
+\code{\link{confIntOddsRatio}}.
 }
 \author{
 Leonhard Held

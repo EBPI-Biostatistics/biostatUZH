@@ -1,4 +1,33 @@
-
+#' Fagan-Nomogram
+#' 
+#' In
+#' 
+#' 
+#' @aliases faganPlot faganLine
+#' @param prob.pre.init Pre-test probabilities to be used for the vertical line
+#' to the left. May be a number or a vector withe entries in \eqn{(0,1)}.
+#' @param text Size of the text displayed in the plot.
+#' @param language Choose language.
+#' @param tit Title to be added to plot, or \code{NA} if to be left blank.
+#' @param prob.pre A single number or a vector of pre-test probabilities to be
+#' drawn a line in the Fagan-plot for.
+#' @param lik.ratio Likelihood ratios to be used. Must be of same length as
+#' \code{prob.pre}.
+#' @return Nothing is returned. \code{faganPlot} draws a Fagan-Nomogram and
+#' \code{faganLine} adds lines for specific pre-test probabilities and
+#' likelihood ratios to the plot.
+#' @author Kaspar Rufibach \cr \email{kaspar.rufibach@@gmail.com}
+#' @references Fagan, T.J. (1975). Letter: Nomogram for Bayes Theorem. \emph{N.
+#' Engl. J. Med}, \bold{293}, 257.
+#' @keywords dplot aplot
+#' @examples
+#' 
+#' # empty Fagan plot
+#' faganPlot()
+#' 
+#' # Fagan lines
+#' faganLine(prob.pre = 0.75, lik.ratio = c(0.9/0.37, 0.1/0.63))
+#' 
 faganPlot <- function(prob.pre.init = c(.1, .2, .5, 1, 2, 5, 10, 20, 30, 40, 50, 70, 85), text = 0.8, 
     language = c("german", "english")[1], tit = "Fagan - Nomogramm"){
 

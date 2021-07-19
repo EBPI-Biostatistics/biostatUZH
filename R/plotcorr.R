@@ -8,6 +8,69 @@
 ### Copyright (C) 2015 Sebastian Meyer
 ################################################################################
 
+
+
+#' Compact Visualization of a Correlation Matrix
+#' 
+#' This function plots a correlation matrix using ellipse-shaped glyphs for
+#' each entry.  The ellipse represents a level curve of the density of a
+#' bivariate normal with the matching correlation.
+#' 
+#' This is a fork of the original \code{\link[ellipse]{plotcorr}} function from
+#' the \pkg{ellipse} package as at version 0.3-8. The arguments \code{numbers},
+#' \code{type}, and \code{diag} have been replaced by \code{lower.panel},
+#' \code{upper.panel}, and \code{diag.panel} similar to \code{\link{pairs}}.
+#' This enables displaying numbers in one triangle and ellipses in the other.
+#' However, there is no support for \code{diag = FALSE} in the original sense
+#' of the function.
+#' 
+#' The ellipses being plotted will be tangent to a unit character square, with
+#' the shape chosen to match the required correlation.
+#' 
+#' @param corr A matrix containing entries between \code{-1} and \code{1} to be
+#' plotted as correlations.
+#' @param outline Whether the ellipses should be outlined in the default
+#' colour.
+#' @param col Which colour(s) to use to fill the ellipses (recycled to
+#' \code{length(corr)}). The special setting \code{col = TRUE} will fill the
+#' ellipses according to the color range \code{colorRampPalette(c("blue",
+#' "white", "red"))(11)} mapped to the correlations as shown in the example
+#' below.
+#' @param lower.panel,upper.panel,diag.panel each panel can be either
+#' \code{NULL}, \code{"ellipse"}, or \code{"number"}. \code{NULL} disables the
+#' respective part, and \code{"number"} plots numerical correlations in place
+#' of ellipses. Correlations will be rounded to a single decimal place. The
+#' \pkg{ellipse} package is required for \code{"ellipse"} panels.
+#' @param bty,axes,xlab,ylab,asp,mar,cex.lab,... Graphical parameters which
+#' will be passed to \code{\link{plot}} when plotting.
+#' @param cex Graphical parameter which will be passed to \code{\link{text}}
+#' when plotting.
+#' @author (of this fork) Sebastian Meyer, (of the original version) Duncan
+#' Murdoch
+#' @seealso \code{\link[ellipse]{ellipse}}
+#' @references Murdoch, D.J. and Chow, E.D. (1996). A graphical display of
+#' large correlation matrices. The American Statistician 50, 178-180.
+#' @keywords hplot
+#' @examples
+#' 
+#' if (requireNamespace("ellipse")) {
+#'   ## Plot the correlation matrix for the mtcars data full model fit 
+#'   data("mtcars")
+#'   fit <- lm(mpg ~ ., mtcars)
+#'   corr.fit <- summary(fit, correlation = TRUE)$correlation
+#'   plotcorr(corr.fit, col = "gray")
+#' 
+#'   ## with default color coding
+#'   plotcorr(corr.fit, col = TRUE)
+#' 
+#'   ## Colour the ellipses and order by correlations with miles/gallon
+#'   corr.mtcars <- cor(mtcars)
+#'   ord <- order(corr.mtcars[1,])
+#'   xc <- corr.mtcars[ord, ord]
+#'   colors <- colorRampPalette(c("blue", "white", "red"))(11)
+#'   plotcorr(xc, col = colors[5*xc + 6])
+#' }
+#' 
 "plotcorr" <-
   function (corr, outline = TRUE, col = TRUE,
             lower.panel = "ellipse", upper.panel = "number", diag.panel = NULL,

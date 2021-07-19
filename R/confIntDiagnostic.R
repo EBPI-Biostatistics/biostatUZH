@@ -1,36 +1,36 @@
-#' Confidence intervals for the comparison of two diagnostic
-#' tests from unpaired data
-#'
-#' Compute confidence intervals for relative fractions and relative
-#' likelihood ratios. Specifically, confidence intervals for the relative true positive, true
-#' negative, false positive and false negative fraction as well as the
-#' relative positive and negative likelihood ratio are provided. 
-#' @rdname confIntIndependentDiagnostic
+#' Confidence intervals for the comparison of two diagnostic tests from
+#' unpaired data
+#' 
+#' Compute confidence intervals for relative fractions and relative likelihood
+#' ratios. Specifically, confidence intervals for the relative true positive,
+#' true negative, false positive and false negative fraction as well as the
+#' relative positive and negative likelihood ratio are provided.
+#' 
+#' 
 #' @param tp Number of true positives of the two tests.
-#' @param fn Number of false positives.
 #' @param tn Number of true negatives.
 #' @param fn Number of false negatives.
 #' @param conf.level Confidence level for confidence interval. Default is 0.95.
-#' @param adjust Logical of length one indicating whether to compute adjusted CIs or not.
-#' Default is FALSE.
-#' @return A data.frame containing the estimated confidence intervals for
-#' the measures of relative accuracy (first versus second test).
-#' @references
-#' Pepe, M.S. (2003) \emph{The statistical evaluation of medical tests for classification and prediction}.
-#' Oxford: Oxford University Press.
+#' @param adjust Logical of length one indicating whether to compute adjusted
+#' CIs or not. Default is FALSE.
+#' @return A data.frame containing the estimated confidence intervals for the
+#' measures of relative accuracy (first versus second test).
 #' @author Leonhard Held
+#' @references Pepe, M.S. (2003) \emph{The statistical evaluation of medical
+#' tests for classification and prediction}. Oxford: Oxford University Press.
 #' @examples
+#' 
 #' ## Calculate confidence intervals for data from a (hypothetical)
 #' ## randomized unpaired study of chorionic villus sampling (CVS)
 #' ## versus early amniocentesis (EA) for fetal abnormality from
 #' ## Pepe (2003)
-#'
+#' 
 #' tp <- c(116, 111)
 #' fp <- c(34, 111)
 #' tn <- c(4844, 4765)
 #' fn <- c(6, 13)
 #' confIntIndependentDiagnostic(tp=tp, fp=fp, tn=tn, fn=fn)
-#' @export
+#' 
 confIntIndependentDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, adjust=FALSE)
 {
     stopifnot(length(tp)==2, is.wholenumber(tp),
@@ -77,37 +77,38 @@ confIntIndependentDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, adju
 
 }
 
+
+
 #' Confidence intervals for operating characteristics of a diagnostic test
-#'
-#' Compute confidence intervals for sensitivity, specificity,
-#' positive and negative likelihood ratio and diagnostic odds ratio
-#' of a diagnostic test. Optionally also positive and negative
-#' predictive value.
-#' @rdname confIntDiagnostic
+#' 
+#' Compute confidence intervals for sensitivity, specificity, positive and
+#' negative likelihood ratio and diagnostic odds ratio of a diagnostic test.
+#' Optionally also positive and negative predictive value.
+#' 
+#' 
 #' @param tp Number of true positives.
-#' @param fn Number of false positives.
 #' @param tn Number of true negatives.
 #' @param fn Number of false negatives.
 #' @param conf.level Confidence level for confidence interval. Default is 0.95.
-#' @param cohort Logical of length one indicating whether the data come from a cohort study.
-#' Default is FALSE.
+#' @param cohort Logical of length one indicating whether the data come from a
+#' cohort study. Default is FALSE.
 #' @param pr Prevalence.
 #' @param digits Number of digits.
-#' @return  A dataframe containing the estimated confidence intervals for
-#' sensitivity, specificity, positive and negative likelihood ratio.
-#' Optionally also positive and negative predictive value.
-#' @references
-#' Pepe, M.S. (2003) \emph{The statistical evaluation of medical tests for classification and prediction}.
-#' Oxford: Oxford University Press.
+#' @return A dataframe containing the estimated confidence intervals for
+#' sensitivity, specificity, positive and negative likelihood ratio. Optionally
+#' also positive and negative predictive value.
 #' @author Leonhard Held
+#' @references Pepe, M.S. (2003) \emph{The statistical evaluation of medical
+#' tests for classification and prediction}. Oxford: Oxford University Press.
 #' @examples
+#' 
 #' ## Calculate confidence intervals for data from the Million Women Study
-#'
+#' 
 #' confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97)
 #' confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, cohort=TRUE)
 #' confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, pr=0.045)
 #' confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, digits=2)  
-#' @export
+#' 
 confIntDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, cohort=FALSE, pr=NA, digits=NA)
 {
     stopifnot(is.wholenumber(tp), is.wholenumber(fp),
@@ -159,41 +160,44 @@ confIntDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, cohort=FALSE, p
 }
 
 
-#' Confidence intervals for the comparison of two diagnostic tests
-#' from paired data
-#'
+
+
+#' Confidence intervals for the comparison of two diagnostic tests from paired
+#' data
+#' 
 #' Compute confidence intervals for relative fractions. Specifically,
-#' confidence intervals for the relative true positive, true
-#' negative, false positive and false negative fraction are provided.
-#' @rdname confIntPairedDiagnostic
-#' @param Diseased Frequency table with results from both tests in the
-#' diseased population. First row and first column refers to negative
-#' test results.
+#' confidence intervals for the relative true positive, true negative, false
+#' positive and false negative fraction are provided.
+#' 
+#' 
+#' @param Diseased Frequency table with results from both tests in the diseased
+#' population. First row and first column refers to negative test results.
 #' @param nonDiseased Frequency table with results from both tests in the
-#' non-diseased population. First row and first column refers to
-#' negative test results.
+#' non-diseased population. First row and first column refers to negative test
+#' results.
 #' @param conf.level Confidence level for confidence interval. Default is 0.95.
-#' @param adjust Logical of length one indicating whether to compute adjusted CIs or not.
-#' Default is FALSE.
+#' @param adjust Logical of length one indicating whether to compute adjusted
+#' CIs or not. Default is FALSE.
 #' @return A data.frame containing the estimated confidence intervals for the
 #' measures of relative accuracy (column test vs. row test).
-#' @references
-#' Section 3.3 in Pepe, M.S. (2003) \emph{The statistical evaluation of
-#' medical tests for classification and prediction}. Oxford University Press.
 #' @author Leonhard Held
+#' @references Section 3.3 in Pepe, M.S. (2003) \emph{The statistical
+#' evaluation of medical tests for classification and prediction}. Oxford
+#' University Press.
 #' @examples
+#' 
 #' ## Calculate confidence intervals for data from a study performing the
 #' ## Exercise stress test (EST) and the determination of chest pain
 #' ## history (CPH) for patients with suspected or probably coronary
 #' ## heart disease (CHD).
-#'
+#' 
 #' Diseased <- matrix(c(25, 183, 29, 786), ncol = 2, nrow = 2, byrow = TRUE)
 #' nonDiseased <- matrix(c(151, 176, 46, 69), ncol = 2, nrow = 2, byrow = TRUE)
 #' colnames(Diseased) <- colnames(nonDiseased) <- c("CPH=0", "CPH=1")
 #' rownames(Diseased) <- rownames(nonDiseased) <- c("EST=0", "EST=1")
-#'
+#' 
 #' confIntPairedDiagnostic(Diseased=Diseased, nonDiseased=nonDiseased)
-#' @export
+#' 
 confIntPairedDiagnostic <- function(Diseased, nonDiseased, conf.level = 0.95, adjust = FALSE)
 {
     stopifnot(is.wholenumber(Diseased), is.wholenumber(nonDiseased),

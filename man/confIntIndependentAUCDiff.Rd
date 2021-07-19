@@ -2,8 +2,8 @@
 % Please edit documentation in R/confIntAUC.R
 \name{confIntIndependentAUCDiff}
 \alias{confIntIndependentAUCDiff}
-\title{Confidence interval for the difference in AUC based on two
-independent samples}
+\title{Confidence interval for the difference in AUC based on two independent
+samples}
 \usage{
 confIntIndependentAUCDiff(
   casesA,
@@ -17,11 +17,13 @@ confIntIndependentAUCDiff(
 \arguments{
 \item{casesA}{Values of the continuous variable from Test A for the cases.}
 
-\item{controlsA}{Values of the continuous variable from Test A for the controls.}
+\item{controlsA}{Values of the continuous variable from Test A for the
+controls.}
 
 \item{casesB}{Values of the continuous variable from Test B for the cases.}
 
-\item{controlsB}{Values of the continuous variable from Test B for the controls.}
+\item{controlsB}{Values of the continuous variable from Test B for the
+controls.}
 
 \item{type}{"Wald" (default) or "Logit".}
 
@@ -32,17 +34,18 @@ A matrix with estimate and confidence limits for AUC of the two
 tests and their difference.
 }
 \description{
-Computes confidence interval for the difference in the area under
-the curve based on two independent samples.
+Computes confidence interval for the difference in the area under the curve
+based on two independent samples.
 }
 \details{
-For type="Wald", standard Wald confidence intervals are calculated
-for AUC of both tests and their difference. For type="logit", the
-substitution method is used based on the logit transformation for
-the AUC of both tests. The confidence interval for the difference
-in AUC is then calculated using Newcombe's method.
+For type="Wald", standard Wald confidence intervals are calculated for AUC
+of both tests and their difference. For type="logit", the substitution
+method is used based on the logit transformation for the AUC of both tests.
+The confidence interval for the difference in AUC is then calculated using
+Newcombe's method.
 }
 \examples{
+
 set.seed(12345)
 casesA <- rnorm(200, mean=2.5)
 controlsA <- rnorm(100)
@@ -51,10 +54,11 @@ controlsB <- rnorm(200)
 
 confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type="Wald")
 confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type="Logit")
+
 }
 \references{
-Newcombe, R.G. (1998). \emph{Interval estimation for the difference
-between independent proportions: Comparison of eleven methods.}
+Newcombe, R.G. (1998). \emph{Interval estimation for the
+difference between independent proportions: Comparison of eleven methods.}
 Stat. Med., *17*, 873-890.
 
 Pepe, M.S. (2003) \emph{The statistical evaluation of medical tests for

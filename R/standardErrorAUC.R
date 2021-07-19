@@ -1,5 +1,20 @@
-
 # we follow the second method described in Altman et al, p. 113, 
+
+
+#' Standard Error of AUC
+#' 
+#' Computes the standard error of the area under the curve.
+#' 
+#' 
+#' @param cases Values of the continuous variable for the cases.
+#' @param controls Values of the continuous variable for the controls.
+#' @return The standard error.
+#' @author Leonhard Held
+#' @references The computation follows Chapter 10 in
+#' 
+#' Altman, D.G., Machin, D., Bryant, T.N. and Gardner, M.J. (2001).
+#' \emph{Statistics with confidence}. 2nd Edition, 2000. BMJ Books.
+#' @keywords univar htest
 standardErrorAUC <- function(cases, controls){
     
     ncases <- length(cases)

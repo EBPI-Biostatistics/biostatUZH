@@ -1,3 +1,12 @@
+#' Logit and inverse-logit function
+#' 
+#' Compute logit and inverse logit function.
+#' 
+#' Used by \code{\link{faganPlot}}, \code{\link{faganLine}}.
+#' 
+#' 
+#' @aliases logit ilogit expit
+#' @author Kaspar Rufibach \cr \email{kaspar.rufibach@@gmail.com}
 logit <- function (x)
 {
     if (any(omit <- is.na(x) | x <= 0 | x >= 1)) {

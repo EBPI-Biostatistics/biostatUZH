@@ -1,3 +1,13 @@
+#' Plot that shows population and sample drawn from it
+#' 
+#' We frequently use this plot in presentations and teaching, to explain the
+#' connection between a population and a sample drawn from it.
+#' 
+#' 
+#' @param language Language of the text pieces added to the plot.
+#' @return Nothing is ouutput, only a plot is generated,
+#' @author Kaspar Rufibach \cr \email{kaspar.rufibach@@gmail.com}
+#' @keywords dplot aplot
 populationSamplePlot <- function(language = c("german", "english")[1]){
 
 par(mar = rep(0,  4))

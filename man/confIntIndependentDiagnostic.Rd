@@ -2,8 +2,8 @@
 % Please edit documentation in R/confIntDiagnostic.R
 \name{confIntIndependentDiagnostic}
 \alias{confIntIndependentDiagnostic}
-\title{Confidence intervals for the comparison of two diagnostic
-tests from unpaired data}
+\title{Confidence intervals for the comparison of two diagnostic tests from
+unpaired data}
 \usage{
 confIntIndependentDiagnostic(tp, fp, tn, fn, conf.level = 0.95, adjust = FALSE)
 }
@@ -16,20 +16,21 @@ confIntIndependentDiagnostic(tp, fp, tn, fn, conf.level = 0.95, adjust = FALSE)
 
 \item{conf.level}{Confidence level for confidence interval. Default is 0.95.}
 
-\item{adjust}{Logical of length one indicating whether to compute adjusted CIs or not.
-Default is FALSE.}
+\item{adjust}{Logical of length one indicating whether to compute adjusted
+CIs or not. Default is FALSE.}
 }
 \value{
-A data.frame containing the estimated confidence intervals for
-the measures of relative accuracy (first versus second test).
+A data.frame containing the estimated confidence intervals for the
+measures of relative accuracy (first versus second test).
 }
 \description{
-Compute confidence intervals for relative fractions and relative
-likelihood ratios. Specifically, confidence intervals for the relative true positive, true
-negative, false positive and false negative fraction as well as the
+Compute confidence intervals for relative fractions and relative likelihood
+ratios. Specifically, confidence intervals for the relative true positive,
+true negative, false positive and false negative fraction as well as the
 relative positive and negative likelihood ratio are provided.
 }
 \examples{
+
 ## Calculate confidence intervals for data from a (hypothetical)
 ## randomized unpaired study of chorionic villus sampling (CVS)
 ## versus early amniocentesis (EA) for fetal abnormality from
@@ -40,10 +41,11 @@ fp <- c(34, 111)
 tn <- c(4844, 4765)
 fn <- c(6, 13)
 confIntIndependentDiagnostic(tp=tp, fp=fp, tn=tn, fn=fn)
+
 }
 \references{
-Pepe, M.S. (2003) \emph{The statistical evaluation of medical tests for classification and prediction}.
-Oxford: Oxford University Press.
+Pepe, M.S. (2003) \emph{The statistical evaluation of medical
+tests for classification and prediction}. Oxford: Oxford University Press.
 }
 \author{
 Leonhard Held

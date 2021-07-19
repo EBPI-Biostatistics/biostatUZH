@@ -14,26 +14,24 @@ confIntAUC(cases, controls, conf.level = 0.95)
 \item{conf.level}{Confidence level for confidence interval. Default is 0.95.}
 }
 \value{
-A list with the entries:
-\describe{
-  \item{p}{Estimated proportion.}
-  \item{CIs}{data.frame containing the estimated confidence intervals.}
-}
+A list with the entries: \describe{ \item{p}{Estimated proportion.}
+\item{CIs}{data.frame containing the estimated confidence intervals.} }
 }
 \description{
-Compute Wald confidence intervals for the area under the curve on
-the original and logit scale.
+Compute Wald confidence intervals for the area under the curve on the
+original and logit scale.
 }
 \examples{
+
 set.seed(12345)
 cases <- rnorm(100, mean=2)
 controls <- rnorm(50)
 confIntAUC(cases, controls)
+
 }
 \references{
 Altman, D.G., Machin, D., Bryant, T.N. and Gardner, M.J. (2001).
-\emph{Statistics with confidence}. 2nd Edition, 2000. BMJ Books.
-Chapter 10.
+\emph{Statistics with confidence}. 2nd Edition, 2000. BMJ Books. Chapter 10.
 }
 \author{
 Leonhard Held

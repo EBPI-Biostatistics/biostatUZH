@@ -1,26 +1,24 @@
 #' Confidence interval for AUC
-#'
-#' Compute Wald confidence intervals for the area under the curve on
-#' the original and logit scale.
+#' 
+#' Compute Wald confidence intervals for the area under the curve on the
+#' original and logit scale.
+#' 
+#' 
 #' @param cases Values of the continuous variable for the cases.
 #' @param controls Values of the continuous variable for the controls.
 #' @param conf.level Confidence level for confidence interval. Default is 0.95.
-#' @return A list with the entries:
-#' \describe{
-#'   \item{p}{Estimated proportion.}
-#'   \item{CIs}{data.frame containing the estimated confidence intervals.}
-#' }
-#' @references
-#' Altman, D.G., Machin, D., Bryant, T.N. and Gardner, M.J. (2001).
-#' \emph{Statistics with confidence}. 2nd Edition, 2000. BMJ Books.
-#' Chapter 10.
+#' @return A list with the entries: \describe{ \item{p}{Estimated proportion.}
+#' \item{CIs}{data.frame containing the estimated confidence intervals.} }
 #' @author Leonhard Held
+#' @references Altman, D.G., Machin, D., Bryant, T.N. and Gardner, M.J. (2001).
+#' \emph{Statistics with confidence}. 2nd Edition, 2000. BMJ Books. Chapter 10.
 #' @examples
+#' 
 #' set.seed(12345)
 #' cases <- rnorm(100, mean=2)
 #' controls <- rnorm(50)
 #' confIntAUC(cases, controls)
-#' @export
+#' 
 confIntAUC <- function(cases, controls, conf.level = 0.95){
     # estimate AUC as normalized test statistic of Wilcoxon test
     ncontrols <- length(controls)
@@ -55,43 +53,48 @@ confIntAUC <- function(cases, controls, conf.level = 0.95){
 
 
 
-#' Confidence interval for the difference in AUC based on two
-#' independent samples
-#'
-#' Computes confidence interval for the difference in the area under
-#' the curve based on two independent samples.
+
+
+#' Confidence interval for the difference in AUC based on two independent
+#' samples
+#' 
+#' Computes confidence interval for the difference in the area under the curve
+#' based on two independent samples.
+#' 
+#' For type="Wald", standard Wald confidence intervals are calculated for AUC
+#' of both tests and their difference. For type="logit", the substitution
+#' method is used based on the logit transformation for the AUC of both tests.
+#' The confidence interval for the difference in AUC is then calculated using
+#' Newcombe's method.
+#' 
 #' @param casesA Values of the continuous variable from Test A for the cases.
-#' @param controlsA Values of the continuous variable from Test A for the controls.
+#' @param controlsA Values of the continuous variable from Test A for the
+#' controls.
 #' @param casesB Values of the continuous variable from Test B for the cases.
-#' @param controlsB Values of the continuous variable from Test B for the controls.
+#' @param controlsB Values of the continuous variable from Test B for the
+#' controls.
 #' @param type "Wald" (default) or "Logit".
 #' @param conf.level Confidence level for confidence interval. Default is 0.95.
 #' @return A matrix with estimate and confidence limits for AUC of the two
 #' tests and their difference.
-#' @details
-#' For type="Wald", standard Wald confidence intervals are calculated
-#' for AUC of both tests and their difference. For type="logit", the
-#' substitution method is used based on the logit transformation for
-#' the AUC of both tests. The confidence interval for the difference
-#' in AUC is then calculated using Newcombe's method.
-#' @references
-#' Newcombe, R.G. (1998). \emph{Interval estimation for the difference
-#' between independent proportions: Comparison of eleven methods.}
+#' @author Leonhard Held
+#' @references Newcombe, R.G. (1998). \emph{Interval estimation for the
+#' difference between independent proportions: Comparison of eleven methods.}
 #' Stat. Med., *17*, 873-890.
-#'
+#' 
 #' Pepe, M.S. (2003) \emph{The statistical evaluation of medical tests for
 #' classification and prediction}. Oxford University Press.
-#' @author Leonhard Held
 #' @examples
+#' 
 #' set.seed(12345)
 #' casesA <- rnorm(200, mean=2.5)
 #' controlsA <- rnorm(100)
 #' casesB <- rnorm(100, mean=1.5)
 #' controlsB <- rnorm(200)
-#'
+#' 
 #' confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type="Wald")
 #' confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type="Logit")
-#' @export
+#' 
 confIntIndependentAUCDiff <- function(casesA, controlsA, casesB, controlsB,
                                       type="Wald", conf.level = 0.95)
 {
@@ -156,29 +159,33 @@ confIntIndependentAUCDiff <- function(casesA, controlsA, casesB, controlsB,
     return(res)
 }
 
-#' Confidence interval for the difference in AUC based on two
-#' paired samples
-#'
-#' Computes confidence interval for the difference in the area under
-#' the curve based on two paired samples.
+
+
+#' Confidence interval for the difference in AUC based on two paired samples
+#' 
+#' Computes confidence interval for the difference in the area under the curve
+#' based on two paired samples.
+#' 
+#' 
 #' @param cases Matrix with values of the continuous variable for the cases.
 #' First column gives values of test A, second gives values of test B.
 #' @param controls Matrix with values of the continuous variable for the
-#' controls. First column gives values of test A, second gives values of test B.
+#' controls. First column gives values of test A, second gives values of test
+#' B.
 #' @param conf.level Confidence level for confidence interval. Default is 0.95.
 #' @return A matrix with estimate and confidence limits for AUC of the two
 #' tests and their difference.
-#' @references
-#' Pepe, M.S. (2003) \emph{The statistical evaluation of medical tests for
-#' classification and prediction}. Oxford University Press.
 #' @author Leonhard Held
+#' @references Pepe, M.S. (2003) \emph{The statistical evaluation of medical
+#' tests for classification and prediction}. Oxford University Press.
 #' @examples
+#' 
 #' data(wiedat2b)
 #' ind <- wiedat2b[,3]
 #' cases <- wiedat2b[ind==1, 1:2]
 #' controls <- wiedat2b[ind==0, 1:2]
 #' confIntPairedAUCDiff(cases, controls)
-#' @export
+#' 
 confIntPairedAUCDiff <- function(cases, controls, conf.level = 0.95){
     stopifnot(is.matrix(cases) || is.data.frame(cases),
               is.matrix(controls) || is.data.frame(controls))

@@ -1,3 +1,60 @@
+#' Transformation of survreg output for the Weibull distribution
+#' 
+#' Transforms output from \code{\link{survreg}} using the Weibull distribution
+#' to a more natural parameterization. See details for more information.
+#' 
+#' The \code{\link{survreg}} function fits a Weibull accelerated failure time
+#' model of the form
+#' 
+#' \deqn{\log t = \mu + \gamma^T Z + \sigma W,}
+#' 
+#' where \eqn{Z} is a matrix of covariates, and \eqn{W} has the extreme value
+#' distribution, \eqn{\mu} is the intercept, \eqn{\gamma} is a vector of
+#' parameters for each of the covariates, and \eqn{\sigma} is the scale. The
+#' usual parameterization of the model, however, is defined by hazard function
+#' 
+#' \deqn{h(t|Z) = \alpha \lambda t^{\alpha - 1} \exp(\beta^T Z).}
+#' 
+#' The transformation is as follows: \eqn{\alpha = 1/\sigma}, \eqn{\lambda =
+#' \exp(-\mu/\sigma)}, and \eqn{\beta=-\gamma/\sigma}, and estimates of the
+#' standard errors can be found using the delta method.
+#' 
+#' The Weibull distribution has the advantage of having two separate
+#' interpretations. The first, via proportional hazards, leads to a hazard
+#' ratio, defined by \eqn{\exp \beta}. The second, of accelerated failure
+#' times, leads to an event time ratio (also known as an acceleration factor),
+#' defined by \eqn{\exp (-\beta/\alpha)}.
+#' 
+#' Further details regarding the transformations of the parameters and their
+#' standard errors can be found in Klein and Moeschberger (2003, Chapter 12).
+#' An explanation of event time ratios for the accelerated failure time
+#' interpretation of the model can be found in Carroll (2003). A general
+#' overview can be found in the \code{vignette("weibull")} of this package.
+#' 
+#' @param model A \code{\link{survreg}} model, with \code{dist = "weibull"}
+#' (the default).
+#' @param conf.level Significance level used to produce two-sided
+#' \eqn{1-\alpha/2} confidence intervals for the hazard and event time ratios.
+#' @return \item{vars}{A matrix containing the values of the transformed
+#' parameters and their standard errors} \item{HR}{A matrix containing the
+#' hazard ratios for the covariates, and \eqn{1-\code{level}/2} confidence
+#' intervals.} \item{ETR}{A matrix containing the event time ratios for the
+#' covariates, and \eqn{1-\code{conf.level}/2} confidence intervals.}
+#' @author Sarah R. Haile
+#' @seealso Requires the packages \pkg{survival} and \pkg{prodlim}. This
+#' function is used by \code{\link{WeibullReg}}.
+#' @references Carroll, K. (2003).  On the use and utility of the Weibull model
+#' in the analysis of survival data. \emph{Controlled Clinical Trials},
+#' \bold{24}, 682--701.
+#' 
+#' Klein, J. and Moeschberger, M. (2003). \emph{Survival analysis: techniques
+#' for censored and truncated data}.  Springer.
+#' @keywords survival regression
+#' @examples
+#' 
+#' data(larynx)
+#' ConvertWeibull(survreg(Surv(time, death) ~ stage + age, larynx), conf.level = 0.95)
+#' 
 ConvertWeibull <- function (model, conf.level = 0.95)
 {
     alpha <- 1 - conf.level

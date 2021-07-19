@@ -2,8 +2,7 @@
 % Please edit documentation in R/confIntAUC.R
 \name{confIntPairedAUCDiff}
 \alias{confIntPairedAUCDiff}
-\title{Confidence interval for the difference in AUC based on two
-paired samples}
+\title{Confidence interval for the difference in AUC based on two paired samples}
 \usage{
 confIntPairedAUCDiff(cases, controls, conf.level = 0.95)
 }
@@ -12,7 +11,8 @@ confIntPairedAUCDiff(cases, controls, conf.level = 0.95)
 First column gives values of test A, second gives values of test B.}
 
 \item{controls}{Matrix with values of the continuous variable for the
-controls. First column gives values of test A, second gives values of test B.}
+controls. First column gives values of test A, second gives values of test
+B.}
 
 \item{conf.level}{Confidence level for confidence interval. Default is 0.95.}
 }
@@ -21,19 +21,21 @@ A matrix with estimate and confidence limits for AUC of the two
 tests and their difference.
 }
 \description{
-Computes confidence interval for the difference in the area under
-the curve based on two paired samples.
+Computes confidence interval for the difference in the area under the curve
+based on two paired samples.
 }
 \examples{
+
 data(wiedat2b)
 ind <- wiedat2b[,3]
 cases <- wiedat2b[ind==1, 1:2]
 controls <- wiedat2b[ind==0, 1:2]
 confIntPairedAUCDiff(cases, controls)
+
 }
 \references{
-Pepe, M.S. (2003) \emph{The statistical evaluation of medical tests for
-classification and prediction}. Oxford University Press.
+Pepe, M.S. (2003) \emph{The statistical evaluation of medical
+tests for classification and prediction}. Oxford University Press.
 }
 \author{
 Leonhard Held

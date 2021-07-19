@@ -29,8 +29,19 @@ clopperPearson(x, n, conf.level = 0.95)
 \item{conf.level}{Confidence level for confidence interval. Default is 0.95.}
 }
 \value{
-\code{confIntProportion} returns a data.frame with confidence intervals
-from the Wald, Wilson, Agresti, Jeffreys, and Clopper-Pearson methods.
+\code{confIntProportion} returns a data.frame with confidence
+intervals from the Wald, Wilson, Agresti, Jeffreys, and Clopper-Pearson
+methods.
+
+\code{wald} returns the Wald confidence interval.
+
+\code{wilson} returns the Wilson confidence interval.
+
+\code{agresti} returns the Agresti confidence interval.
+
+\code{jeffreys} returns the Jeffreys confidence interval.
+
+\code{clopperPearson} returns the Clopper-Pearson confidence interval.
 
 \code{wald} returns the Wald confidence interval.
 
@@ -43,10 +54,11 @@ from the Wald, Wilson, Agresti, Jeffreys, and Clopper-Pearson methods.
 \code{clopperPearson} returns the Clopper-Pearson confidence interval.
 }
 \description{
-Compute a confidence interval for binomial proportions
-using several asymptotic and exact methods.
+Compute a confidence interval for binomial proportions using several
+asymptotic and exact methods.
 }
 \examples{
+
 ## Calculate confidence bounds for a binomial parameter by different methods.
 x <- 50
 n <- 100
@@ -69,17 +81,17 @@ if (require("Hmisc")) {
     binconf(x, n, method = "wilson")       # Wilson
     binconf(x, n, method = "exact")        # Clopper-Pearson
 }
+
 }
 \references{
 All the intervals provided in these functions are compared in:
 
-Brown, L.D., Cai, T.T., DasGupta, A. (2001).
-Interval Estimation for a Binomial Proportion.
-\emph{Statistical Science}, \bold{16(2)}, 101--133.
+Brown, L.D., Cai, T.T., DasGupta, A. (2001). Interval Estimation for a
+Binomial Proportion. \emph{Statistical Science}, \bold{16(2)}, 101--133.
 }
 \seealso{
-Functions for some of the intervals provided here
-are available in \pkg{Hmisc}; see the examples.
+Functions for some of the intervals provided here are available in
+\pkg{Hmisc}; see the examples.
 }
 \author{
 Kaspar Rufibach, Leonhard Held

@@ -24,35 +24,40 @@ tableRegression(
 )
 }
 \arguments{
-\item{model}{an object of class \code{\link[stats]{lm}}, \code{\link[stats]{glm}},
-\code{negbin} (obtained by \code{\link[MASS]{glm.nb}}), \code{coxph} (obtained by
+\item{model}{an object of class \code{\link[stats]{lm}},
+\code{\link[stats]{glm}}, \code{negbin} (obtained by
+\code{\link[MASS]{glm.nb}}), \code{coxph} (obtained by
 \code{\link[survival]{coxph}}), and list obtained by \code{\link{Weibull}}.}
 
-\item{stats}{character vector with stats chosen from "estimate", "exp.estimate",
-"standarderror", "t.value", "ci.95", "p.value".}
+\item{stats}{character vector with stats chosen from "estimate",
+"exp.estimate", "standarderror", "t.value", "ci.95", "p.value".}
 
 \item{col.nam}{Character vector of same length and order as in \code{stats}.
 A percentage sign must be escaped by two backslashes.}
 
 \item{row.nam}{Names of rows, character vector.}
 
-\item{intercept}{Logical vector of length one indicating whether to provide an intercept
-or not. If intercept is set TRUE, the first line of the summary output is
-removed. If the model is a binomial regression, intercept is set FALSE.
-Intercepts are not available for Weibull or Cox models, because they do not provide any intercept value.}
+\item{intercept}{Logical vector of length one indicating whether to provide
+an intercept or not. If intercept is set TRUE, the first line of the summary
+output is removed. If the model is a binomial regression, intercept is set
+FALSE. Intercepts are not available for Weibull or Cox models, because they
+do not provide any intercept value.}
 
-\item{text}{Either "english" (default) or "german" indicating the used language names.}
+\item{text}{Either "english" (default) or "german" indicating the used
+language names.}
 
-\item{text.ci}{Either "english", "german" or "none". The language used to denote confidence interval,
-see \code{\link{displayCI}}.}
+\item{text.ci}{Either "english", "german" or "none". The language used to
+denote confidence interval, see \code{\link{displayCI}}.}
 
-\item{eps.pvalue}{P-values smaller than \code{eps.pvalue} will be formatted as "< eps.pvalue".}
+\item{eps.pvalue}{P-values smaller than \code{eps.pvalue} will be formatted
+as "< eps.pvalue".}
 
 \item{digits}{Vector of length \code{stats}, digits used for each column.}
 
 \item{big.mark}{Character vector as in \code{\link[base]{format}}.}
 
-\item{xtable}{If TRUE a Latex table is returned, otherwise a data.frame is returned.}
+\item{xtable}{If TRUE a Latex table is returned, otherwise a data.frame is
+returned.}
 
 \item{align}{See \code{\link[xtable]{xtable}}.}
 
@@ -60,30 +65,31 @@ see \code{\link{displayCI}}.}
 
 \item{label}{See \code{\link[xtable]{xtable}}.}
 
-\item{vars}{Specify the variables for which regression summaries should
-be printed.  The argument \code{vars} takes a string vector with
-the names of the coefficients in the model.}
+\item{vars}{Specify the variables for which regression summaries should be
+printed.  The argument \code{vars} takes a string vector with the names of
+the coefficients in the model.}
 
 \item{...}{Arguments passed to \code{\link{print.xtable}}.}
 }
 \value{
 Depending on the value of the \code{xtable} argument, the function
-either prints and returns LaTeX code representing the produced
-table of coefficients, or it returns the corresponding data frame.
+either prints and returns LaTeX code representing the produced table of
+coefficients, or it returns the corresponding data frame.
 }
 \description{
-Formats output from the regression model functions: \code{\link[stats]{lm}}, \code{\link[stats]{glm}},
-\code{\link[MASS]{glm.nb}}, \code{\link[survival]{coxph}}, and \code{\link{Weibull}}.
+Formats output from the regression model functions: \code{\link[stats]{lm}},
+\code{\link[stats]{glm}}, \code{\link[MASS]{glm.nb}},
+\code{\link[survival]{coxph}}, and \code{\link{Weibull}}.
 }
 \details{
-In \code{stats}:
-\itemize{
- \item{}{If \code{t.value} is chosen, the \code{z.value} might be taken, depending on the model.}
- \item{}{For lm-models: \code{ci.95} calculates a confidence interval for the estimate.}
- \item{}{For glm- and coxph-models: \code{ci.95} calculates a confidence interval for the exp(estimate).}
-}
+In \code{stats}: \itemize{ \itemIf \code{t.value} is chosen, the
+\code{z.value} might be taken, depending on the model.  \itemFor lm-models:
+\code{ci.95} calculates a confidence interval for the estimate.  \itemFor
+glm- and coxph-models: \code{ci.95} calculates a confidence interval for the
+exp(estimate). }
 }
 \examples{
+
 ## Linear model
 ## ---------------
 mod.lm <- lm(Sepal.Length ~ Sepal.Width, data = iris)
@@ -166,10 +172,12 @@ tableRegression(model = mod.cox2)
 data("larynx")
 mod.wb <- WeibullReg(Surv(time, death) ~ factor(stage) + age, data=larynx)
 tableRegression(model = mod.wb)
+
 }
 \seealso{
-\code{\link{xtable}}, \code{\link{lm}}, \code{\link{glm}}, \code{\link[MASS]{glm.nb}}
-\code{\link[survival]{coxph}}, \code{\link{Weibull}}.
+\code{\link{xtable}}, \code{\link{lm}}, \code{\link{glm}},
+\code{\link[MASS]{glm.nb}} \code{\link[survival]{coxph}},
+\code{\link{Weibull}}.
 }
 \author{
 Sina Rueeger with contributions by Sebastian Meyer.

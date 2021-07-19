@@ -2,8 +2,8 @@
 % Please edit documentation in R/confIntDiagnostic.R
 \name{confIntPairedDiagnostic}
 \alias{confIntPairedDiagnostic}
-\title{Confidence intervals for the comparison of two diagnostic tests
-from paired data}
+\title{Confidence intervals for the comparison of two diagnostic tests from paired
+data}
 \usage{
 confIntPairedDiagnostic(
   Diseased,
@@ -13,18 +13,17 @@ confIntPairedDiagnostic(
 )
 }
 \arguments{
-\item{Diseased}{Frequency table with results from both tests in the
-diseased population. First row and first column refers to negative
-test results.}
+\item{Diseased}{Frequency table with results from both tests in the diseased
+population. First row and first column refers to negative test results.}
 
 \item{nonDiseased}{Frequency table with results from both tests in the
-non-diseased population. First row and first column refers to
-negative test results.}
+non-diseased population. First row and first column refers to negative test
+results.}
 
 \item{conf.level}{Confidence level for confidence interval. Default is 0.95.}
 
-\item{adjust}{Logical of length one indicating whether to compute adjusted CIs or not.
-Default is FALSE.}
+\item{adjust}{Logical of length one indicating whether to compute adjusted
+CIs or not. Default is FALSE.}
 }
 \value{
 A data.frame containing the estimated confidence intervals for the
@@ -32,10 +31,11 @@ measures of relative accuracy (column test vs. row test).
 }
 \description{
 Compute confidence intervals for relative fractions. Specifically,
-confidence intervals for the relative true positive, true
-negative, false positive and false negative fraction are provided.
+confidence intervals for the relative true positive, true negative, false
+positive and false negative fraction are provided.
 }
 \examples{
+
 ## Calculate confidence intervals for data from a study performing the
 ## Exercise stress test (EST) and the determination of chest pain
 ## history (CPH) for patients with suspected or probably coronary
@@ -47,10 +47,12 @@ colnames(Diseased) <- colnames(nonDiseased) <- c("CPH=0", "CPH=1")
 rownames(Diseased) <- rownames(nonDiseased) <- c("EST=0", "EST=1")
 
 confIntPairedDiagnostic(Diseased=Diseased, nonDiseased=nonDiseased)
+
 }
 \references{
-Section 3.3 in Pepe, M.S. (2003) \emph{The statistical evaluation of
-medical tests for classification and prediction}. Oxford University Press.
+Section 3.3 in Pepe, M.S. (2003) \emph{The statistical
+evaluation of medical tests for classification and prediction}. Oxford
+University Press.
 }
 \author{
 Leonhard Held
