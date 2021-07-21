@@ -42,24 +42,13 @@ methods.
 \code{jeffreys} returns the Jeffreys confidence interval.
 
 \code{clopperPearson} returns the Clopper-Pearson confidence interval.
-
-\code{wald} returns the Wald confidence interval.
-
-\code{wilson} returns the Wilson confidence interval.
-
-\code{agresti} returns the Agresti confidence interval.
-
-\code{jeffreys} returns the Jeffreys confidence interval.
-
-\code{clopperPearson} returns the Clopper-Pearson confidence interval.
 }
 \description{
 Compute a confidence interval for binomial proportions using several
 asymptotic and exact methods.
 }
 \examples{
-
-## Calculate confidence bounds for a binomial parameter by different methods.
+## Calculate confidence bounds for a binomial parameter using different methods.
 x <- 50
 n <- 100
 ci <- confIntProportion(x, n)$CIs
@@ -94,5 +83,5 @@ Functions for some of the intervals provided here are available in
 \pkg{Hmisc}; see the examples.
 }
 \author{
-Kaspar Rufibach, Leonhard Held
+Kaspar Rufibach, Leonhard Held, Florian Gerber
 }
