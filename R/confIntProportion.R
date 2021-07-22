@@ -94,7 +94,7 @@ wilson <- function(x, n, conf.level = 0.95)
               is.finite(x), is.wholenumber(x),
               is.numeric(n), length(n) == 1,
               is.finite(n), is.wholenumber(n),
-              x <= n, n >= 1, # n=0 yields NaN results, but allow for summaryROC()
+              x <= n, n >= 0, # n=0 yields NaN results, but allow for summaryROC()
               is.numeric(conf.level),
               length(conf.level) == 1,
               is.finite(conf.level),

@@ -18,6 +18,8 @@ confIntDiagnostic(
 \arguments{
 \item{tp}{Number of true positives.}
 
+\item{fp}{Number of false negatives.}
+
 \item{tn}{Number of true negatives.}
 
 \item{fn}{Number of false negatives.}
@@ -45,10 +47,10 @@ Optionally also positive and negative predictive value.
 
 ## Calculate confidence intervals for data from the Million Women Study
 
-confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97)
-confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, cohort=TRUE)
-confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, pr=0.045)
-confIntDiagnostic(tp=629, fp=3885, tn=117744, fn=97, digits=2)  
+confIntDiagnostic(tp = 629, fp = 3885, tn = 117744, fn = 97)
+confIntDiagnostic(tp = 629, fp = 3885, tn = 117744, fn = 97, cohort = TRUE)
+confIntDiagnostic(tp = 629, fp = 3885, tn = 117744, fn = 97, pr = 0.045)
+confIntDiagnostic(tp = 629, fp = 3885, tn = 117744, fn = 97, digits = 2)  
 
 }
 \references{

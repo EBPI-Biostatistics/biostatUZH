@@ -8,11 +8,13 @@ unpaired data}
 confIntIndependentDiagnostic(tp, fp, tn, fn, conf.level = 0.95, adjust = FALSE)
 }
 \arguments{
-\item{tp}{Number of true positives of the two tests.}
+\item{tp}{Vector of length 2. Number of true positives of the two tests.}
 
-\item{tn}{Number of true negatives.}
+\item{fp}{Vector of length 2. Number of false negatives of the two tests.}
 
-\item{fn}{Number of false negatives.}
+\item{tn}{Vector of length 2. Number of true negatives of the two tests.}
+
+\item{fn}{Vector of length 2. Number of false negatives of the two tests.}
 
 \item{conf.level}{Confidence level for confidence interval. Default is 0.95.}
 
@@ -40,7 +42,7 @@ tp <- c(116, 111)
 fp <- c(34, 111)
 tn <- c(4844, 4765)
 fn <- c(6, 13)
-confIntIndependentDiagnostic(tp=tp, fp=fp, tn=tn, fn=fn)
+confIntIndependentDiagnostic(tp = tp, fp = fp, tn = tn, fn = fn)
 
 }
 \references{

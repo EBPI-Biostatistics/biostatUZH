@@ -6,17 +6,17 @@
 data}
 \usage{
 confIntPairedDiagnostic(
-  Diseased,
+  diseased,
   nonDiseased,
   conf.level = 0.95,
   adjust = FALSE
 )
 }
 \arguments{
-\item{Diseased}{Frequency table with results from both tests in the diseased
+\item{diseased}{2 by 2 frequency table with results from both tests in the diseased
 population. First row and first column refers to negative test results.}
 
-\item{nonDiseased}{Frequency table with results from both tests in the
+\item{nonDiseased}{2 by 2 frequency table with results from both tests in the
 non-diseased population. First row and first column refers to negative test
 results.}
 
@@ -41,12 +41,12 @@ positive and false negative fraction are provided.
 ## history (CPH) for patients with suspected or probably coronary
 ## heart disease (CHD).
 
-Diseased <- matrix(c(25, 183, 29, 786), ncol = 2, nrow = 2, byrow = TRUE)
+diseased <- matrix(c(25, 183, 29, 786), ncol = 2, nrow = 2, byrow = TRUE)
 nonDiseased <- matrix(c(151, 176, 46, 69), ncol = 2, nrow = 2, byrow = TRUE)
-colnames(Diseased) <- colnames(nonDiseased) <- c("CPH=0", "CPH=1")
-rownames(Diseased) <- rownames(nonDiseased) <- c("EST=0", "EST=1")
+colnames(diseased) <- colnames(nonDiseased) <- c("CPH=0", "CPH=1")
+rownames(diseased) <- rownames(nonDiseased) <- c("EST=0", "EST=1")
 
-confIntPairedDiagnostic(Diseased=Diseased, nonDiseased=nonDiseased)
+confIntPairedDiagnostic(diseased = diseased, nonDiseased = nonDiseased)
 
 }
 \references{
