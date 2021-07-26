@@ -5,9 +5,11 @@
 \alias{wiedat2b}
 \title{Data of two pancreatic Ca biomarkers}
 \format{
-A data.frame with 141 observations on the 3 variables: \describe{
-\item{list("y1")}{Biomarker 1.} \item{list("y2")}{Biomarker 2.}
-\item{list("d")}{Disease: 0 = non-cancer, 1 = cancer.} }
+A data.frame with 141 observations on the 3 variables:
+\describe{
+\item{y1:}{Biomarker 1.}
+\item{y2:}{Biomarker 2.}
+\item{d:}{Disease: 0 = non-cancer, 1 = cancer.} }
 }
 \description{
 This dataset provides two paired diagnostic marker measurements for

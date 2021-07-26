@@ -17,7 +17,7 @@ B.}
 \item{conf.level}{Confidence level for confidence interval. Default is 0.95.}
 }
 \value{
-A matrix with estimate and confidence limits for AUC of the two
+A data.frame with the estimates and confidence limits for the AUC of the two
 tests and their difference.
 }
 \description{
@@ -28,14 +28,18 @@ based on two paired samples.
 
 data(wiedat2b)
 ind <- wiedat2b[,3]
-cases <- wiedat2b[ind==1, 1:2]
-controls <- wiedat2b[ind==0, 1:2]
-confIntPairedAUCDiff(cases, controls)
+cases <- wiedat2b[ind == 1, 1:2]
+controls <- wiedat2b[ind == 0, 1:2]
+confIntPairedAUCDiff(cases = cases, controls = controls)
 
 }
 \references{
 Pepe, M.S. (2003) \emph{The statistical evaluation of medical
 tests for classification and prediction}. Oxford University Press.
+}
+\seealso{
+\code{\link{confIntAUC}}, \code{\link{confIntIndependentAUCDiff}},
+\code{\link{standardErrorAUCDiff}}
 }
 \author{
 Leonhard Held

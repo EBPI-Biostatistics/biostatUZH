@@ -14,8 +14,12 @@ confIntAUC(cases, controls, conf.level = 0.95)
 \item{conf.level}{Confidence level for confidence interval. Default is 0.95.}
 }
 \value{
-A list with the entries: \describe{ \item{p}{Estimated proportion.}
-\item{CIs}{data.frame containing the estimated confidence intervals.} }
+A data.frame with the columns:
+\describe{
+\item{type:}{Type of confidence interval.}
+\item{lower:}{Lower bound of CI.}
+\item{AUC:}{Area under the curve.}
+\item{upper}{Upper bound of CI.}}
 }
 \description{
 Compute Wald confidence intervals for the area under the curve on the
@@ -32,6 +36,10 @@ confIntAUC(cases, controls)
 \references{
 Altman, D.G., Machin, D., Bryant, T.N. and Gardner, M.J. (2001).
 \emph{Statistics with confidence}. 2nd Edition, 2000. BMJ Books. Chapter 10.
+}
+\seealso{
+\code{\link{confIntIndependentAUCDiff}},
+\code{\link{confIntPairedAUCDiff}}, \code{\link{standardErrorAUCDiff}}
 }
 \author{
 Leonhard Held

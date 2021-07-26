@@ -224,22 +224,22 @@ confIntPairedDiagnostic <- function(diseased, nonDiseased, conf.level = 0.95, ad
     rNF <- colSums(nonDiseased) / rowSums(nonDiseased)
     rLR <- rPF / rNF
     
-    se.log.rTPF <- sqrt((sum(diseased) - sum(diag(diseased))) /
+    seLogrTPF <- sqrt((sum(diseased) - sum(diag(diseased))) /
                         (rowSums(diseased)[2] * colSums(diseased)[2]))
-    se.log.rFPF <- sqrt((sum(nonDiseased) - sum(diag(nonDiseased))) /
+    seLogrFPF <- sqrt((sum(nonDiseased) - sum(diag(nonDiseased))) /
                         (rowSums(nonDiseased)[2] * colSums(nonDiseased)[2]))
-    se.log.rFNF <- sqrt((sum(diseased) - sum(diag(diseased))) /
+    seLogrFNF <- sqrt((sum(diseased) - sum(diag(diseased))) /
                         (rowSums(diseased)[1] * colSums(diseased)[1]))
-    se.log.rTNF <- sqrt((sum(nonDiseased) - sum(diag(nonDiseased))) /
+    seLogrTNF <- sqrt((sum(nonDiseased) - sum(diag(nonDiseased))) /
                         (rowSums(nonDiseased)[1] * colSums(nonDiseased)[1]))
-    se.log.rLRplus <- sqrt(se.log.rTPF^2 + se.log.rFPF^2)
-    se.log.rLRminus <- sqrt(se.log.rFNF^2 + se.log.rTNF^2)
+    seLogrLRplus <- sqrt(seLogrTPF^2 + seLogrFPF^2)
+    seLogrLRminus <- sqrt(seLogrFNF^2 + seLogrTNF^2)
     
     rEstimates <- c(rPF[2], rNF[1], rev(rLR))
     if(adjust)
         conf.level <- sqrt(conf.level)
     z <- qnorm((1 + conf.level) / 2)
-    EF <- exp(z*c(se.log.rTPF, se.log.rTNF, se.log.rLRplus, se.log.rLRminus))
+    EF <- exp(z*c(seLogrTPF, seLogrTNF, seLogrLRplus, seLogrLRminus))
 
     res <- data.frame(matrix(data = NA, ncol = 4, nrow = 4))
     colnames(res) <- c("type", "estimate", "lower", "upper")

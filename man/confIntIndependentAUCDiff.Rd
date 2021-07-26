@@ -10,7 +10,7 @@ confIntIndependentAUCDiff(
   controlsA,
   casesB,
   controlsB,
-  type = "Wald",
+  type = c("Wald", "logit"),
   conf.level = 0.95
 )
 }
@@ -25,12 +25,12 @@ controls.}
 \item{controlsB}{Values of the continuous variable from Test B for the
 controls.}
 
-\item{type}{"Wald" (default) or "Logit".}
+\item{type}{"Wald" (default) or "logit".}
 
 \item{conf.level}{Confidence level for confidence interval. Default is 0.95.}
 }
 \value{
-A matrix with estimate and confidence limits for AUC of the two
+A data.frame with estimate and confidence limits for AUC of the two
 tests and their difference.
 }
 \description{
@@ -52,8 +52,8 @@ controlsA <- rnorm(100)
 casesB <- rnorm(100, mean=1.5)
 controlsB <- rnorm(200)
 
-confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type="Wald")
-confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type="Logit")
+confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type = "Wald")
+confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type = "logit")
 
 }
 \references{
@@ -63,6 +63,10 @@ Stat. Med., *17*, 873-890.
 
 Pepe, M.S. (2003) \emph{The statistical evaluation of medical tests for
 classification and prediction}. Oxford University Press.
+}
+\seealso{
+\code{\link{confIntAUC}}, \code{\link{confIntPairedAUCDiff}},
+\code{\link{standardErrorAUCDiff}}
 }
 \author{
 Leonhard Held
