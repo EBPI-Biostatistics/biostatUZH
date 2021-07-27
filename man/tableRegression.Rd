@@ -7,10 +7,10 @@
 tableRegression(
   model,
   stats = NULL,
-  col.nam = NULL,
-  row.nam = NULL,
+  col.names = NULL,
+  row.names = NULL,
   intercept = NULL,
-  text = "english",
+  text = c("english", "german"),
   text.ci = text,
   eps.pvalue = 1e-04,
   digits = NULL,
@@ -24,18 +24,18 @@ tableRegression(
 )
 }
 \arguments{
-\item{model}{an object of class \code{\link[stats]{lm}},
+\item{model}{Object of class \code{\link[stats]{lm}},
 \code{\link[stats]{glm}}, \code{negbin} (obtained by
 \code{\link[MASS]{glm.nb}}), \code{coxph} (obtained by
 \code{\link[survival]{coxph}}), and list obtained by \code{\link{Weibull}}.}
 
 \item{stats}{character vector with stats chosen from "estimate",
-"exp.estimate", "standarderror", "t.value", "ci.95", "p.value".}
+"exp.estimate", "standarderror", "t.value", "ci.95", and "p.value".}
 
-\item{col.nam}{Character vector of same length and order as in \code{stats}.
+\item{col.names}{Character vector of same length and order as in \code{stats}.
 A percentage sign must be escaped by two backslashes.}
 
-\item{row.nam}{Names of rows, character vector.}
+\item{row.names}{Character vector of row names.}
 
 \item{intercept}{Logical vector of length one indicating whether to provide
 an intercept or not. If intercept is set TRUE, the first line of the summary
@@ -56,7 +56,7 @@ as "< eps.pvalue".}
 
 \item{big.mark}{Character vector as in \code{\link[base]{format}}.}
 
-\item{xtable}{If TRUE a Latex table is returned, otherwise a data.frame is
+\item{xtable}{If TRUE, a Latex table is returned, otherwise a data.frame is
 returned.}
 
 \item{align}{See \code{\link[xtable]{xtable}}.}
@@ -102,7 +102,7 @@ tableRegression(model = mod.lm1, stats = c("estimate", "t.value", "p.value"),
                 text = "german")
 
 ## adapt row names, plus special format for ci
-tableRegression(model = mod.lm, row.nam = c("Intercept", "Width Sepal"),
+tableRegression(model = mod.lm, row.names = c("Intercept", "Width Sepal"),
                 text.ci = "none")
 
 ## Poisson model
@@ -118,15 +118,12 @@ tableRegression(model = mod.glm.pois)
 
 ## Negative binomial model
 ## --------------
-if (require("MASS")) {
-    mod.glm.nb <- glm.nb(Days ~ Sex + Age, data = quine)
-    tableRegression(
-        mod.glm.nb,
-        caption = paste("NegBin model. Estimated dispersion:",
-            sprintf("\%4.2f ($se=\%4.2f$).", mod.glm.nb$theta, mod.glm.nb$SE.theta)),
-        label = "tab:glm.nb"
-    )
-}
+mod.glm.nb <- glm.nb(Days ~ Sex + Age, data = quine)
+tableRegression(model = mod.glm.nb,
+    caption = paste("NegBin model. Estimated dispersion:",
+        sprintf("\%4.2f ($se=\%4.2f$).", mod.glm.nb$theta, mod.glm.nb$SE.theta)),
+    label = "tab:glm.nb")
+
 
 
 ## Logistic model
@@ -156,7 +153,6 @@ dat <- list(time=c(4,3,1,1,2,2,3),
             x=c(0,2,1,1,1,0,0), 
             sex=c(0,0,0,0,1,1,1)) 
 
-library("survival")
 mod.cox <- coxph(Surv(time, status) ~ x, dat)
 mod.cox1 <- coxph(Surv(time, status) ~ x + factor(sex), dat)
 mod.cox2 <- coxph(Surv(time, status) ~ x + strata(sex), dat)
@@ -167,7 +163,7 @@ tableRegression(model = mod.cox2)
 
 
 ## Weibull
-## (example from biostatUZH::WeibullReg)
+## (example from WeibullReg)
 ## -------------
 data("larynx")
 mod.wb <- WeibullReg(Surv(time, death) ~ factor(stage) + age, data=larynx)
