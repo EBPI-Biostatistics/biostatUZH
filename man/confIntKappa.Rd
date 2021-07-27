@@ -5,25 +5,27 @@
 \title{Confidence intervals for weighted kappa and m >= 2 raters}
 \usage{
 confIntKappa(
-  dat,
-  type = "not Cohen",
-  weights = c("absolute", "squared")[1],
-  M = 1000,
+  data,
+  type = c("not Cohen", "Cohen"),
+  weights = c("squared", "absolute"),
+  m = 1000,
   conf.level = 0.95
 )
 }
 \arguments{
-\item{dat}{data.frame that contains the ratings as columns.}
+\item{data}{m x n matrix or data.frame containing data from m subjects and n raters.}
 
-\item{type}{Defines the type of confidence interval that is computed. If
-equal to "Cohen", then Cohen's unweighted \eqn{kappa} is computed, i.e.
-ratings are assumed to be nominal. If not equal to "Cohen", the weighted
-version for ordered ratings is computed.}
+\item{type}{String defining the type of confidence interval.
+If not equal to "not Cohen" (default), the weighted
+version for ordered ratings is computed.
+If "Cohen", Cohen's unweighted \eqn{kappa} is computed, i.e.
+ratings are assumed to be nominal.}
 
 \item{weights}{Define weights to be used if ordered ratings are compared.
+Can be "squared" (default) or "absolute".
 Only used if \code{type != "Cohen"}.}
 
-\item{M}{Number of bootstrap samples to be generated.}
+\item{m}{Number of bootstrap samples to be generated.}
 
 \item{conf.level}{Confidence level for confidence interval. Default is 0.95.}
 }
@@ -40,17 +42,20 @@ nominal or ordered variables and two or more raters.
 \details{
 This function computes bootstrap confidence intervals for an unweighted or
 weight \eqn{kappa} coefficient, based on all pairwise complete observations
-in \code{dat}.
+in \code{data}.
+
+Fleiss' kappa for m raters according to Conger (1980), allows
+for weighting also in the case of m > 2 raters computed using the function
+\code{\link[psy]{lkappa}} in package \pkg{psy}. 
+For bootstrap confidence interval the package \pkg{boot} is used.
 }
 \examples{
 
-if (requireNamespace("psy")) {
-  ## example comparable to that when called ?lkappa
-  data("expsy", package = "psy")
-  set.seed(1)
-  confIntKappa(dat = expsy[,c(11,13,15)], type = "not Cohen", weights = "absolute",
-               M = 200, conf.level = 0.95)
-}
+## example is similar to example in ?lkappa
+data("expsy", package = "psy")
+set.seed(14)
+confIntKappa(data = expsy[, c(11,13,15)], type = "not Cohen", weights = "absolute",
+             m = 200, conf.level = 0.95)
 
 }
 \references{
@@ -58,7 +63,6 @@ Conger, A.J. (1980), \emph{Integration and generalisation of
 Kappas for multiple raters}, Psychological Bulletin, 88, 322-328.
 }
 \seealso{
-This function basically implements the example given for
-\code{lkappa} in package \pkg{psy}.
+\code{\link[psy]{lkappa}}, \code{\link[boot]{boot}}
 }
 \keyword{htest}

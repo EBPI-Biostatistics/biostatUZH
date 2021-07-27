@@ -5,89 +5,83 @@
 #' 
 #' This function computes bootstrap confidence intervals for an unweighted or
 #' weight \eqn{kappa} coefficient, based on all pairwise complete observations
-#' in \code{dat}.
+#' in \code{data}.
 #' 
-#' @param dat data.frame that contains the ratings as columns.
-#' @param type Defines the type of confidence interval that is computed. If
-#' equal to "Cohen", then Cohen's unweighted \eqn{kappa} is computed, i.e.
-#' ratings are assumed to be nominal. If not equal to "Cohen", the weighted
+#' @param data m x n matrix or data.frame containing data from m subjects and n raters.
+#' @param type String defining the type of confidence interval.
+#' If not equal to "not Cohen" (default), the weighted
 #' version for ordered ratings is computed.
+#' If "Cohen", Cohen's unweighted \eqn{kappa} is computed, i.e.
+#' ratings are assumed to be nominal. 
 #' @param weights Define weights to be used if ordered ratings are compared.
+#' Can be "squared" (default) or "absolute".
 #' Only used if \code{type != "Cohen"}.
-#' @param M Number of bootstrap samples to be generated.
+#' @param m Number of bootstrap samples to be generated.
 #' @param conf.level Confidence level for confidence interval. Default is 0.95.
 #' @return A list containing: \item{n}{Number of observations used to compute
 #' confidence intervals.} \item{kappa}{Computed \code{kappa}.}
 #' \item{boot.quant}{Confidence interval based on quantiles of the bootstrap
 #' distribution.}
-#' @seealso This function basically implements the example given for
-#' \code{lkappa} in package \pkg{psy}.
+#' @details Fleiss' kappa for m raters according to Conger (1980), allows
+#' for weighting also in the case of m > 2 raters computed using the function
+#' \code{\link[psy]{lkappa}} in package \pkg{psy}. 
+#' For bootstrap confidence interval the package \pkg{boot} is used.
+#' @seealso \code{\link[psy]{lkappa}}, \code{\link[boot]{boot}} 
 #' @references Conger, A.J. (1980), \emph{Integration and generalisation of
 #' Kappas for multiple raters}, Psychological Bulletin, 88, 322-328.
 #' @keywords htest
 #' @examples
 #' 
-#' if (requireNamespace("psy")) {
-#'   ## example comparable to that when called ?lkappa
-#'   data("expsy", package = "psy")
-#'   set.seed(1)
-#'   confIntKappa(dat = expsy[,c(11,13,15)], type = "not Cohen", weights = "absolute",
-#'                M = 200, conf.level = 0.95)
-#' }
+#' ## example is similar to example in ?lkappa
+#' data("expsy", package = "psy")
+#' set.seed(14)
+#' confIntKappa(data = expsy[, c(11,13,15)], type = "not Cohen", weights = "absolute",
+#'              m = 200, conf.level = 0.95)
 #' 
-confIntKappa <- function(dat, type = "not Cohen",
-                         weights = c("absolute", "squared")[1],
-                         M = 1000, conf.level = 0.95)
+#' @importFrom psy lkappa
+confIntKappa <- function(data,
+                         type = c("not Cohen", "Cohen"),
+                         weights = c("squared", "absolute"),
+                         m = 1000,
+                         conf.level = 0.95)
 {
-## =================================================================
-## Fleiss' kappa for m raters according to Conger (1980), allows
-## for weighting also in the case of m > 2 raters
-## computed using the function lkappa in package 'psy'. 
-## For bootstrap confidence interval, package 'boot' is needed.
-##
-## Input:
-##    - dat:     m * n matrix of ratings (m subjects, n raters)
-##    - type:    If = "Cohen", then Cohen's unweighted kappa is computed, i.e.
-##               ratings are assumed to be nominal. If != "Cohen", the weighted
-##               version for ordered ratings is computed.
-##    - weights: "absolute" or "squared"
-##
-## =================================================================
-
-    if (!requireNamespace("psy")) stop("requires psy::lkappa()")
+    stopifnot(is.data.frame(data) || is.matrix(data),
+              length(data) >= 1, 
+              !is.null(type))
+    type <- match.arg(type)
+    stopifnot(!is.null(weights))
+    weights <- match.arg(weights)
+    stopifnot(is.numeric(m),
+              length(m) == 1,
+              is.finite(m),
+              is.wholenumber(m),
+              1 <= m,
+              length(conf.level) == 1,
+              is.finite(conf.level),
+              0 < conf.level, conf.level < 1)
     
     alpha <- 1 - conf.level
     
     ## compute number of complete observations
-    n <- sum(apply(is.na(dat), 1, sum) == 0)
+    n <- sum(apply(is.na(data), 1, sum) == 0)
     
     ## compute kappa
-    k <- psy::lkappa(dat, type = type, weights = weights)
-    
+    k <- psy::lkappa(data, type = type, weights = weights)
+
+ 
     ## generate bootstrap confidence interval
-    if ((type == "Cohen") & (weights == "absolute")){kappam.boot <- function(data, x){psy::lkappa(r = data[x, ], type = "Cohen", weights = "absolute")}}
-    if ((type == "Cohen") & (weights == "squared")){kappam.boot <- function(data, x){psy::lkappa(r = data[x, ], type = "Cohen", weights = "squared")}}
-    if ((type != "Cohen") & (weights == "absolute")){kappam.boot <- function(data, x){psy::lkappa(r = data[x, ], type = "not Cohen", weights = "absolute")}}
-    if ((type != "Cohen") & (weights == "squared")){kappam.boot <- function(data, x){psy::lkappa(r = data[x, ], type = "not Cohen", weights = "squared")}}
-    res <- boot(data = dat, statistic = kappam.boot, R = M)
+    kappam.boot <- function(data, x) {
+        psy::lkappa(r = data[x,], type = type, weights = weights)
+    }
+    res <- boot(data = data, statistic = kappam.boot, R = m)
+    quantil <- quantile(x = res$t, probs = c(alpha / 2, 1 - alpha / 2)) 
     
-    ## quantile of bootstrap samples
-    quantil <- quantile(res$t, c(alpha / 2, 1 - alpha / 2)) 
-    
-    ## adjusted bootstrap percentile (BCa) confidence interval (better)
-                                        #adj.boot <- boot.ci(res, conf = conf.level, type = "bca")$bca[4:5]    
-    
-    
-                                        # package psy drops levels that are not present in the data for
-                                        # ..function "ckappa" & "wkappa", this can lead to wrong calculations
     if(weights == "squared"){
-        message((paste0("Caution, used levels in weighted Kappa: ",
-                        paste0(levels(as.factor(c(as.character(dat[, 1]),
-                                                  as.character(dat[, 2])))), 
-                               collapse = ", " ))))
+        message(paste0("Caution, used levels in weighted Kappa: ",
+                       paste0(levels(as.factor(c(as.character(data[, 1]),
+                                                  as.character(data[, 2])))), 
+                               collapse = ", " )))
     }
     
-    ## generate output
-    res <- list("n" = n, "kappa" = k, "boot.quant" = quantil)#, "adj.boot" = adj.boot)
-    return(res)
+    list("n" = n, "kappa" = k, "boot.quant" = quantil)
 }
