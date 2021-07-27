@@ -9,18 +9,18 @@ combineSubgroups(n, means, variances, treatment)
 \arguments{
 \item{n}{Vector with sample sizes in each subgroup.}
 
-\item{means}{Vector with sample means.}
+\item{means}{Vector with sample means in each subgroup.}
 
-\item{variances}{Vector with sample variances.}
+\item{variances}{Vector with sample variances in each subgroup.}
 
 \item{treatment}{Indicates which entries of each vector belong to the
 treatment group.}
 }
 \value{
-Gives overall difference in means with a standard error.
+Overall difference in means with a standard error.
 }
 \description{
-Combines summary data for a continuous outcome given in subgroups.
+Combines means and variances of a continuous outcome given in subgroups.
 }
 \examples{
 
