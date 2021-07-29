@@ -32,6 +32,7 @@
 #' x <- c(66, 71.2, 83, 83.6, 101, 107.6, 122, 143, 160, 177, 414)
 #' confIntMedian(x, conf.level = 0.95)
 #' 
+#' @export
 confIntMedian <- function(x, conf.level = 0.95){
 
     alpha <- 1 - conf.level

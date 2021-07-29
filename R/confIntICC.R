@@ -56,6 +56,7 @@
 #'     computeICCrater(dat)
 #' }
 #' 
+#' @export
 confIntICC <- function(dat, conf.level = 0.95, psi.re.0 = c(0, 1)){
 
 ## We compute the ICC(2, 1): Each subject is measured by each rater,

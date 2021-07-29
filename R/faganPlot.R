@@ -28,6 +28,7 @@
 #' # Fagan lines
 #' faganLine(prob.pre = 0.75, lik.ratio = c(0.9/0.37, 0.1/0.63))
 #' 
+#' @export
 faganPlot <- function(prob.pre.init = c(.1, .2, .5, 1, 2, 5, 10, 20, 30, 40, 50, 70, 85), text = 0.8, 
     language = c("german", "english")[1], tit = "Fagan - Nomogramm"){
 

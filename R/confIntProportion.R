@@ -41,6 +41,7 @@
 #'     binconf(x, n, method = "exact")        # Clopper-Pearson
 #' }
 #' 
+#' @export
 confIntProportion <- function(x, n, conf.level = 0.95)
 {
 

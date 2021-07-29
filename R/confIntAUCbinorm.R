@@ -70,6 +70,8 @@
 #' ## --------------
 #' resBinorm <- confIntAUCbinorm(cases, controls, conf.level = 0.95, ci.method = "wald")
 #' 
+#' @importFrom boot boot boot.ci
+#' @export
 confIntAUCbinorm <- function(cases, controls, conf.level = 0.95, replicates =
                              1000, grid = 100, ci.method = c("boot", "wald"),
                              var.equal = TRUE){ 

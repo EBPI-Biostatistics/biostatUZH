@@ -21,6 +21,7 @@
 #' t <- c(100, 120)
 #' confIntRateDiff(x, t)$CIs
 #' 
+#' @export
 confIntRateDiff <- function(x, t, conf.level = 0.95){
 
     ci1 <-  wilsonRate(x[1], t[1], conf.level = conf.level)

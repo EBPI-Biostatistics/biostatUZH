@@ -34,6 +34,7 @@
 #'   quantileCumInc(time, status, group = x, quant = 0.25)
 #' }
 #' 
+#' @export
 quantileCumInc <- function(time, event, group, quant = 0.5)
 {
 if (!requireNamespace("cmprsk")) stop("requires cmprsk::cuminc()")

@@ -28,6 +28,7 @@
 #' time <- leukemia[, 1]; status <- leukemia[, 2]; x <- as.factor(leukemia[, 3])
 #' mantelCoxHR(time, status, x)
 #' 
+#' @export
 mantelCoxHR <- function(time, event, group, conf.level = 0.95){
 
 ## Compute HR according to Mantel-Cox formula

@@ -33,7 +33,8 @@
 #' points(p, 2, pch=19)
 #' text(0.5, 0.85, 'wald')
 #' text(0.5, 1.85, 'wilson')
-#' 
+#'
+#' @export
 confIntRate <- function(x, t, conf.level = 0.95)
 {
     stopifnot(is.wholenumber(x), (t>0),  conf.level<1, conf.level>0)

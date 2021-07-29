@@ -6,11 +6,12 @@
 \title{Survival Times of Larynx Cancer Patients}
 \format{
 A data frame with 90 observations on the following 5 variables.
-\describe{ \item{list("stage")}{Disease stage (1-4) from TNM cancer staging
-classification.} \item{list("time")}{Time from first treatment until death,
-or end of study.} \item{list("age")}{Age at diagnosis.}
-\item{list("year")}{Year of diagnosis.} \item{list("death")}{Indicator of
-death [1, if patient died at time t; 0, otherwise].} }
+\describe{
+\item{stage}{Disease stage (1-4) from TNM cancer staging classification.}
+\item{time}{Time from first treatment until death, or end of study.}
+\item{age}{Age at diagnosis.}
+\item{year}{Year of diagnosis.}
+\item{death}{Indicator of death [1, if patient died at time t; 0, otherwise].} }
 }
 \source{
 \url{http://www.mcw.edu/FileLibrary/Groups/Biostatistics/Publicfiles/DataFromSection/DataFromSectionTXT/Data_from_section_1.8.txt}

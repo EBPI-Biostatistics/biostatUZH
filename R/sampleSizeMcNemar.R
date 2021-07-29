@@ -22,6 +22,7 @@
 #' # example from Lachenbruch (1982), Table II, first row
 #' sampleSizeMcNemar(p1 = 0.8, p2 = 0.9, alpha = 0.05, power = 0.9)
 #' 
+#' @export
 sampleSizeMcNemar <- function(p1, p2, alpha = 0.05, power = 0.8){
 
 ## -------------------------------------------------

@@ -48,6 +48,7 @@
 #' ## adapt break.middle
 #' biostatUZH::formatPval(x, break.middle = 0.001)
 #' 
+#' @export
 formatPval <- function(x, break.eps = 1e-04, break.middle = 0.01, na.form = "NA", ...)
 {
     format1Pval <- function (pv) {

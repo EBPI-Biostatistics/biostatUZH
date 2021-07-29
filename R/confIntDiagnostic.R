@@ -32,6 +32,7 @@
 #' fn <- c(6, 13)
 #' confIntIndependentDiagnostic(tp = tp, fp = fp, tn = tn, fn = fn)
 #' 
+#' @export
 confIntIndependentDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, adjust=FALSE)
 {
     stopifnot(is.numeric(tp), length(tp) == 2, is.finite(tp), is.wholenumber(tp),
@@ -110,6 +111,7 @@ confIntIndependentDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, adju
 #' confIntDiagnostic(tp = 629, fp = 3885, tn = 117744, fn = 97, pr = 0.045)
 #' confIntDiagnostic(tp = 629, fp = 3885, tn = 117744, fn = 97, digits = 2)  
 #' 
+#' @export
 confIntDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, cohort = FALSE, pr = NA,
                               digits = NA)
 {
@@ -210,6 +212,7 @@ confIntDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, cohort = FALSE,
 #' 
 #' confIntPairedDiagnostic(diseased = diseased, nonDiseased = nonDiseased)
 #' 
+#' @export
 confIntPairedDiagnostic <- function(diseased, nonDiseased, conf.level = 0.95, adjust = FALSE)
 {
     stopifnot(is.numeric(diseased), is.matrix(diseased), dim(diseased) == c(2, 2),
@@ -275,6 +278,7 @@ confIntPairedDiagnostic <- function(diseased, nonDiseased, conf.level = 0.95, ad
 #' n <- c(100, 120)
 #' confIntRiskDiff(x, n)$CIs
 #' 
+#' @export
 confIntRiskDiff <- function(x, n, conf.level = 0.95){
     stopifnot(is.numeric(x), length(x) == 2,
               is.finite(x), is.wholenumber(x),
@@ -334,6 +338,7 @@ confIntRiskDiff <- function(x, n, conf.level = 0.95){
 #' n <- c(100, 120)
 #' confIntRiskRatio(x, n)
 #' 
+#' @export
 confIntRiskRatio <- function(x, n, conf.level = 0.95){
     stopifnot(is.numeric(x), length(x) == 2,
               is.finite(x), is.wholenumber(x),
@@ -381,6 +386,7 @@ confIntRiskRatio <- function(x, n, conf.level = 0.95){
 #' n <- c(100, 120)
 #' confIntOddsRatio(x, n)
 #' 
+#' @export
 confIntOddsRatio <- function(x, n, conf.level = 0.95){
     stopifnot(is.numeric(x), length(x) == 2,
               is.finite(x), is.wholenumber(x),

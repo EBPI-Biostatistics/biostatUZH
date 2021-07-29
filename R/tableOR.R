@@ -50,6 +50,7 @@
 #' tableOR(model, latex = FALSE, short = TRUE, 
 #' 	caption = "Changes in odds for being in a lower class, i.e. 2nd or 3rd class")
 #' 
+#' @export
 tableOR = function(model, caption="", label="", size="scriptsize", factorNames=NULL,
                    table.placement = "ht", refLevels=NULL, lang="english", short = FALSE,
                    latex=TRUE, rmStat=FALSE, Wald=FALSE) {

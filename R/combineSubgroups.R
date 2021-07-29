@@ -15,6 +15,7 @@
 #' combineSubgroups(n = c(10, 20, 30, 40), means = c(12, 11, 10, 9),
 #'                  variances = c(3, 4, 3, 4), treatment = c(2, 4))
 #' 
+#' @export
 combineSubgroups <- function(n, means, variances, treatment){
 
     stopifnot(is.numeric(n), length(n) >= 2,

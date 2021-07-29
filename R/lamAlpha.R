@@ -1,3 +1,4 @@
+#' @export
 lamAlpha <- function(alpha, n, d, MSr, MSe){
     
     ## compute the function A(alpha) on p. 621 of Roussen et al (2003)

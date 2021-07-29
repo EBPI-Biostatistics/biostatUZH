@@ -15,6 +15,7 @@
 #' Altman, D.G., Machin, D., Bryant, T.N. and Gardner, M.J. (2001).
 #' \emph{Statistics with confidence}. 2nd Edition, 2000. BMJ Books.
 #' @keywords univar htest
+#' @export
 standardErrorAUC <- function(cases, controls){
     
     ncases <- length(cases)

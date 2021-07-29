@@ -1,3 +1,5 @@
+#' @import stats
+#' @export
 Aalpha <- function(alpha, n, d, MSs, MSe){
     
     ## compute the function A(alpha) on p. 621 of Roussen et al (2003)

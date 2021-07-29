@@ -50,6 +50,8 @@
 #'     maintit = "Assess agreement between measurement 1 and measurement 2", 
 #'     limy = NA)
 #' 
+#' @import stats
+#' @export
 BlandAltman <- function(x, y, conf.level = 0.95, group = NA, labx = "average of measurements", 
 laby = "difference of measurements", maintit = "", limy = NA, plot = TRUE){
 

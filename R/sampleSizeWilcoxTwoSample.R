@@ -31,6 +31,7 @@
 #'     pxy = pxys[j], two.sided = TRUE))}
 #' dat1
 #' 
+#' @export
 sampleSizeWilcoxTwoSample <- function(a = 0.05, b = 0.2, c = 0.5, pxy = 0.75, two.sided = TRUE){
 
 # Given two independent samples X_1, ..., X_m and Y_1, ..., Y_n, 

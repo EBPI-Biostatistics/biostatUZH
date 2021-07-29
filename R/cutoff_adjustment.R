@@ -49,7 +49,10 @@
 #'                   data = ddsurv, 
 #'                   firth = FALSE, reverse = TRUE)
 #' }
-#' 
+#'
+#' @importFrom methods is
+#' @importFrom utils head tail
+#' @export
 cutoff_adjustment <- function(time, time2, event,
                               outcome, 
                               trim = 2,
@@ -89,8 +92,8 @@ cutoff_adjustment <- function(time, time2, event,
   meas.event <- sort(x[data[ , event] == 1])
   
   ##  Boundaries for truncation
-  bound.l <- head(meas.event, trim)[trim]
-  bound.u <- tail(meas.event, trim)[1] 
+  bound.l <- utils::head(meas.event, trim)[trim]
+  bound.u <- utils::tail(meas.event, trim)[1] 
   
   ##  Truncated set of values of covariates.
   meas.event.trunc <- meas.event[meas.event > bound.l & meas.event < bound.u] 
@@ -132,13 +135,13 @@ cutoff_adjustment <- function(time, time2, event,
                            error = function(e) e, warning = function(w) w)
         
         pvals.score[i] <- NA # score test
-        pvals[i] <- ifelse(is(.model, "warning"), NA, summary(.model)$prob) # p.value estiamte
-        betas[i] <- ifelse(is(.model, "warning"), NA, coef(.model))
-        .ci.lower[i] <- ifelse(is(.model, "warning"), NA, log(summary(.model)$ci.lower))
-        .ci.upper[i] <- ifelse(is(.model, "warning"), NA, log(summary(.model)$ci.upper))
+        pvals[i] <- ifelse(methods::is(.model, "warning"), NA, summary(.model)$prob) # p.value estiamte
+        betas[i] <- ifelse(methods::is(.model, "warning"), NA, coef(.model))
+        .ci.lower[i] <- ifelse(methods::is(.model, "warning"), NA, log(summary(.model)$ci.lower))
+        .ci.upper[i] <- ifelse(methods::is(.model, "warning"), NA, log(summary(.model)$ci.upper))
         
-        .se.betas[i] <- ifelse(is(.model, "warning"), NA, sqrt(vcov(.model)))
-        .eps[i] <- ifelse(test = is(.model, "warning"), 
+        .se.betas[i] <- ifelse(methods::is(.model, "warning"), NA, sqrt(vcov(.model)))
+        .eps[i] <- ifelse(test = methods::is(.model, "warning"), 
                           yes = NA,
                           no = mean(as.numeric(.x) - 1)) # "-1" due to numeric representation of level 1 = 1, level 2 = 2, ...
       }
@@ -163,14 +166,14 @@ cutoff_adjustment <- function(time, time2, event,
       s <- summary(.model)
       
       
-      pvals.score[i] <- ifelse(is(.model, "warning"), NA, summary(.model)$sctest["pvalue"]) # score test
-      pvals[i] <- ifelse(is(.model, "warning"), NA, summary(.model)$coefficients[5]) # p.value estiamte
-      betas[i] <- ifelse(is(.model, "warning"), NA, coef(.model))
-      .ci.lower[i] <- ifelse(is(.model, "warning"), NA, (confint(.model)[1]))
-      .ci.upper[i] <- ifelse(is(.model, "warning"), NA, (confint(.model)[2]))
+      pvals.score[i] <- ifelse(methods::is(.model, "warning"), NA, summary(.model)$sctest["pvalue"]) # score test
+      pvals[i] <- ifelse(methods::is(.model, "warning"), NA, summary(.model)$coefficients[5]) # p.value estiamte
+      betas[i] <- ifelse(methods::is(.model, "warning"), NA, coef(.model))
+      .ci.lower[i] <- ifelse(methods::is(.model, "warning"), NA, (confint(.model)[1]))
+      .ci.upper[i] <- ifelse(methods::is(.model, "warning"), NA, (confint(.model)[2]))
       
-      .se.betas[i] <- ifelse(is(.model, "warning"), NA, summary(.model)$coefficients[,"se(coef)"])
-      .eps[i] <- ifelse(test = is(.model, "warning"),
+      .se.betas[i] <- ifelse(methods::is(.model, "warning"), NA, summary(.model)$coefficients[,"se(coef)"])
+      .eps[i] <- ifelse(test = methods::is(.model, "warning"),
                         yes = NA,
                         no = mean(as.numeric(.x) - 1)) # "-1" due to numeric representation of level 1 = 1, level 2 = 2, ...
       

@@ -25,6 +25,7 @@
 #' controls <- rnorm(50)
 #' confIntAUC(cases, controls)
 #' 
+#' @export
 confIntAUC <- function(cases, controls, conf.level = 0.95){
 
     stopifnot(is.numeric(cases), length(cases) >= 1, is.finite(cases),
@@ -109,6 +110,7 @@ confIntAUC <- function(cases, controls, conf.level = 0.95){
 #' confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type = "Wald")
 #' confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type = "logit")
 #' 
+#' @export
 confIntIndependentAUCDiff <- function(casesA, controlsA, casesB, controlsB,
                                       type = c("Wald", "logit"), conf.level = 0.95)
 {
@@ -201,6 +203,7 @@ confIntIndependentAUCDiff <- function(casesA, controlsA, casesB, controlsB,
 #' controls <- wiedat2b[ind == 0, 1:2]
 #' confIntPairedAUCDiff(cases = cases, controls = controls)
 #' 
+#' @export
 confIntPairedAUCDiff <- function(cases, controls, conf.level = 0.95){
     cases <- as.matrix(cases[,1:2])
     stopifnot(is.numeric(cases), length(cases) > 1,
@@ -252,6 +255,7 @@ confIntPairedAUCDiff <- function(cases, controls, conf.level = 0.95){
 #' @references Pepe, M.S. (2003) \emph{The statistical evaluation of medical
 #' tests for classification and prediction}. Oxford University Press.
 #' @keywords univar htest
+#' @export
 standardErrorAUCDiff <- function(cases, controls){
     cases <- as.matrix(cases[,1:2])
     stopifnot(is.numeric(cases), length(cases) > 1,

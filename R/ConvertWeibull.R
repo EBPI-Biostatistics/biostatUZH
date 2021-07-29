@@ -55,6 +55,7 @@
 #' data(larynx)
 #' ConvertWeibull(survreg(Surv(time, death) ~ stage + age, larynx), conf.level = 0.95)
 #' 
+#' @export
 ConvertWeibull <- function (model, conf.level = 0.95)
 {
     alpha <- 1 - conf.level

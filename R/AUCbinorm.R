@@ -1,3 +1,5 @@
+#' @import stats
+#' @export
 AUCbinorm <- function(data, x){
     dat <- data[x, ]
     cases <- dat[dat[, 2] == 1, 1]

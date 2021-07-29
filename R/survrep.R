@@ -66,6 +66,7 @@
 #' with(larynx, survrep(time, death, stage, out = "p",
 #'                      stmt.pl = "topright", legend.pl = "bottomright"))
 #' 
+#' @export
 survrep <- function(ftime, fstatus, fgroup = NA, 
         stmt.pl = c("bottomleft", "bottomright", "topright", "subtitle", "none")[1], 
         legend.pl = c("bottomleft", "bottomright", "topright", "none")[3],

@@ -3,6 +3,7 @@
 # as in Held, Rufibach, Seifert, Section 8.2
 # written by LH on 09.09.2020
 
+#' @export
 wilsonRate <- function(x, t, conf.level = 0.95)
 {
     stopifnot(is.wholenumber(x), t>0, conf.level<1, conf.level>0)

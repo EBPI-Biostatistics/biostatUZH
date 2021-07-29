@@ -46,6 +46,7 @@
 #' dat.km[1, ]
 #' }
 #' 
+#' @export
 confIntKM_t0 <- function(time, event, t0, conf.level = 0.95){
 
 alpha <- 1 - conf.level

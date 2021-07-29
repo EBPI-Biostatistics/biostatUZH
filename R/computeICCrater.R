@@ -47,6 +47,7 @@
 #'   computeICCrater(dat2)
 #' }
 #' 
+#' @export
 computeICCrater <- function(dat)
 {
     ## we compute the ICC(2, 1): Each subject is measured by each rater, 

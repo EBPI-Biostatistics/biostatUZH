@@ -57,6 +57,7 @@
 #' formatCI(cis, text = c("", " -- ", ""))
 #' ## "0.01 -- 0.46" "-10.00 -- 5.30" "3.14 -- 6.28"
 #' 
+#' @export
 formatCI <- function (x, digits = 2, unit = "", text = "none")
 {
     ## parse arguments

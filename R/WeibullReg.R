@@ -42,8 +42,8 @@
 #' WR <- WeibullReg(Surv(time, death) ~ factor(stage) + age, data=larynx)
 #' WR
 #' 
-WeibullReg <-
-function (formula, data = parent.frame(), conf.level = 0.95) 
+#' @export
+WeibullReg <- function (formula, data = parent.frame(), conf.level = 0.95) 
 {
     m <- survreg(formula, data, dist = "weibull")
     mle <- ConvertWeibull(m, conf.level)

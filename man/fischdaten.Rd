@@ -6,16 +6,19 @@
 \title{Data of the 'Fischstudie'}
 \format{
 A data frame with 308 observations on the following 16 variables.
-\describe{ \item{list("patnr")}{Patient number.} \item{list("geschl")}{Sex:
-0 = female, 1 = male.} \item{list("alter")}{Age in years.}
-\item{list("groesse")}{Height in cm.} \item{list("gew0")}{Weight at study
-entry, in kg.} \item{list("gew15")}{Weight at 15 days, in kg.}
-\item{list("gew28")}{Weight at 28 days, in kg.}
-\item{list("chol0")}{Cholesterin level at study entry, in mg/dl.}
-\item{list("chol15")}{Cholesterin level at 15 days, in mg/dl.}
-\item{list("chol28")}{Cholesterin level at 28 days, in mg/dl.}
-\item{list("fisch")}{Received fish (1) or not (0).}
-\item{list("kalorie")}{Received reduced food (1) or not (0).} }
+\describe{
+\item{patnr}{Patient number.}
+\item{geschl}{Sex: 0 = female, 1 = male.}
+\item{alter}{Age in years.}
+\item{groesse}{Height in cm.}
+\item{gew0}{Weight at study entry, in kg.}
+\item{gew15}{Weight at 15 days, in kg.}
+\item{gew28}{Weight at 28 days, in kg.}
+\item{chol0}{Cholesterin level at study entry, in mg/dl.}
+\item{chol15}{Cholesterin level at 15 days, in mg/dl.}
+\item{chol28}{Cholesterin level at 28 days, in mg/dl.}
+\item{fisch}{Received fish (1) or not (0).}
+\item{kalorie}{Received reduced food (1) or not (0).} }
 }
 \source{
 This dataset is used in Schumacher and Schulgen (2002) and Held et

@@ -37,8 +37,7 @@ to the best of our knowledge: \cr \code{\link{BlandAltman}} \cr
 \cr \code{\link{ConvertWeibull}} \cr \code{\link{faganPlot}} \cr
 \code{\link{populationSamplePlot}} \cr \code{\link{quantileCumInc}} \cr
 \code{\link{sampleSizeMcNemar}} \cr \code{\link{WeibullReg}} \cr
-\code{\link{WeibullDiag}} \cr \code{\link{sampleSizePhase2BinaryTest}} \cr
-\code{\link{sampleSizePhase2BinaryTestSimulated}} \cr
+\code{\link{WeibullDiag}} \cr 
 \code{\link{summaryROC}}
 }
 \author{

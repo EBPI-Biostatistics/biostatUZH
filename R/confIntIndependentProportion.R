@@ -47,6 +47,7 @@
 #' exact2x2(t, tsmethod = "blaker")$p.value
 #' }
 #' 
+#' @export
 confIntIndependentProportion <- function(x, n, conf.level = 0.95)
 {
     ## Calculates confidence interval for risk difference of two independent

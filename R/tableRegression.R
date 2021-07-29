@@ -131,6 +131,7 @@
 #'
 #' @import MASS
 #' @importFrom xtable xtable
+#' @export
 tableRegression <- function(model,
                             stats = NULL,
                             col.names = NULL,

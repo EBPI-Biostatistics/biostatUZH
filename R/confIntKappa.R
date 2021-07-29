@@ -39,6 +39,8 @@
 #'              m = 200, conf.level = 0.95)
 #' 
 #' @importFrom psy lkappa
+#' @importFrom boot boot
+#' @export
 confIntKappa <- function(data,
                          type = c("not Cohen", "Cohen"),
                          weights = c("squared", "absolute"),

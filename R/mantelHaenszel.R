@@ -44,6 +44,7 @@
 #' mh$p.value
 #' mH$p.val
 #' 
+#' @export
 mantelHaenszel <- function(exposure, outcome, stratum){
 
 ss <- unique(stratum)

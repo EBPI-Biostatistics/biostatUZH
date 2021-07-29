@@ -69,6 +69,7 @@
 #'     conftype = "log")
 #' qKM2
 #' 
+#' @export
 quantileKM <- function(time, event, group = NA, quant = 0.5, conf.level = 0.95, conftype = c("log","log-log","plain","none")[2],
                        conflower = c("usual", "peto", "modified")[1]){
 

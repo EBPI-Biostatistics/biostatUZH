@@ -37,6 +37,7 @@
 #' mcnemar.test(altman62)
 #' }
 #' 
+#' @export
 confIntPairedProportion <- function(x, conf.level = 0.95){
 
     ## confidence interval for a paired proportion, according to Newcombe (1998)

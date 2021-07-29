@@ -32,8 +32,7 @@
 #' \cr \code{\link{ConvertWeibull}} \cr \code{\link{faganPlot}} \cr
 #' \code{\link{populationSamplePlot}} \cr \code{\link{quantileCumInc}} \cr
 #' \code{\link{sampleSizeMcNemar}} \cr \code{\link{WeibullReg}} \cr
-#' \code{\link{WeibullDiag}} \cr \code{\link{sampleSizePhase2BinaryTest}} \cr
-#' \code{\link{sampleSizePhase2BinaryTestSimulated}} \cr
+#' \code{\link{WeibullDiag}} \cr 
 #' \code{\link{summaryROC}}
 #' 
 #' @name biostatUZH-package
@@ -62,16 +61,19 @@ NULL
 #' @name fischdaten
 #' @docType data
 #' @format A data frame with 308 observations on the following 16 variables.
-#' \describe{ \item{list("patnr")}{Patient number.} \item{list("geschl")}{Sex:
-#' 0 = female, 1 = male.} \item{list("alter")}{Age in years.}
-#' \item{list("groesse")}{Height in cm.} \item{list("gew0")}{Weight at study
-#' entry, in kg.} \item{list("gew15")}{Weight at 15 days, in kg.}
-#' \item{list("gew28")}{Weight at 28 days, in kg.}
-#' \item{list("chol0")}{Cholesterin level at study entry, in mg/dl.}
-#' \item{list("chol15")}{Cholesterin level at 15 days, in mg/dl.}
-#' \item{list("chol28")}{Cholesterin level at 28 days, in mg/dl.}
-#' \item{list("fisch")}{Received fish (1) or not (0).}
-#' \item{list("kalorie")}{Received reduced food (1) or not (0).} }
+#' \describe{
+#' \item{patnr}{Patient number.}
+#' \item{geschl}{Sex: 0 = female, 1 = male.}
+#' \item{alter}{Age in years.}
+#' \item{groesse}{Height in cm.}
+#' \item{gew0}{Weight at study entry, in kg.}
+#' \item{gew15}{Weight at 15 days, in kg.}
+#' \item{gew28}{Weight at 28 days, in kg.}
+#' \item{chol0}{Cholesterin level at study entry, in mg/dl.}
+#' \item{chol15}{Cholesterin level at 15 days, in mg/dl.}
+#' \item{chol28}{Cholesterin level at 28 days, in mg/dl.}
+#' \item{fisch}{Received fish (1) or not (0).}
+#' \item{kalorie}{Received reduced food (1) or not (0).} }
 #' @references Held, Leonhard, Rufibach, Kaspar, and Seifert, Burkhardt (2013).
 #' Medizinische Statistik. Konzepte, Methoden, Anwendungen. Pearson Verlag,
 #' Halbergmoos, Germany.
@@ -98,11 +100,12 @@ NULL
 #' @name larynx
 #' @docType data
 #' @format A data frame with 90 observations on the following 5 variables.
-#' \describe{ \item{list("stage")}{Disease stage (1-4) from TNM cancer staging
-#' classification.} \item{list("time")}{Time from first treatment until death,
-#' or end of study.} \item{list("age")}{Age at diagnosis.}
-#' \item{list("year")}{Year of diagnosis.} \item{list("death")}{Indicator of
-#' death [1, if patient died at time t; 0, otherwise].} }
+#' \describe{
+#' \item{stage}{Disease stage (1-4) from TNM cancer staging classification.}
+#' \item{time}{Time from first treatment until death, or end of study.}
+#' \item{age}{Age at diagnosis.}
+#' \item{year}{Year of diagnosis.}
+#' \item{death}{Indicator of death [1, if patient died at time t; 0, otherwise].} }
 #' @references Kardaun, O. (1983). Statistical survival analysis of male
 #' larynx-cancer patients-a case study.  \emph{Statistica Neerlandica},
 #' \bold{37}, 103--125.

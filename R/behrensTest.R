@@ -2,7 +2,7 @@
 ## computes behrens version of the t-test for unequal variances
 ## based on approximate solution as in Box & Tiao, 1973, Section 2.5.3
 ## see also Armitage, Berry, Matthews, 2002, Section 4.3
-
+#' @export
 behrensTest <- function(x, y, conf.level = 0.95, alternative="two.sided"){
     alpha <- 1-conf.level
     m1 <- mean(x)

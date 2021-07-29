@@ -61,6 +61,7 @@
 #' segments(0, 0, 1, 1, lty = 2)
 #' lines(res$x.val, res$y.val, type = 'l', col = 2, lwd = 2, lty = 2)
 #' 
+#' @export
 summaryROC <- function(cases, controls, conf.level = 0.95){
     
     # Compute:

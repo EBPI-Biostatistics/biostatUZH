@@ -32,6 +32,7 @@
 #' NumEvents(HR = 0.65, sig.level = 0.05, power = 0.9,
 #'           alloc.ratio = 1, type = "sup", alternative = "two.sided")
 #' 
+#' @export
 NumEvents <- function(HR, sig.level=0.05, power=NULL, n.events=NULL,
                      alloc.ratio=1, non.inf.margin=NULL, type="sup",
                      alternative="two.sided"){

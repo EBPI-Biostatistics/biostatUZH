@@ -8,6 +8,7 @@
 #' @return Nothing is ouutput, only a plot is generated,
 #' @author Kaspar Rufibach \cr \email{kaspar.rufibach@@gmail.com}
 #' @keywords dplot aplot
+#' @export
 populationSamplePlot <- function(language = c("german", "english")[1]){
 
 par(mar = rep(0,  4))

@@ -36,7 +36,8 @@
 #' y <- 2 * x + 0.5 * rnorm(n)
 #' plot(x, y)
 #' confIntFisherTrafo(x, y, pp = c(0.025, 0.975), meth = "spearman", type = "t")
-#' 
+#'
+#' @export
 confIntFisherTrafo <- function(var1, var2, pp = c(0.025, 0.975), meth = "spearman", type = "t"){
 
 # default values

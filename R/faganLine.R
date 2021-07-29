@@ -1,3 +1,4 @@
+#' @export
 faganLine <- function(prob.pre, lik.ratio = c(1, 1)){
 
 # draw line: test is positiv

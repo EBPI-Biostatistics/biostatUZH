@@ -38,8 +38,8 @@
 #'     WeibullDiag(fm, larynx, labels=c("Stage I", "Stage II","Stage III", "Stage IV"))
 #' }
 #' 
-WeibullDiag <-
-function (formula, data = parent.frame(), labels = rownames(np$X)) 
+#' @export
+WeibullDiag <- function (formula, data = parent.frame(), labels = rownames(np$X)) 
 {
     if (!requireNamespace("prodlim")) stop("requires prodlim::prodlim()")
     np <- prodlim::prodlim(formula, data)

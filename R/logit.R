@@ -7,6 +7,7 @@
 #' 
 #' @aliases logit ilogit expit
 #' @author Kaspar Rufibach \cr \email{kaspar.rufibach@@gmail.com}
+#' @export
 logit <- function (x)
 {
     if (any(omit <- is.na(x) | x <= 0 | x >= 1)) {
@@ -17,5 +18,8 @@ logit <- function (x)
     } else qlogis(x) # = log(x/(1 - x))
 }
 
+#' @export
 ilogit <- function (x) plogis(x) # = exp(x)/(1 + exp(x))
+
+#' @export
 expit <- ilogit
