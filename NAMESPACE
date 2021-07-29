@@ -53,7 +53,7 @@ export(
     NumEvents, 
     plotcorr,
     populationSamplePlot,
-    printResults,
+    printWaldCI,
     quantileCumInc,
     quantileKM,
     rootFct,
