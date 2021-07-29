@@ -46,7 +46,7 @@ Depends: R (>= 2.15.0), grDevices, graphics, stats, survival (>= 2.35), MASS
 Imports: boot, methods
 Suggests: cmprsk, lme4, prodlim, psy, xtable, reporttools, Hmisc,
         surveillance, carData
-Enhances: MASS, ellipse, coxphf
+Enhances: ellipse, coxphf
 Author: Sarah R. Haile [aut],
   Leonhard Held [aut, cre],
   Sebastian Meyer [aut],
