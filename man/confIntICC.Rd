@@ -2,7 +2,6 @@
 % Please edit documentation in R/confIntICC.R
 \name{confIntICC}
 \alias{confIntICC}
-\alias{Aalpha}
 \alias{lamAlpha}
 \alias{rootFct}
 \title{Confidence intervals for intraclass correlation in interrater reliability}
@@ -60,9 +59,7 @@ dat <- data.frame(
 )
 confIntICC(dat, conf.level = 0.95, psi.re.0 = c(0, 1))
 
-if (requireNamespace("lme4")) {
-    computeICCrater(dat)
-}
+computeICCrater(dat)
 
 }
 \references{
