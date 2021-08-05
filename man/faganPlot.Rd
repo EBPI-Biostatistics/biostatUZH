@@ -6,27 +6,21 @@
 \title{Fagan-Nomogram}
 \usage{
 faganPlot(
-  prob.pre.init = c(0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 30, 40, 50, 70, 85),
-  text = 0.8,
-  language = c("german", "english")[1],
-  tit = "Fagan - Nomogramm"
+  probPreInit = c(0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 30, 40, 50, 70, 85),
+  text = 0.7,
+  language = c("german", "english"),
+  title = "Fagan - Nomogramm"
 )
 }
 \arguments{
-\item{prob.pre.init}{Pre-test probabilities to be used for the vertical line
+\item{probPreInit}{Pre-test probabilities to be used for the vertical line
 to the left. May be a number or a vector withe entries in \eqn{(0,1)}.}
 
 \item{text}{Size of the text displayed in the plot.}
 
 \item{language}{Choose language.}
 
-\item{tit}{Title to be added to plot, or \code{NA} if to be left blank.}
-
-\item{prob.pre}{A single number or a vector of pre-test probabilities to be
-drawn a line in the Fagan-plot for.}
-
-\item{lik.ratio}{Likelihood ratios to be used. Must be of same length as
-\code{prob.pre}.}
+\item{title}{Title to be added to plot, or \code{NA} if to be left blank.}
 }
 \value{
 Nothing is returned. \code{faganPlot} draws a Fagan-Nomogram and
@@ -34,7 +28,7 @@ Nothing is returned. \code{faganPlot} draws a Fagan-Nomogram and
 likelihood ratios to the plot.
 }
 \description{
-In
+Fagan-Nomogram
 }
 \examples{
 

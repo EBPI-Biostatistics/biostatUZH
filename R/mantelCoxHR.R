@@ -27,7 +27,8 @@
 #' ## use Acute Myelogenous Leukemia survival data contained in package 'survival'
 #' time <- leukemia[, 1]; status <- leukemia[, 2]; x <- as.factor(leukemia[, 3])
 #' mantelCoxHR(time, status, x)
-#' 
+#'
+#' @import survival
 #' @export
 mantelCoxHR <- function(time, event, group, conf.level = 0.95){
 

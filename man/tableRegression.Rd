@@ -47,7 +47,7 @@ do not provide any intercept value.}
 language names.}
 
 \item{text.ci}{Either "english", "german" or "none". The language used to
-denote confidence interval, see \code{\link{displayCI}}.}
+denote confidence interval, see \code{\link{formatCI}}.}
 
 \item{eps.pvalue}{P-values smaller than \code{eps.pvalue} will be formatted
 as "< eps.pvalue".}

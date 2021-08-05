@@ -50,6 +50,7 @@
 #'                   firth = FALSE, reverse = TRUE)
 #' }
 #'
+#' @import survival
 #' @importFrom methods is
 #' @importFrom utils head tail
 #' @export

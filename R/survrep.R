@@ -65,7 +65,8 @@
 #'                      stmt.pl = "subtitle", main = ""))
 #' with(larynx, survrep(time, death, stage, out = "p",
 #'                      stmt.pl = "topright", legend.pl = "bottomright"))
-#' 
+#'
+#' @import survival
 #' @export
 survrep <- function(ftime, fstatus, fgroup = NA, 
         stmt.pl = c("bottomleft", "bottomright", "topright", "subtitle", "none")[1], 

@@ -41,7 +41,8 @@
 #' data("larynx")
 #' WR <- WeibullReg(Surv(time, death) ~ factor(stage) + age, data=larynx)
 #' WR
-#' 
+#'
+#' @import survival
 #' @export
 WeibullReg <- function (formula, data = parent.frame(), conf.level = 0.95) 
 {

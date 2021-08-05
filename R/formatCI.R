@@ -1,15 +1,3 @@
-################################################################################
-### Part of the R package "biostatUZH".
-### Free software under the terms of the GNU General Public License (version 2
-### or later) a copy of which is available at http://www.R-project.org/Licenses
-###
-### Copyright (C) 2015 Sebastian Meyer
-### Time-stamp: <[formatCI.R] 2015-02-11 18:48 (CET) by SM>
-################################################################################
-
-
-
-
 #' Format (Confidence) Intervals
 #' 
 #' The function \code{formatCI} formats (confidence) intervals with limits

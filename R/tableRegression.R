@@ -27,7 +27,7 @@
 #' @param text Either "english" (default) or "german" indicating the used
 #' language names.
 #' @param text.ci Either "english", "german" or "none". The language used to
-#' denote confidence interval, see \code{\link{displayCI}}.
+#' denote confidence interval, see \code{\link{formatCI}}.
 #' @param eps.pvalue P-values smaller than \code{eps.pvalue} will be formatted
 #' as "< eps.pvalue".
 #' @param digits Vector of length \code{stats}, digits used for each column.
@@ -130,7 +130,7 @@
 #' tableRegression(model = mod.wb)
 #'
 #' @import MASS
-#' @importFrom xtable xtable
+#' @import xtable
 #' @export
 tableRegression <- function(model,
                             stats = NULL,
@@ -370,7 +370,7 @@ tableRegression <- function(model,
                      formatCI(back.trafo$fct(confint(model)), digits = digits.ci, 
                               text = text.ci)
                  } else {
-                     formatCI(back.trafo$fct(confint.geeglm.broom(model)),
+                     formatCI(back.trafo$fct(confint.geeglm(model)),
                               digits = digits.ci, text = text.ci)
                  }
     }
@@ -446,7 +446,7 @@ tableRegression <- function(model,
     if (xtable) {
         if (is.null(align))
             align <- paste(rep("r", length(stats) + 1), collapse = "")
-        xtab <- xtable::xtable(output.return, caption = caption, label = label, align = align)
+        xtab <- xtable(output.return, caption = caption, label = label, align = align)
         ## options for print.xtable (can be overwritten by ... arguments)
         oopt <- options(
             xtable.include.rownames = TRUE,
@@ -464,3 +464,17 @@ tableRegression <- function(model,
     }
 }
 
+# # From package broom version 0.5.3 (not exported from broom Namespace)
+# in order to avoid external dependences
+# 
+# broom:::confint.geeglm
+
+confint.geeglm <- function(object, parm, level = 0.95, ...) {
+  cc <- coef(summary(object))
+  mult <- qnorm((1+level)/2)
+  citab <- with(as.data.frame(cc),
+                cbind(lwr=Estimate-mult*Std.err,
+                      upr=Estimate+mult*Std.err))
+  rownames(citab) <- rownames(cc)
+  citab[parm,]
+}
