@@ -108,14 +108,14 @@
 #' ## Cox model
 #' ## (example from ?survival::coxph)
 #' ## -------------
-#' dat <- list(time=c(4,3,1,1,2,2,3), 
-#'             status=c(1,1,1,0,1,1,0), 
-#'             x=c(0,2,1,1,1,0,0), 
-#'             sex=c(0,0,0,0,1,1,1)) 
+#' dat <- list(time = c(4, 3, 1, 1, 2, 2, 3), 
+#'             status = c(1, 1, 1, 0, 1, 1, 0), 
+#'             x = c(0, 2, 1, 1, 1, 0, 0), 
+#'             sex = c(0, 0, 0, 0, 1, 1, 1)) 
 #'
-#' mod.cox <- coxph(Surv(time, status) ~ x, dat)
-#' mod.cox1 <- coxph(Surv(time, status) ~ x + factor(sex), dat)
-#' mod.cox2 <- coxph(Surv(time, status) ~ x + strata(sex), dat)
+#' mod.cox <- coxph(Surv(time, status) ~ x, data = dat)
+#' mod.cox1 <- coxph(Surv(time, status) ~ x + factor(sex), data = dat)
+#' mod.cox2 <- coxph(Surv(time, status) ~ x + strata(sex), data = dat)
 #' 
 #' tableRegression(model = mod.cox)
 #' tableRegression(model = mod.cox1)
@@ -126,7 +126,8 @@
 #' ## (example from WeibullReg)
 #' ## -------------
 #' data("larynx")
-#' mod.wb <- WeibullReg(Surv(time, death) ~ factor(stage) + age, data=larynx)
+#' mod.wb <- weibullReg(Surv(time, death) ~ factor(stage) + age,
+#'                      data = larynx)
 #' tableRegression(model = mod.wb)
 #'
 #' @import MASS

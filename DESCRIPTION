@@ -2,22 +2,32 @@ Package: biostatUZH
 Title: Misc Tools of the Department of Biostatistics, EBPI, University
         of Zurich
 Version: 1.9.1
-Date: 2021-08-05
-Authors@R: c(person(c("Sarah", "R."), "Haile", role = "aut",
+Date: 2021-08-06
+Authors@R: c(person(given = "Leonhard",
+                    family = "Held",
+                    role = c("aut"),
+                    email = "leonhard.held@uzh.ch",
+                    comment = c(ORCID = "0000-0002-8686-5325")),
+             person(given = "Florian",	 
+                    family = "Gerber",		 
+	            email = "florian.gerber@uzh.ch",
+	            role = c("cre"),
+                    comment = c(ORCID = "0000-0001-8545-5263")),
+	     person(given = c("Sarah", "R."),
+	            family = "Haile",
+		    role = "aut",
                     email = "sarah.haile@uzh.ch"),
-             person("Leonhard", "Held", role = c("aut","cre"),
-                    email = "leonhard.held@uzh.ch"),
              person("Sebastian", "Meyer", role = "aut",
-                    email = "seb.meyer@fau.de"),
-             person("Sina", "Rueeger", role = "aut",
-                    email = "sina.rueger@isb-sib.ch"),
+                    email = "seb.meyer@fau.de",
+		    comment = c(ORCID = "0000-0002-1791-9449")),
+             person("Sina", "Rueeger", role = "aut"),
              person("Kaspar", "Rufibach", role = "aut",
                     email = "kaspar.rufibach@gmail.com"),
              person("Simon", "Schwab", role = "aut",
-                    email = "simon.schwab@uzh.ch"),
+                    email = "simon.schwab@uzh.ch",
+		    comment = c(ORCID = "0000-0002-1588-2689")),
              person("Daniel", "Sabanes Bove", role = "ctb"),
-             person("Uriah", "Daugaard", role = "ctb"),
-             person("R Core Team", role = "cph"))
+             person("Uriah", "Daugaard", role = "ctb"))
 Description: Various functions developed at the Department of Biostatistics,
              Epidemiology, Biostatistics and Prevention Institute,
              University of Zurich, Zurich, Switzerland.
@@ -46,21 +56,5 @@ Depends: R (>= 2.15.0), grDevices, graphics, stats, survival (>= 2.35), MASS, xt
 Imports: boot, methods, psy, lme4
 Suggests: cmprsk, prodlim, reporttools, Hmisc, surveillance, carData
 Enhances: ellipse, coxphf
-Author: Sarah R. Haile [aut],
-  Leonhard Held [aut, cre],
-  Sebastian Meyer [aut],
-  Sina Rueeger [aut],
-  Kaspar Rufibach [aut],
-  Simon Schwab [aut],
-  Daniel Sabanes Bove [ctb],
-  Uriah Daugaard [ctb],
-  R Core Team [cph]
-Maintainer: Leonhard Held <leonhard.held@uzh.ch>
-Repository: R-Forge
-Repository/R-Forge/Project: ebuzh
-Repository/R-Forge/Revision: 103
-Repository/R-Forge/DateTimeStamp: 2020-11-24 14:47:32
-Date/Publication: 2020-11-24 14:47:32
-NeedsCompilation: no
-Packaged: 2020-11-24 15:08:31 UTC; rforge
+LazyData: true
 RoxygenNote: 7.1.1

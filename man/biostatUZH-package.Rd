@@ -34,10 +34,10 @@ to the best of our knowledge: \cr \code{\link{BlandAltman}} \cr
 \code{\link{confIntPairedProportion}} \cr
 \code{\link{confIntIndependentDiagnostic}} \cr
 \code{\link{confIntIndependentProportion}} \cr \code{\link{confIntRiskDiff}}
-\cr \code{\link{ConvertWeibull}} \cr \code{\link{faganPlot}} \cr
+\cr \code{\link{survreg2weibull}} \cr \code{\link{faganPlot}} \cr
 \code{\link{populationSamplePlot}} \cr \code{\link{quantileCumInc}} \cr
-\code{\link{sampleSizeMcNemar}} \cr \code{\link{WeibullReg}} \cr
-\code{\link{WeibullDiag}} \cr 
+\code{\link{sampleSizeMcNemar}} \cr \code{\link{weibullReg}} \cr
+\code{\link{weibullDiag}} \cr 
 \code{\link{summaryROC}}
 }
 \author{
