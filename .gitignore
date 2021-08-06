@@ -1,4 +1,6 @@
-scratch/*
+/lib/*
+/lib_legacy/*
+/scratch/*
 
 # History files
 .Rhistory
