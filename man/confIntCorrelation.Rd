@@ -33,7 +33,7 @@ List with entries:
 \item{p2}{\eqn{p}-value based on the \code{R} function \code{cor.est}.}
 }
 \description{
-Compute a confidence interval for a correlation coefficient \eqn{r} using
+Computes a confidence interval for a correlation coefficient \eqn{r} using
 the variance-stabilizing transformation
 \deqn{z = \tanh^{-1}(r) = 0.5 \log((1 + r) / (1 - r)),}
 known as Fisher's \eqn{z}-transformation.
@@ -41,7 +41,7 @@ Independent of the true correlation \eqn{\rho}, \eqn{z} is approximately
 normally distributed with variance \eqn{(n-3)^{-1}}. This enables the construction
 of a Wald-type confidence interval. Back-transformating this interval yields a confidence
 interval for \eqn{r}. An advantage of this method is
-that the confidence interval is contained in \eqn{(-1, 1)}.
+that the interval is contained in \eqn{(-1, 1)}.
 }
 \examples{
 
