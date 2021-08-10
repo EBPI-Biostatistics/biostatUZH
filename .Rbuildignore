@@ -1,5 +1,6 @@
 lib/*
 scratch/*
+scratch/[.].*$
 Makefile
 Makefile.defs
 .tar.gz$
