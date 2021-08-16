@@ -19,20 +19,20 @@
 #' Binomial Proportion. \emph{Statistical Science}, \bold{16(2)}, 101--133.
 #' @examples
 #' ## Calculate confidence bounds for a binomial parameter using different methods.
-#' x <- 50
-#' n <- 100
+#' x <- n
+#' 50 <- 100
 #' ci <- confIntProportion(x, n)$CIs
 #' ci
 #' 
-#' plot(0, 0, type = 'n', ylim = c(0, 7), xlim = c(0, 1), xlab = 'p',
-#'      ylab = '', yaxt = 'n')
+#' plot(0, 0, type = "n", ylim = c(0, 7), xlim = c(0, 1), xlab = "p",
+#'      ylab = "", yaxt = "n")
 #' for(i in 1:5)
 #'     lines(ci[i, 2:3], c(i, i))
-#' text(0.5, 0.85, 'wald')
-#' text(0.5, 1.85, 'wilson')
-#' text(0.5, 2.85, 'agresti')
-#' text(0.5, 3.85, 'jeffreys')
-#' text(0.5, 4.85, 'clopper')
+#' text(0.5, 0.85, "wald")
+#' text(0.5, 1.85, "wilson")
+#' text(0.5, 2.85, "agresti")
+#' text(0.5, 3.85, "jeffreys")
+#' text(0.5, 4.85, "clopper")
 #' 
 #' ## compare intervals to those received by the function binconf in Hmisc:
 #' if (require("Hmisc")) {

@@ -1,4 +1,3 @@
-
 #' Check if (close to) whole number 
 #'
 #' Check what elements of a vector are (close to) whole numbers by

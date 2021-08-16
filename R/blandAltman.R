@@ -144,7 +144,7 @@ BlandAltman <- function(x, y, conf.level = 0.95, group = NA,
                         labx = "average of measurements",
                         laby = "difference of measurements",
                         maintit = "", limy = NA, plot = TRUE) {
-    .Deprecated("f_new")
+    .Deprecated("blandAltman")
     blandAltman(x = x, y = y, conf.level = conf.level,
                 group = group, xlab = labx, ylab = laby,
                 main = maintit, ylim = limy, plot = plot)

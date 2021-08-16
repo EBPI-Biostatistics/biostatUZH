@@ -276,7 +276,7 @@ confIntPairedDiagnostic <- function(diseased, nonDiseased, conf.level = 0.95, ad
 #' 
 #' x <- c(30, 50)
 #' n <- c(100, 120)
-#' confIntRiskDiff(x, n)$CIs
+#' confIntRiskDiff(x = x, n = n)$CIs
 #' 
 #' @export
 confIntRiskDiff <- function(x, n, conf.level = 0.95){
@@ -336,7 +336,7 @@ confIntRiskDiff <- function(x, n, conf.level = 0.95){
 #' 
 #' x <- c(30, 50)
 #' n <- c(100, 120)
-#' confIntRiskRatio(x, n)
+#' confIntRiskRatio(x = x, n = n)
 #' 
 #' @export
 confIntRiskRatio <- function(x, n, conf.level = 0.95){
@@ -384,7 +384,7 @@ confIntRiskRatio <- function(x, n, conf.level = 0.95){
 #' 
 #' x <- c(30, 50)
 #' n <- c(100, 120)
-#' confIntOddsRatio(x, n)
+#' confIntOddsRatio(x = x, n = n)
 #' 
 #' @export
 confIntOddsRatio <- function(x, n, conf.level = 0.95){

@@ -1,0 +1,35 @@
+behrensTest.R				ok
+bioStatUZH-package.R			
+blandAltman.R				ok
+combineSubgroups.R			
+confIntAUC.R				ok
+confIntCorrelation.R			ok
+confIntDiagnostic.R			ok
+confIntICC.R					
+confIntIndependentProportion.R		
+confIntKappa.R				ok
+confIntKM.R				ok
+confIntMedian.R				
+confIntPairedProportion.R		
+confIntProportion.R			ok
+confIntRate.R*				ok
+faganPlot.R				
+formatCI.R				
+formatPercent.R					
+formatPval.R
+is.wholenumber.R			
+mantelCoxHR.R				
+mantelHaenszel.R			
+NumEvents.R				
+plotcorr.R				
+populationSamplePlot.R			
+printWaldCI.R				ok
+quantileCumInc.R			
+quantileKM.R				
+sampleSizeMcNemar.R			
+sampleSizeSurvival.R			
+sampleSizeWilcoxTwoSample.R		
+survrep.R
+tableOR.R				
+tableRegression.R			ok
+weibullReg.R				ok

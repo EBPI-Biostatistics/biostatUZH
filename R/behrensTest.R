@@ -14,7 +14,7 @@
 #' weightMen <-   c(67.8, 60  , 63.4, 76,   89.4, 73.3, 67.3, 61.3)
 #'
 #' behrensTest(x = weightWomen, y = weightMen)
-#' behrensTest(x = weightWomen, y = weightMen, alternative="less")
+#' behrensTest(x = weightWomen, y = weightMen, alternative = "less")
 #' @export
 behrensTest <- function(x, y, conf.level = 0.95,
                         alternative = c("two.sided", "greater", "less")){

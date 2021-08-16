@@ -21,9 +21,9 @@
 #' @examples
 #' 
 #' set.seed(12345)
-#' cases <- rnorm(100, mean=2)
-#' controls <- rnorm(50)
-#' confIntAUC(cases, controls)
+#' cases <- rnorm(n = 100, mean = 2)
+#' controls <- rnorm(n = 50)
+#' confIntAUC(cases = cases, controls = controls)
 #' 
 #' @export
 confIntAUC <- function(cases, controls, conf.level = 0.95){
@@ -102,13 +102,15 @@ confIntAUC <- function(cases, controls, conf.level = 0.95){
 #' @examples
 #' 
 #' set.seed(12345)
-#' casesA <- rnorm(200, mean=2.5)
-#' controlsA <- rnorm(100)
-#' casesB <- rnorm(100, mean=1.5)
-#' controlsB <- rnorm(200)
+#' casesA <- rnorm(n = 200, mean = 2.5)
+#' controlsA <- rnorm(n = 100)
+#' casesB <- rnorm(n = 100, mean = 1.5)
+#' controlsB <- rnorm(n = 200)
 #' 
-#' confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type = "Wald")
-#' confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type = "logit")
+#' confIntIndependentAUCDiff(casesA = casesA, controlsA = controlsA,
+#'                           casesB = casesB, controlsB = controlsB, type = "Wald")
+#' confIntIndependentAUCDiff(casesA = casesA, controlsA = controlsA,
+#'                           casesB = casesB, controlsB = controlsB, type = "logit")
 #' 
 #' @export
 confIntIndependentAUCDiff <- function(casesA, controlsA, casesB, controlsB,
@@ -336,7 +338,7 @@ standardErrorAUCDiff <- function(cases, controls){
 #' 
 #' ## summary of ROC curve
 #' ## --------------
-#' res <- summaryROC(cases, controls, conf.level = 0.95)
+#' res <- summaryROC(cases = cases, controls = controls, conf.level = 0.95)
 #' 
 #' 
 #' ## alternative bootstrap CI for AUC
@@ -347,8 +349,8 @@ standardErrorAUCDiff <- function(cases, controls){
 #' 
 #' ## alternative bootstrap CI for AUC 
 #' ## --------------
-#' resBinormWald <- confIntAUCbinorm(cases, controls, conf.level = 0.95,
-#'                                   method = "wald")
+#' resBinormWald <- confIntAUCbinorm(cases = cases, controls = controls,
+#'                                   conf.level = 0.95, method = "wald")
 #' 
 #' ## display results
 #' ## --------------
@@ -358,11 +360,11 @@ standardErrorAUCDiff <- function(cases, controls){
 #' 
 #' ## plot ROC curve
 #' ## --------------
-#' plot(0, 0, xlim = c(0, 1), ylim = c(0, 1), type = 'l', 
-#'      xlab = "1 - specificity", ylab = "sensitivity", pty = 's')
-#' segments(0, 0, 1, 1, lty = 2)
-#' lines(res$x.val, res$y.val, type = 'l', col = 2, lwd = 2, lty = 2)
-#' lines(resBinormBoot$x.val, resBinormBoot$y.val, type = 'l',
+#' plot(x = 0, y = 0, xlim = c(0, 1), ylim = c(0, 1), type = "l", 
+#'      xlab = "1 - specificity", ylab = "sensitivity", pty = "s")
+#' segments(x0 = 0, y0 = 0, x1 = 1, y1 = 1, lty = 2)
+#' lines(x = res$x.val, y = res$y.val, type = 'l', col = 2, lwd = 2, lty = 2)
+#' lines(x = resBinormBoot$x.val, y = resBinormBoot$y.val, type = "l",
 #'       col = 4, lwd = 2, lty = 2)
 #' 
 #' @importFrom boot boot boot.ci
@@ -477,7 +479,8 @@ confIntAUCbinorm <- function(cases, controls, conf.level = 0.95, method = c("boo
 #' @note The confidence intervals are only valid if observations are
 #' \emph{independent}.
 #' @author Kaspar Rufibach \email{kaspar.rufibach@@gmail.com} and Andrea Riebler.
-#' @seealso \code{\link{confIntAUCbinorm}}. Similar functionality is provided in the package \pkg{ROCR}.
+#' @seealso \code{\link{confIntAUCbinorm}}. Similar functionality is provided in
+#' the package \pkg{ROCR}.
 #' @references The original reference for the computation of the confidence interval is:
 #' 
 #' Hanley, J.A. and McNeil, B.J. (1982). The meaning and use of the area under
@@ -498,7 +501,7 @@ confIntAUCbinorm <- function(cases, controls, conf.level = 0.95, method = c("boo
 #' 
 #' ## summary of ROC curve
 #' ## --------------
-#' res <- summaryROC(cases, controls, conf.level = 0.95)
+#' res <- summaryROC(cases = cases, controls = controls, conf.level = 0.95)
 #' 
 #' 
 #' ## alternative bootstrap CI for AUC
@@ -509,8 +512,8 @@ confIntAUCbinorm <- function(cases, controls, conf.level = 0.95, method = c("boo
 #' 
 #' ## alternative bootstrap CI for AUC 
 #' ## --------------
-#' resBinormWald <- confIntAUCbinorm(cases, controls, conf.level = 0.95,
-#'                                   method = "wald")
+#' resBinormWald <- confIntAUCbinorm(cases = cases, controls = controls,
+#'                                   conf.level = 0.95, method = "wald")
 #' 
 #' ## display results
 #' ## --------------
@@ -520,11 +523,11 @@ confIntAUCbinorm <- function(cases, controls, conf.level = 0.95, method = c("boo
 #' 
 #' ## plot ROC curve
 #' ## --------------
-#' plot(0, 0, xlim = c(0, 1), ylim = c(0, 1), type = 'l', 
-#'      xlab = "1 - specificity", ylab = "sensitivity", pty = 's')
-#' segments(0, 0, 1, 1, lty = 2)
-#' lines(res$x.val, res$y.val, type = 'l', col = 2, lwd = 2, lty = 2)
-#' lines(resBinormBoot$x.val, resBinormBoot$y.val, type = 'l',
+#' plot(x = 0, y = 0, xlim = c(0, 1), ylim = c(0, 1), type = "l", 
+#'      xlab = "1 - specificity", ylab = "sensitivity", pty = "s")
+#' segments(x0 = 0, y0 = 0, x1 = 1, y1 = 1, lty = 2)
+#' lines(x = res$x.val, y = res$y.val, type = "l", col = 2, lwd = 2, lty = 2)
+#' lines(x = resBinormBoot$x.val, y = resBinormBoot$y.val, type = "l",
 #'       col = 4, lwd = 2, lty = 2)
 #' 
 #' @export
@@ -639,4 +642,43 @@ summaryROC <- function(cases, controls, conf.level = 0.95){
          "cutoffs" = cutoffs, "res.mat" = res.mat, "auc" = auc, 
          "auc.var" = auc.var, "auc.var.norm" = auc.var.norm, "lowCI" = lowCI,
          "upCI" = upCI, "logitLowCI" = logLowCI, "logitUpCI" = logUpCI)
+}
+
+
+# we follow the second method described in Altman et al, p. 113, 
+
+
+#' Standard Error of AUC
+#' 
+#' Computes the standard error of the area under the curve.
+#' 
+#' 
+#' @param cases Values of the continuous variable for the cases.
+#' @param controls Values of the continuous variable for the controls.
+#' @return The standard error.
+#' @author Leonhard Held
+#' @references The computation follows Chapter 10 in
+#' 
+#' Altman, D.G., Machin, D., Bryant, T.N. and Gardner, M.J. (2001).
+#' \emph{Statistics with confidence}. 2nd Edition, 2000. BMJ Books.
+#' @keywords univar htest
+#' @export
+standardErrorAUC <- function(cases, controls) {
+    stopifnot(is.numeric(cases), length(cases) >= 1, is.finite(cases),
+              is.numeric(controls), length(controls) >= 1, is.finite(controls))
+
+    ncases <- length(cases)
+    ncontrols <- length(controls)
+
+    ## non-disease placement values of cases
+    C <- rep(NA, ncases)
+    ## disease placement values of controls
+    R <- rep(NA, ncontrols)
+
+    for(i in 1:ncases)
+        C[i] <- mean(as.numeric(controls < cases[i]) + 0.5 * as.numeric(controls == cases[i]))
+    for(j in 1:ncontrols)
+        R[j] <- mean(as.numeric(cases > controls[j]) + 0.5 * as.numeric(cases == controls[j]))
+
+    sqrt((var(R) / ncontrols + var(C) / ncases))
 }

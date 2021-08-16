@@ -92,6 +92,3 @@ confIntFisherTrafo <- function(var1, var2, pp = c(0.025, 0.975), meth = "spearma
 
 
 
-
-
-

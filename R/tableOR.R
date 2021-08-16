@@ -1,8 +1,3 @@
-## Part of the R package "biostatUZH".
-## by Simon Schwab, 2018
-## 
-
-
 #' Results table with odds ratios from logistic regression models for binary or
 #' ordinal data
 #' 
@@ -10,22 +5,23 @@
 #' logistic regression models for binary or ordinal variables.
 #' 
 #' 
-#' @param model an object of class \code{"polr"} or \code{"glm"}, the latter
-#' has to be from the family binomial.
-#' @param caption Table caption.
-#' @param label A string containing the LaTeX table reference label.
-#' @param size A string to set LaTeX font site, e.g. small, scriptsize, etc.
+#' @param model Object of class \code{"polr"} or \code{"glm"} with family binomial.
+#' @param caption Character vector of length 1 containing the table caption.
+#' @param label Character vector of length 1 containing the reference label of
+#' the Latex table.
+#' @param size Character vector of length 1 setting LaTeX font site, e.g. "small",
+#' "scriptsize", etc.
 #' @param factorNames A character vector of size k number of factors or
 #' regressor with custom factor labels.
-#' @param table.placement LaTeX table positioning.
+#' @param table.placement LaTeX table positioning. The default is "ht".
+#' See \code{?print.xtable} for more information.
 #' @param refLevels A character vector of size k number of regressors with
-#' custom reference level names. This option is designed when using
-#' \code{glm()} which does not store the reference level labels internally.
-#' @param lang Language of the confidence intervals term, "english"" (default)
-#' or "german".
-#' @param short A logical, if \code{TRUE} factor names are removed from factor
+#' custom reference level names. This argument is usuful for objects of class
+#' \code{glm()}, which does not store the reference level labels internally.
+#' @param lang Language of the table, either "english" (default) or "german".
+#' @param short If \code{TRUE}, factor names are removed from factor
 #' levels. Default is \code{FALSE}.
-#' @param latex Logical, if \code{TRUE} (default) LateX output is produced.
+#' @param latex If \code{TRUE} (default) LateX output is produced.
 #' @param rmStat Logical, if \code{FALSE} (default) output table inludes test
 #' statistics.
 #' @param Wald Logical, if \code{FALSE} (default) Wilson confidence intervals
@@ -33,16 +29,15 @@
 #' @return Depending on the value of the argument \code{latex}, the function
 #' either prints LaTeX code or returns a data frame.
 #' @author Simon Schwab
-#' @seealso \code{\link[xtable]{xtable}}
+#' @seealso \code{\link[xtable]{xtable}}, \code{\link[xtable]{print.xtable}}
 #' @examples
 #' 
 #' dat = carData::TitanicSurvival
 #' dat$survived = relevel(dat$survived, ref = "yes") # relevel: baseline is survived yes.
-#' model = glm(survived ~ sex + age + passengerClass,
-#'             data = dat, family = binomial())
+#' model = glm(survived ~ sex + age + passengerClass, data = dat, family = binomial())
 #' labels = c("female", "1st") # reference levels of the two categorial variables
 #' tableOR(model, latex = FALSE, short = TRUE, refLevels = labels, 
-#' 	caption = "Changes in odds for risk of death in the Titanic tragedy.")
+#'     	   caption = "Changes in odds for risk of death in the Titanic tragedy.")
 #' 
 #' ## using log regression for ordinal data
 #' dat$passengerClass = factor(dat$passengerClass, ordered = TRUE)
@@ -51,18 +46,18 @@
 #' 	caption = "Changes in odds for being in a lower class, i.e. 2nd or 3rd class")
 #' 
 #' @export
-tableOR = function(model, caption="", label="", size="scriptsize", factorNames=NULL,
+tableOR <- function(model, caption="", label="", size="scriptsize", factorNames=NULL,
                    table.placement = "ht", refLevels=NULL, lang="english", short = FALSE,
                    latex=TRUE, rmStat=FALSE, Wald=FALSE) {
   
-  mySummary = summary(model)
-  hasCategorial = !is.null(mySummary$contrasts)
+  mySummary <- summary(model)
+  hasCategorial <- !is.null(mySummary$contrasts)
   
   ## Test which model class we deal with
-  isPolr = class(model)[1] == "polr"
-  isGlm = class(model)[1] == "glm"
+  isPolr <- class(model)[1] == "polr"
+  isGlm <- class(model)[1] == "glm"
   
-  error = "Unknown model, fit must be from polr() or glm(..,family = binomial())."
+  error <- "Unknown model, fit must be from polr() or glm(..,family = binomial())."
   if (!isPolr & !isGlm) {
     stop(error)
   } else if (isGlm) {
@@ -201,16 +196,17 @@ tableOR = function(model, caption="", label="", size="scriptsize", factorNames=N
   }
   
   ## Subset table and produce latex code
-  if (rmStat) {
-    out = table[,c("OR", "95% CI", "p-value")]
-  } else {
-    if (isPolr) {out = table[,c("OR", "95% CI", "t value", "p-value")]}
-    else if (isGlm) {out = table[,c("OR", "95% CI", "z value", "p-value")]}
-  }
-  
-  if (latex) {
-    print(xtable::xtable(out, align = rep("r", ncol(out)+1), caption = caption, label = label),
-          hline.after = hline, size = size, table.placement = table.placement)
+    if (rmStat) {
+        out = table[,c("OR", "95% CI", "p-value")]
+    } else {
+        if (isPolr) {out = table[,c("OR", "95% CI", "t value", "p-value")]}
+        else if (isGlm) {out = table[,c("OR", "95% CI", "z value", "p-value")]}
+    }
     
-  } else {return(out)}
+    if (latex) {
+        print(xtable::xtable(out, align = rep("r", ncol(out)+1), caption = caption, label = label),
+              hline.after = hline, size = size, table.placement = table.placement)
+        
+    } else
+        return(out)
 }
