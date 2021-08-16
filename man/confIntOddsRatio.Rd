@@ -26,7 +26,7 @@ Wald interval for the log odds ratio.
 
 x <- c(30, 50)
 n <- c(100, 120)
-confIntOddsRatio(x, n)
+confIntOddsRatio(x = x, n = n)
 
 }
 \references{

@@ -28,9 +28,9 @@ original and logit scale.
 \examples{
 
 set.seed(12345)
-cases <- rnorm(100, mean=2)
-controls <- rnorm(50)
-confIntAUC(cases, controls)
+cases <- rnorm(n = 100, mean = 2)
+controls <- rnorm(n = 50)
+confIntAUC(cases = cases, controls = controls)
 
 }
 \references{

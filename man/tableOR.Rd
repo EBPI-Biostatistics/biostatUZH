@@ -21,31 +21,32 @@ tableOR(
 )
 }
 \arguments{
-\item{model}{an object of class \code{"polr"} or \code{"glm"}, the latter
-has to be from the family binomial.}
+\item{model}{Object of class \code{"polr"} or \code{"glm"} with family binomial.}
 
-\item{caption}{Table caption.}
+\item{caption}{Character vector of length 1 containing the table caption.}
 
-\item{label}{A string containing the LaTeX table reference label.}
+\item{label}{Character vector of length 1 containing the reference label of
+the Latex table.}
 
-\item{size}{A string to set LaTeX font site, e.g. small, scriptsize, etc.}
+\item{size}{Character vector of length 1 setting LaTeX font site, e.g. "small",
+"scriptsize", etc.}
 
 \item{factorNames}{A character vector of size k number of factors or
 regressor with custom factor labels.}
 
-\item{table.placement}{LaTeX table positioning.}
+\item{table.placement}{LaTeX table positioning. The default is "ht".
+See \code{?print.xtable} for more information.}
 
 \item{refLevels}{A character vector of size k number of regressors with
-custom reference level names. This option is designed when using
-\code{glm()} which does not store the reference level labels internally.}
+custom reference level names. This argument is usuful for objects of class
+\code{glm()}, which does not store the reference level labels internally.}
 
-\item{lang}{Language of the confidence intervals term, "english"" (default)
-or "german".}
+\item{lang}{Language of the table, either "english" (default) or "german".}
 
-\item{short}{A logical, if \code{TRUE} factor names are removed from factor
+\item{short}{If \code{TRUE}, factor names are removed from factor
 levels. Default is \code{FALSE}.}
 
-\item{latex}{Logical, if \code{TRUE} (default) LateX output is produced.}
+\item{latex}{If \code{TRUE} (default) LateX output is produced.}
 
 \item{rmStat}{Logical, if \code{FALSE} (default) output table inludes test
 statistics.}
@@ -65,11 +66,10 @@ logistic regression models for binary or ordinal variables.
 
 dat = carData::TitanicSurvival
 dat$survived = relevel(dat$survived, ref = "yes") # relevel: baseline is survived yes.
-model = glm(survived ~ sex + age + passengerClass,
-            data = dat, family = binomial())
+model = glm(survived ~ sex + age + passengerClass, data = dat, family = binomial())
 labels = c("female", "1st") # reference levels of the two categorial variables
 tableOR(model, latex = FALSE, short = TRUE, refLevels = labels, 
-	caption = "Changes in odds for risk of death in the Titanic tragedy.")
+    	   caption = "Changes in odds for risk of death in the Titanic tragedy.")
 
 ## using log regression for ordinal data
 dat$passengerClass = factor(dat$passengerClass, ordered = TRUE)
@@ -79,7 +79,7 @@ tableOR(model, latex = FALSE, short = TRUE,
 
 }
 \seealso{
-\code{\link[xtable]{xtable}}
+\code{\link[xtable]{xtable}}, \code{\link[xtable]{print.xtable}}
 }
 \author{
 Simon Schwab

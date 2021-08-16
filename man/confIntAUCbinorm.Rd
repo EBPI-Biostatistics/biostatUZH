@@ -73,7 +73,7 @@ cases <-  rnorm(n = 40, mean = 0.5, sd = 1.5)
 
 ## summary of ROC curve
 ## --------------
-res <- summaryROC(cases, controls, conf.level = 0.95)
+res <- summaryROC(cases = cases, controls = controls, conf.level = 0.95)
 
 
 ## alternative bootstrap CI for AUC
@@ -84,8 +84,8 @@ resBinormBoot <- confIntAUCbinorm(cases = cases, controls = controls,
 
 ## alternative bootstrap CI for AUC 
 ## --------------
-resBinormWald <- confIntAUCbinorm(cases, controls, conf.level = 0.95,
-                                  method = "wald")
+resBinormWald <- confIntAUCbinorm(cases = cases, controls = controls,
+                                  conf.level = 0.95, method = "wald")
 
 ## display results
 ## --------------
@@ -95,11 +95,11 @@ str(resBinormWald)
 
 ## plot ROC curve
 ## --------------
-plot(0, 0, xlim = c(0, 1), ylim = c(0, 1), type = 'l', 
-     xlab = "1 - specificity", ylab = "sensitivity", pty = 's')
-segments(0, 0, 1, 1, lty = 2)
-lines(res$x.val, res$y.val, type = 'l', col = 2, lwd = 2, lty = 2)
-lines(resBinormBoot$x.val, resBinormBoot$y.val, type = 'l',
+plot(x = 0, y = 0, xlim = c(0, 1), ylim = c(0, 1), type = "l", 
+     xlab = "1 - specificity", ylab = "sensitivity", pty = "s")
+segments(x0 = 0, y0 = 0, x1 = 1, y1 = 1, lty = 2)
+lines(x = res$x.val, y = res$y.val, type = 'l', col = 2, lwd = 2, lty = 2)
+lines(x = resBinormBoot$x.val, y = resBinormBoot$y.val, type = "l",
       col = 4, lwd = 2, lty = 2)
 
 }

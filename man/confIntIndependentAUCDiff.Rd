@@ -47,13 +47,15 @@ Newcombe's method.
 \examples{
 
 set.seed(12345)
-casesA <- rnorm(200, mean=2.5)
-controlsA <- rnorm(100)
-casesB <- rnorm(100, mean=1.5)
-controlsB <- rnorm(200)
+casesA <- rnorm(n = 200, mean = 2.5)
+controlsA <- rnorm(n = 100)
+casesB <- rnorm(n = 100, mean = 1.5)
+controlsB <- rnorm(n = 200)
 
-confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type = "Wald")
-confIntIndependentAUCDiff(casesA, controlsA, casesB, controlsB, type = "logit")
+confIntIndependentAUCDiff(casesA = casesA, controlsA = controlsA,
+                          casesB = casesB, controlsB = controlsB, type = "Wald")
+confIntIndependentAUCDiff(casesA = casesA, controlsA = controlsA,
+                          casesB = casesB, controlsB = controlsB, type = "logit")
 
 }
 \references{

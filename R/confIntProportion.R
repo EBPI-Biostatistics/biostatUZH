@@ -19,9 +19,9 @@
 #' Binomial Proportion. \emph{Statistical Science}, \bold{16(2)}, 101--133.
 #' @examples
 #' ## Calculate confidence bounds for a binomial parameter using different methods.
-#' x <- n
-#' 50 <- 100
-#' ci <- confIntProportion(x, n)$CIs
+#' x <- 50
+#' n <- 100
+#' ci <- confIntProportion(x = x, n = n)$CIs
 #' ci
 #' 
 #' plot(0, 0, type = "n", ylim = c(0, 7), xlim = c(0, 1), xlab = "p",

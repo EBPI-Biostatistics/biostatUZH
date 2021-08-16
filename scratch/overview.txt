@@ -33,3 +33,8 @@ survrep.R
 tableOR.R				
 tableRegression.R			ok
 weibullReg.R				ok
+
+
+
+check vignettes                         
+check dependencies and DESCRIPTION 	

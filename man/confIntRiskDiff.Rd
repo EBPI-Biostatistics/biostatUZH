@@ -26,7 +26,7 @@ Wald and Wilson confidence intervals for the individual risks.
 
 x <- c(30, 50)
 n <- c(100, 120)
-confIntRiskDiff(x, n)$CIs
+confIntRiskDiff(x = x, n = n)$CIs
 
 }
 \references{

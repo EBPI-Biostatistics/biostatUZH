@@ -34,5 +34,5 @@ weightWomen <- c(38.9, 61.2, 73.3, 21.8, 63.4, 64.6, 48.4, 48.8, 48.5)
 weightMen <-   c(67.8, 60  , 63.4, 76,   89.4, 73.3, 67.3, 61.3)
 
 behrensTest(x = weightWomen, y = weightMen)
-behrensTest(x = weightWomen, y = weightMen, alternative="less")
+behrensTest(x = weightWomen, y = weightMen, alternative = "less")
 }

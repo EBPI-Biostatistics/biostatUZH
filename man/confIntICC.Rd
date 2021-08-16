@@ -52,8 +52,8 @@ set.seed(1977)
 n <- 40
 r1 <- round(runif(n, 1, 20))
 dat <- data.frame(
-    "score" = c(r1, r1 + abs(round(rnorm(n, 1, 3))), 
-        r1 + abs(round(rnorm(n, 1, 3)))), 
+    "score" = c(r1, r1 + abs(round(rnorm(n, mean = 1, sd = 3))), 
+        r1 + abs(round(rnorm(n, mean = 1, sd = 3)))), 
     "pat" = rep(c(1:n), 3),
     "rater" = rep(1:3, each = n)
 )

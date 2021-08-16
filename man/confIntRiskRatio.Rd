@@ -26,7 +26,7 @@ Wald interval for the log risk ratio.
 
 x <- c(30, 50)
 n <- c(100, 120)
-confIntRiskRatio(x, n)
+confIntRiskRatio(x = x, n = n)
 
 }
 \references{
