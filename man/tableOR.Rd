@@ -13,11 +13,11 @@ tableOR(
   factorNames = NULL,
   table.placement = "ht",
   refLevels = NULL,
-  lang = "english",
+  language = c("english", "german"),
   short = FALSE,
   latex = TRUE,
   rmStat = FALSE,
-  Wald = FALSE
+  wald = FALSE
 )
 }
 \arguments{
@@ -41,7 +41,7 @@ See \code{?print.xtable} for more information.}
 custom reference level names. This argument is usuful for objects of class
 \code{glm()}, which does not store the reference level labels internally.}
 
-\item{lang}{Language of the table, either "english" (default) or "german".}
+\item{language}{Language of the table, either "english" (default) or "german".}
 
 \item{short}{If \code{TRUE}, factor names are removed from factor
 levels. Default is \code{FALSE}.}
@@ -51,12 +51,12 @@ levels. Default is \code{FALSE}.}
 \item{rmStat}{Logical, if \code{FALSE} (default) output table inludes test
 statistics.}
 
-\item{Wald}{Logical, if \code{FALSE} (default) Wilson confidence intervals
+\item{wald}{Logical, if \code{FALSE} (default) Wilson confidence intervals
 are computed.}
 }
 \value{
-Depending on the value of the argument \code{latex}, the function
-either prints LaTeX code or returns a data frame.
+The table as data.frame and, depending on the value of the argument \code{latex},
+the function a print of the LaTeX code.
 }
 \description{
 Result table with odds ratios, 95\%-CI, test statistics, and p-values from
@@ -64,22 +64,23 @@ logistic regression models for binary or ordinal variables.
 }
 \examples{
 
-dat = carData::TitanicSurvival
-dat$survived = relevel(dat$survived, ref = "yes") # relevel: baseline is survived yes.
-model = glm(survived ~ sex + age + passengerClass, data = dat, family = binomial())
-labels = c("female", "1st") # reference levels of the two categorial variables
-tableOR(model, latex = FALSE, short = TRUE, refLevels = labels, 
-    	   caption = "Changes in odds for risk of death in the Titanic tragedy.")
+data <- carData::TitanicSurvival
+# relevel: baseline is survived yes.
+data$survived <- relevel(x = data$survived, ref = "yes") 
+model <- glm(survived ~ sex + age + passengerClass, data = data, family = binomial())
+tableOR(model = model, latex = FALSE, short = TRUE,
+        refLevels = c("female", "1st"), 
+        caption = "Changes in odds for risk of death in the Titanic tragedy.")
 
 ## using log regression for ordinal data
-dat$passengerClass = factor(dat$passengerClass, ordered = TRUE)
-model = MASS::polr(passengerClass ~ sex + age, data = dat, Hess = TRUE)
-tableOR(model, latex = FALSE, short = TRUE, 
-	caption = "Changes in odds for being in a lower class, i.e. 2nd or 3rd class")
+data$passengerClass <- factor(x = data$passengerClass, ordered = TRUE)
+model <- MASS::polr(passengerClass ~ sex + age, data = data, Hess = TRUE)
+tableOR(model = model, latex = FALSE, short = TRUE, 
+        caption = "Changes in odds for being in a lower class, i.e. 2nd or 3rd class")
 
 }
 \seealso{
-\code{\link[xtable]{xtable}}, \code{\link[xtable]{print.xtable}}
+\code{\link{tableRegression}}, \code{\link[xtable]{xtable}}, \code{\link[xtable]{print.xtable}}
 }
 \author{
 Simon Schwab

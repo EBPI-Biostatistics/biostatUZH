@@ -17,7 +17,7 @@ faganPlot.R
 formatCI.R				
 formatPercent.R					
 formatPval.R
-is.wholenumber.R			
+is.wholenumber.R			ok			
 mantelCoxHR.R				
 mantelHaenszel.R			
 NumEvents.R				
@@ -30,7 +30,7 @@ sampleSizeMcNemar.R
 sampleSizeSurvival.R			
 sampleSizeWilcoxTwoSample.R		
 survrep.R
-tableOR.R				
+tableOR.R				ok			
 tableRegression.R			ok
 weibullReg.R				ok
 

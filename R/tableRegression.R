@@ -45,7 +45,8 @@
 #' either prints and returns LaTeX code representing the produced table of
 #' coefficients, or it returns the corresponding data frame.
 #' @author Sina Rueeger with contributions by Sebastian Meyer.
-#' @seealso \code{\link{xtable}}, \code{\link{lm}}, \code{\link{glm}},
+#' @seealso \code{\link{tableOR}}, \code{\link[xtable]{xtable}},
+#' \code{\link[stats]{lm}}, \code{\link[stats]{glm}},
 #' \code{\link[MASS]{glm.nb}} \code{\link[survival]{coxph}},
 #' \code{\link{Weibull}}.
 #' @examples
@@ -131,7 +132,7 @@
 #' tableRegression(model = mod.wb)
 #'
 #' @import MASS
-#' @import xtable
+#' @importFrom xtable xtable print.xtable
 #' @export
 tableRegression <- function(model,
                             stats = NULL,
@@ -447,7 +448,7 @@ tableRegression <- function(model,
     if (xtable) {
         if (is.null(align))
             align <- paste(rep("r", length(stats) + 1), collapse = "")
-        xtab <- xtable(output.return, caption = caption, label = label, align = align)
+        xtab <- xtable::xtable(output.return, caption = caption, label = label, align = align)
         ## options for print.xtable (can be overwritten by ... arguments)
         oopt <- options(
             xtable.include.rownames = TRUE,
@@ -458,7 +459,7 @@ tableRegression <- function(model,
             xtable.sanitize.colnames.function = identity  # do not escape "$"
         )
         on.exit(options(oopt))
-        print(xtab, ...)
+        xtable::print.xtable(xtab, ...)
         return(invisible(xtab))
     } else {
         return(output.return)

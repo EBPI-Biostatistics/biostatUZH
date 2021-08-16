@@ -172,7 +172,8 @@ tableRegression(model = mod.wb)
 
 }
 \seealso{
-\code{\link{xtable}}, \code{\link{lm}}, \code{\link{glm}},
+\code{\link{tableOR}}, \code{\link[xtable]{xtable}},
+\code{\link[stats]{lm}}, \code{\link[stats]{glm}},
 \code{\link[MASS]{glm.nb}} \code{\link[survival]{coxph}},
 \code{\link{Weibull}}.
 }

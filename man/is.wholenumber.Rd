@@ -17,8 +17,8 @@ Check what elements of a vector are (close to) whole numbers by
 \code{abs(x - round(x)) < tol}.
 }
 \examples{
-is.wholenumber(5L)
-is.wholenumber(5)
-is.wholenumber(5 + .Machine$double.eps^0.5 / 2)
-is.wholenumber(5 + .Machine$double.eps^0.5)
+is.wholenumber(1L:5L)
+is.wholenumber(1:5)
+is.wholenumber(1:5 + .Machine$double.eps^0.5 / 2)
+is.wholenumber(1:5 + .Machine$double.eps^0.5)
 }
