@@ -1,28 +1,17 @@
-## =============
-## format P-Value
-## =============
-
-## x: vector of p-values to format
-## Formatting rules:
-## * p-values lower than break.eps are formatted as: "< break.eps"
-## * p-values lower than break.middle and larger than break.eps have ONE digit
-## * p-values larger than break.middle have TWO digits
-
-
-
 #' Format p-Values
 #' 
-#' Formats p-values in a desired manner.
+#' Formats p-values according to:
+#' \itemize{
+#' \item p-values \code{< break.eps} are written as \code{"< break.eps"}.
+#' \item p-values \code{>= break.eps} but \code{< break.middle} have 1 digit.
+#' \item p-values \code{>= break.middle} have 2 digits.
+#' }
 #' 
-#' \itemize{ \item p-values \code{< break.eps} are written as: \code{"<
-#' break.eps"}.  \item p-values \code{>= break.eps} but \code{< break.middle}
-#' have 1 digit.  \item p-values \code{>= break.middle} have 2 digits.  }
-#' 
-#' @param x a numeric vector.
-#' @param break.eps numeric value, see section details.
-#' @param break.middle numeric value, see section details.
-#' @param na.form character representation of \code{NA}s.
-#' @param ... additional arguments passed to \code{\link{format}}.
+#' @param x Numeric vector of p-values.
+#' @param break.eps Numeric value.
+#' @param break.middle Numeric value.
+#' @param na.form Character representation of \code{NA}s.
+#' @param ... Additional arguments passed to \code{\link{format}}.
 #' @return A vector of \code{length(x)} with formatted p-values.
 #' @author Sina Rueeger and Sebastian Meyer
 #' @seealso the \pkg{base} function \code{\link{format.pval}},
@@ -51,14 +40,23 @@
 #' @export
 formatPval <- function(x, break.eps = 1e-04, break.middle = 0.01, na.form = "NA", ...)
 {
+
+    stopifnot(is.numeric(x), length(x) > 0,
+              0 <= x, x <= 1,
+              is.numeric(break.eps), length(break.eps) == 1,
+              is.finite(break.eps), break.eps > 0,
+              is.numeric(break.middle), length(break.middle) == 1,
+              is.finite(break.middle), break.middle > 0,
+              is.character(na.form), length(na.form) == 1)
+
     format1Pval <- function (pv) {
         if (is.na(pv)) {
             na.form 
         } else if (pv < break.eps) {
-            paste("<", format(break.eps, scientific=FALSE))
+            paste("<", format(break.eps, scientific = FALSE))
 	} else {
             largep <- pv >= break.middle
-            format(pv, digits=1+largep, nsmall=1+largep, scientific=FALSE, ...)
+            format(pv, digits = 1 + largep, nsmall = 1 + largep, scientific = FALSE, ...)
         }
     }
     vapply(X = x, FUN = format1Pval, FUN.VALUE = "", USE.NAMES = TRUE)

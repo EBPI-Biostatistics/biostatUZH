@@ -7,26 +7,26 @@
 formatPval(x, break.eps = 1e-04, break.middle = 0.01, na.form = "NA", ...)
 }
 \arguments{
-\item{x}{a numeric vector.}
+\item{x}{Numeric vector of p-values.}
 
-\item{break.eps}{numeric value, see section details.}
+\item{break.eps}{Numeric value.}
 
-\item{break.middle}{numeric value, see section details.}
+\item{break.middle}{Numeric value.}
 
-\item{na.form}{character representation of \code{NA}s.}
+\item{na.form}{Character representation of \code{NA}s.}
 
-\item{...}{additional arguments passed to \code{\link{format}}.}
+\item{...}{Additional arguments passed to \code{\link{format}}.}
 }
 \value{
 A vector of \code{length(x)} with formatted p-values.
 }
 \description{
-Formats p-values in a desired manner.
+Formats p-values according to:
+\itemize{
+\item p-values \code{< break.eps} are written as \code{"< break.eps"}.
+\item p-values \code{>= break.eps} but \code{< break.middle} have 1 digit.
+\item p-values \code{>= break.middle} have 2 digits.
 }
-\details{
-\itemize{ \item p-values \code{< break.eps} are written as: \code{"<
-break.eps"}.  \item p-values \code{>= break.eps} but \code{< break.middle}
-have 1 digit.  \item p-values \code{>= break.middle} have 2 digits.  }
 }
 \examples{
 
