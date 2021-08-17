@@ -10,8 +10,8 @@ confIntKappa.R				ok
 confIntKM.R				ok
 confIntMedian.R				ok
 confIntProportion.R			ok
-confIntRate.R*				ok
-faganPlot.R				
+confIntRate.R 				ok
+faganPlot				ok				
 formatCI.R				
 formatPercent.R					
 formatPval.R
