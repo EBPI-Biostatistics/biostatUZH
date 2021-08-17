@@ -24,7 +24,7 @@ combineSubgroups <- function(n, means, variances, treatment){
               is.finite(n),
               is.numeric(variances), length(n) == length(variances),
               is.finite(variances),
-              is.numeric(treatment), length(n) >= 1,
+              is.numeric(treatment), length(treatment) <= n,
               is.finite(variances), is.wholenumber(treatment),
               1 <= treatment, treatment <= length(n))
     

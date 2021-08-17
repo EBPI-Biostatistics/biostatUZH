@@ -80,7 +80,7 @@ Binomial Proportion. \emph{Statistical Science}, \bold{16(2)}, 101--133.
 }
 \seealso{
 Functions for some of the intervals provided here are available in
-\pkg{Hmisc}; see the examples.
+\pkg{Hmisc}. \code{\link{confIntIndependentProportion}}
 }
 \author{
 Kaspar Rufibach, Leonhard Held, Florian Gerber

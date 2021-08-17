@@ -6,7 +6,6 @@ confIntAUC.R				ok
 confIntCorrelation.R			ok
 confIntDiagnostic.R			ok
 confIntICC.R					
-confIntIndependentProportion.R		
 confIntKappa.R				ok
 confIntKM.R				ok
 confIntMedian.R				
@@ -29,7 +28,7 @@ quantileKM.R
 sampleSizeMcNemar.R			
 sampleSizeSurvival.R			
 sampleSizeWilcoxTwoSample.R		
-survrep.R
+survrep.R				
 tableOR.R				ok			
 tableRegression.R			ok
 weibullReg.R				ok
