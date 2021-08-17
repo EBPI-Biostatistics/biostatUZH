@@ -12,7 +12,7 @@ confIntMedian.R				ok
 confIntProportion.R			ok
 confIntRate.R 				ok
 faganPlot				ok				
-formatCI.R				
+formatCI.R				ok
 formatPercent.R					
 formatPval.R
 is.wholenumber.R			ok			

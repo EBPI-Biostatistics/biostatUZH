@@ -7,15 +7,15 @@
 formatCI(x, digits = 2, unit = "", text = "none")
 }
 \arguments{
-\item{x}{either a numeric vector of length 2 representing a single interval,
+\item{x}{Either a numeric vector of length 2 representing a single interval,
 or a 2-column matrix of several intervals.}
 
-\item{digits}{the number of digits after the decimal point.}
+\item{digits}{The number of digits after the decimal point.}
 
-\item{unit}{a character string denoting a measurement unit.}
+\item{unit}{A character string denoting a measurement unit.}
 
-\item{text}{either a character string referring to one of the predefined
-text styles (\code{"none"}, \code{"german"}, \code{"english"}), or a
+\item{text}{Either a character string referring to one of the predefined
+text styles ("none", "german", "english"), or a
 character vector of length 3 defining the strings to put before, between,
 and after the limits.}
 }
@@ -23,7 +23,7 @@ and after the limits.}
 A character vector of formatted (confidence) intervals.
 }
 \description{
-The function \code{formatCI} formats (confidence) intervals with limits
+\code{formatCI} formats (confidence) intervals with limits
 either represented as text or math symbols and optionally including a unit.
 It is a re-implementation of \code{\link[reporttools]{displayCI}} from the
 \pkg{reporttools} package, allowing for customization of the \code{text}
