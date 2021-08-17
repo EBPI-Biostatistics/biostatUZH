@@ -8,7 +8,7 @@ confIntDiagnostic.R			ok
 confIntICC.R					
 confIntKappa.R				ok
 confIntKM.R				ok
-confIntMedian.R				
+confIntMedian.R				ok
 confIntProportion.R			ok
 confIntRate.R*				ok
 faganPlot.R				

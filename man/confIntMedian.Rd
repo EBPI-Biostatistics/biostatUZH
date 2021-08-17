@@ -2,18 +2,17 @@
 % Please edit documentation in R/confIntMedian.R
 \name{confIntMedian}
 \alias{confIntMedian}
-\title{Compute exact confidence interval for median of a sample based on order
-statistics}
+\title{Exact confidence interval for median of a sample based on order statistics}
 \usage{
 confIntMedian(x, conf.level = 0.95)
 }
 \arguments{
-\item{x}{Vector of observations.}
+\item{x}{Numeric vector of observations.}
 
 \item{conf.level}{Confidence level for confidence interval.}
 }
 \value{
-Table containing the median and the confidence interval.
+data.frame containing the median and the confidence interval.
 }
 \description{
 Given a sample \eqn{X_1, ..., X_n}, this function computes an exact
@@ -24,15 +23,14 @@ distribution.
 
 # generate random sample
 set.seed(1977)
-n <- 40
-x <- rnorm(n)
+x <- rnorm(40)
 
 # compute CI for median
-confIntMedian(x, conf.level = 0.95)
+confIntMedian(x = x, conf.level = 0.95)
 
 # data from Altman (2000), p. 38
-x <- c(66, 71.2, 83, 83.6, 101, 107.6, 122, 143, 160, 177, 414)
-confIntMedian(x, conf.level = 0.95)
+x2 <- c(66, 71.2, 83, 83.6, 101, 107.6, 122, 143, 160, 177, 414)
+confIntMedian(x = x2, conf.level = 0.95)
 
 }
 \references{
