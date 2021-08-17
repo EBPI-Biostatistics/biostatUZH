@@ -9,7 +9,6 @@ confIntICC.R
 confIntKappa.R				ok
 confIntKM.R				ok
 confIntMedian.R				
-confIntPairedProportion.R		
 confIntProportion.R			ok
 confIntRate.R*				ok
 faganPlot.R				

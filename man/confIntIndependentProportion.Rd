@@ -61,8 +61,8 @@ Altman, D.G., Machin, D., Bryant, T.N., Gardner, M.J. (2000). Statistics
 with confidence (p. 49). University Press Belfast.
 }
 \seealso{
-\code{\link{confIntProportion}}, \code{\link[stats]{fisher.test}},
-\code{\link[exact2x2]{exact2x2}}
+\code{\link{confIntPairedProportion}}, \code{\link{confIntProportion}},
+\code{\link[stats]{fisher.test}}, \code{\link[exact2x2]{exact2x2}}
 }
 \author{
 Leonhard Held
