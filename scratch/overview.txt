@@ -13,11 +13,11 @@ confIntProportion.R			ok
 confIntRate.R 				ok
 faganPlot				ok				
 formatCI.R				ok
-formatPercent.R					
-formatPval.R
+formatPercent.R				ok	
+formatPval.R				ok
 is.wholenumber.R			ok			
-mantelCoxHR.R				
-mantelHaenszel.R			
+mantelCoxHR.R				ok
+mantelHaenszel.R			ok
 NumEvents.R				
 plotcorr.R				
 populationSamplePlot.R			

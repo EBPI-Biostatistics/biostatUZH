@@ -12,12 +12,13 @@ not (0).}
 
 \item{outcome}{Binary variable coding outcome of patient.}
 
-\item{stratum}{Nominal variable containing information about matching, i.e.
-strata.}
+\item{stratum}{Factor object with at least 2 levels identifying to which
+stratum the corresponding elements in \code{exposure} and \code{outcome} belong.}
 }
 \value{
 \item{tab}{Table that counts numbers of strata for each case-control
-combination.} \item{test.stat}{Test statistic for \eqn{chi^2} test.}
+combination.}
+\item{test.stat}{Test statistic for \eqn{chi^2} test.}
 \item{p.val}{\eqn{p}-value of \eqn{chi^2} test.}
 }
 \description{
@@ -27,22 +28,24 @@ that there is no three-way interaction.
 }
 \examples{
 
-
 # generate data
 set.seed(1977)
-exposure <- rep(c(1, 0, 0, 0, 0), 41)
-outcome <- sample(c(rep(1, 62), rep(0, 5 * 41 - 62)))
-strata <- rep(1:41, each = 5)
+data <- data.frame(exposure = rep(c(1, 0, 0, 0, 0), 41),
+                   outcome = sample(x = c(rep(1, 62), rep(0, 5 * 41 - 62))),
+                   stratum = rep(1:41, each = 5))
 
 # via conditional logistic regression
-logreg <- clogit(outcome ~ exposure + strata(strata), method = "approximate")
+logreg <- clogit(outcome ~ exposure + strata(stratum), method = "approximate",
+                 data = data)
 summary(logreg)
 
 # R function in library 'stats'
-mh <- mantelhaen.test(x = outcome, y = exposure, z = strata)
+mh <- with(data, mantelhaen.test(x = outcome, y = exposure, z = stratum))
 
 # this function
-mH <- mantelHaenszel(exposure, outcome, strata)
+mH <- with(data, mantelHaenszel(exposure = exposure,
+                                outcome = outcome,
+                                stratum = stratum))
 
 # compare p-values
 summary(logreg)$coef[5]
@@ -51,12 +54,11 @@ mH$p.val
 
 }
 \references{
-Agresti, A. (2002). \emph{Categorical data analysis}. New York:
-Wiley.
+Agresti, A. (2002). \emph{Categorical data analysis}. Wiley, New York,
 }
 \seealso{
-Similar functionality is provided in \code{\link{mantelhaen.test}}
-and \code{clogit} in \pkg{survival}. See the examples below for a
+Similar functionality is provided in \code{\link[stats]{mantelhaen.test}}
+and \code{\link[survival]{clogit}}. See the examples below for a
 comparison.
 }
 \author{

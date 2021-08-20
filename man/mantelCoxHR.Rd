@@ -17,11 +17,11 @@ mantelCoxHR(time, event, group, conf.level = 0.95)
 ratio.}
 }
 \value{
-\item{mantelCox.hr}{Hazard ratio estimate.} \item{ci.hr}{Wald
-confidence interval at the level specified by \code{conf.level}.}
+\item{mantelCox.hr}{Hazard ratio estimate.}
+\item{ci.hr}{Wald confidence interval at the level specified by \code{conf.level}.}
 \item{p.val.logrank}{\eqn{p}-value of logrank test for a comparison of the
-survival curves between the two groups.} \item{coxph.hr}{Hazard ratio
-estimated via Cox-regression.}
+survival curves between the two groups.}
+\item{coxph.hr}{Hazard ratio estimated via Cox-regression.}
 }
 \description{
 Estimate the hazard ratio and compute a confidence interval for it via a
@@ -30,14 +30,17 @@ is constructed for each event time. The underlying assumption is that the
 hazard ratio is constant over the follow-up period.
 }
 \note{
-Note that in general the Mantel-Cox estimate and the hazard ratio
-estimate received via Cox-regression \emph{do not coincide}.
+In general the Mantel-Cox estimate and the hazard ratio
+estimate received via Cox-regression do not coincide.
 }
 \examples{
 
-## use Acute Myelogenous Leukemia survival data contained in package 'survival'
-time <- leukemia[, 1]; status <- leukemia[, 2]; x <- as.factor(leukemia[, 3])
-mantelCoxHR(time, status, x)
+## load Acute Myelogenous Leukemia survival data
+data("leukemia", package = "survival")
+
+mantelCoxHR(time = leukemia[, 1],
+            event = leukemia[, 2],
+            group = as.factor(leukemia[, 3]))
 
 }
 \references{
