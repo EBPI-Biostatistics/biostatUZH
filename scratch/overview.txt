@@ -18,7 +18,6 @@ formatPval.R				ok
 is.wholenumber.R			ok			
 mantelCoxHR.R				ok
 mantelHaenszel.R			ok
-NumEvents.R				
 plotcorr.R				
 populationSamplePlot.R			
 printWaldCI.R				ok
@@ -27,6 +26,7 @@ quantileKM.R
 sampleSizeMcNemar.R			
 sampleSizeSurvival.R			
 sampleSizeWilcoxTwoSample.R		
+survEvents.R				ok
 survrep.R				
 tableOR.R				ok			
 tableRegression.R			ok

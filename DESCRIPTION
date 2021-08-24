@@ -2,7 +2,7 @@ Package: biostatUZH
 Title: Misc Tools of the Department of Biostatistics, EBPI, University
         of Zurich
 Version: 1.9.1
-Date: 2021-08-20
+Date: 2021-08-24
 Authors@R: c(person(given = "Leonhard",
                     family = "Held",
                     role = c("aut"),
@@ -13,6 +13,8 @@ Authors@R: c(person(given = "Leonhard",
 	            email = "florian.gerber@uzh.ch",
 	            role = c("cre"),
                     comment = c(ORCID = "0000-0001-8545-5263")),
+             person("Kaspar", "Rufibach", role = "aut",
+                    email = "kaspar.rufibach@gmail.com"),
 	     person(given = c("Sarah", "R."),
 	            family = "Haile",
 		    role = "aut",
@@ -21,8 +23,6 @@ Authors@R: c(person(given = "Leonhard",
                     email = "seb.meyer@fau.de",
 		    comment = c(ORCID = "0000-0002-1791-9449")),
              person("Sina", "Rueeger", role = "aut"),
-             person("Kaspar", "Rufibach", role = "aut",
-                    email = "kaspar.rufibach@gmail.com"),
              person("Simon", "Schwab", role = "aut",
                     email = "simon.schwab@uzh.ch",
 		    comment = c(ORCID = "0000-0002-1588-2689")),
