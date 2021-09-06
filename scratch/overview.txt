@@ -5,7 +5,7 @@ combineSubgroups.R			ok
 confIntAUC.R				ok
 confIntCorrelation.R			ok
 confIntDiagnostic.R			ok
-confIntICC.R					
+confIntICC.R				
 confIntKappa.R				ok
 confIntKM.R				ok
 confIntMedian.R				ok
@@ -18,7 +18,7 @@ formatPval.R				ok
 is.wholenumber.R			ok			
 mantelCoxHR.R				ok
 mantelHaenszel.R			ok
-plotcorr.R				
+plotcorr.R				ok
 populationSamplePlot.R			
 printWaldCI.R				ok
 quantileCumInc.R			

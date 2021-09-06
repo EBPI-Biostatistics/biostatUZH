@@ -90,10 +90,9 @@ Murdoch, D.J. and Chow, E.D. (1996). A graphical display of
 large correlation matrices. The American Statistician 50, 178-180.
 }
 \seealso{
-\code{\link[ellipse]{ellipse}}
+\code{\link[ellipse]{plotcorr}}
 }
 \author{
-(of this fork) Sebastian Meyer, (of the original version) Duncan
-Murdoch
+Sebastian Meyer, Duncan Murdoch
 }
 \keyword{hplot}

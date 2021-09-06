@@ -1,15 +1,3 @@
-################################################################################
-### Part of the R package "biostatUZH".
-### Free software under the terms of the GNU General Public License (version 2
-### or later) a copy of which is available at http://www.R-project.org/Licenses
-###
-### A fork of ellipse::plotcorr() by Duncan Murdoch
-###
-### Copyright (C) 2015 Sebastian Meyer
-################################################################################
-
-
-
 #' Compact Visualization of a Correlation Matrix
 #' 
 #' This function plots a correlation matrix using ellipse-shaped glyphs for
@@ -45,9 +33,8 @@
 #' will be passed to \code{\link{plot}} when plotting.
 #' @param cex Graphical parameter which will be passed to \code{\link{text}}
 #' when plotting.
-#' @author (of this fork) Sebastian Meyer, (of the original version) Duncan
-#' Murdoch
-#' @seealso \code{\link[ellipse]{ellipse}}
+#' @author Sebastian Meyer, Duncan Murdoch
+#' @seealso \code{\link[ellipse]{plotcorr}}
 #' @references Murdoch, D.J. and Chow, E.D. (1996). A graphical display of
 #' large correlation matrices. The American Statistician 50, 178-180.
 #' @keywords hplot
@@ -82,9 +69,11 @@ plotcorr <- function (corr, outline = TRUE, col = TRUE,
     on.exit(par(savepar))
 
     if (is.null(corr)) return(invisible())
-    if ((!is.matrix(corr)) || (round(min(corr, na.rm = TRUE), 6) < -1) 
-			   || (round(max(corr, na.rm = TRUE), 6) > 1)) 
+    if (is.null(corr) || !is.matrix(corr)
+                      || (round(min(corr, na.rm = TRUE), 6) < -1) 
+	              || (round(max(corr, na.rm = TRUE), 6) > 1)) 
 	stop("Need a correlation matrix")
+    stopifnot(is.logical(outline), length(outline) == 1)
 
     plot.new()
     par(new = TRUE)
