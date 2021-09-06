@@ -19,7 +19,7 @@ is.wholenumber.R			ok
 mantelCoxHR.R				ok
 mantelHaenszel.R			ok
 plotcorr.R				ok
-populationSamplePlot.R			
+populationSamplePlot.R			ok
 printWaldCI.R				ok
 quantileCumInc.R			
 quantileKM.R				

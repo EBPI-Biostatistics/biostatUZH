@@ -2,19 +2,22 @@
 % Please edit documentation in R/populationSamplePlot.R
 \name{populationSamplePlot}
 \alias{populationSamplePlot}
-\title{Plot that shows population and sample drawn from it}
+\title{Plot of population and sample relationship}
 \usage{
-populationSamplePlot(language = c("german", "english")[1])
+populationSamplePlot(language = c("german", "english"))
 }
 \arguments{
-\item{language}{Language of the text pieces added to the plot.}
+\item{language}{Language of the text of the plot.}
 }
 \value{
-Nothing is ouutput, only a plot is generated,
+Generates a plot.
 }
 \description{
-We frequently use this plot in presentations and teaching, to explain the
-connection between a population and a sample drawn from it.
+Plot visualizing the connection between a population
+and a sample drawn from it.
+}
+\examples{
+populationSamplePlot()
 }
 \author{
 Kaspar Rufibach \cr \email{kaspar.rufibach@gmail.com}
