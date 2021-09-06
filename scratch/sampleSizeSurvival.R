@@ -54,7 +54,7 @@
 #' \item{Events}{Required total number of events.}
 #' @author Uriah Daugaard and Leonhard Held \cr \email{leonhard.held@@uzh.ch}
 #' @seealso The function \code{\link{sampleSizeSurvival}} depends on
-#' \code{\link{NumEvents}} and \code{\link{PrEvent}}.
+#' \code{\link{survEvents}} and \code{\link{PrEvent}}.
 #' @references Collett, D. (2015). \emph{Modelling Survival Data in Medical
 #' Research}.  New York: Chapman and Hall/CRC.
 #' 
@@ -76,7 +76,7 @@
 #' ## estimate the sample size with 5 different approaches
 #' 
 #' ## Non-parametric
-#' sampleSizeSurvival(HR = .65, power=.90, a.length = 400,
+#' sampleSizeSurvival(HR = .65, power = .90, a.length = 400,
 #'                    f.length = 400, dist = "nonp", survfit.ref = fit,
 #'                    type = "sup", alloc.ratio = 1, method = "approx")
 #' 
@@ -96,7 +96,7 @@
 #' weib.scale <- unname(exp(coef(weib.reg)))
 #' weib.shape <- unname(1/weib.reg$scale)
 #' ## Weibull, approximate
-#' sampleSizeSurvival(HR = .65, power=.90, a.length = 400,
+#' sampleSizeSurvival(HR = .65, power = .90, a.length = 400,
 #'                    f.length = 400, dist = "weib", lambda = weib.scale,
 #'                    type = "sup", alloc.ratio = 1, shape = weib.shape,
 #'                    method = "approx")
@@ -134,18 +134,18 @@ sampleSizeSurvival <- function(HR, a.length, f.length, sig.level=0.05, power=NUL
         if(is.null(n.events)){
             n.events <- ceiling(pr.event * n)
         }
-        power <- NumEvents(HR = HR, sig.level = sig.level, power = power,
-                          n.events = n.events, alloc.ratio = alloc.ratio,
-                          non.inf.margin = non.inf.margin, type = type,
-                          alternative = alternative)
+        power <- survEvents(HR = HR, alpha = sig.level, power = power,
+                            n.events = n.events, alloc.ratio = alloc.ratio,
+                            non.inf.margin = non.inf.margin,
+                            alternative = alternative)
     }
     ## sample size calculation
     if(is.null(n)){
         if(is.null(n.events)){
-            n.events <- NumEvents(HR = HR, sig.level = sig.level, power = power,
-                                 n.events = n.events, alloc.ratio = alloc.ratio,
-                                 non.inf.margin = non.inf.margin, type = type,
-                                 alternative = alternative)
+            n.events <- survEvents(HR = HR, alpha = sig.level, power = power,
+                                   n.events = n.events, alloc.ratio = alloc.ratio,
+                                   non.inf.margin = non.inf.margin,
+                                   alternative = alternative)
         }
         n <- n.events/pr.event
         n <- ceiling(n/(1-drop.rate))

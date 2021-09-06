@@ -24,10 +24,10 @@ printWaldCI.R				ok
 quantileCumInc.R			
 quantileKM.R				
 sampleSizeMcNemar.R			
-sampleSizeSurvival.R			
+sampleSizeSurvival.R			problem
 sampleSizeWilcoxTwoSample.R		
 survEvents.R				ok
-survrep.R				
+survReport.R				ok
 tableOR.R				ok			
 tableRegression.R			ok
 weibullReg.R				ok

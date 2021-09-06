@@ -45,6 +45,14 @@ This funtion is deprecated. Use \code{\link{survEvents}} instead.
 \details{
 Calculates either the required total number of events or the power.
 }
+\examples{
+
+## suppress deprecated warning
+suppressWarnings(NumEvents(HR = 0.65, sig.level = 0.05, power = 0.9,
+                           alloc.ratio = 1, type = "sup",
+                           alternative = "two.sided"))
+
+}
 \references{
 Collett, D. (2015). \emph{Modelling Survival Data in Medical
 Research}.  New York: Chapman and Hall/CRC.
