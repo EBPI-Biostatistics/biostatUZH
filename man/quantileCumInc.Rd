@@ -2,7 +2,7 @@
 % Please edit documentation in R/quantileCumInc.R
 \name{quantileCumInc}
 \alias{quantileCumInc}
-\title{Compute arbitrary quantile of a Cumulative Incidence estimate}
+\title{Quantile of a cumulative incidence estimate}
 \usage{
 quantileCumInc(time, event, group, quant = 0.5)
 }
@@ -17,13 +17,13 @@ by \code{group}.}
 \item{quant}{Quantile to be computed. Real number in \eqn{[0, 1]}.}
 }
 \value{
-Dataframe with quantiles estimates for each event-group combination.
+data.frame with quantiles estimates for each event-group combination.
 }
 \description{
-In survival analysis, often some quantiles (mainly the median) of an
+In survival analysis, often some quantiles (e.g., the median) of an
 estimated cumulative incidence function are of interest. This function
-computes quantiles of cumulative incidence functions received via
-\code{cuminc} in the package \pkg{cmprsk}.
+computes quantiles of cumulative incidence functions using
+\code{cuminc} of the package \pkg{cmprsk}.
 }
 \examples{
 
@@ -32,10 +32,10 @@ if (require("cmprsk")) {
   set.seed(1977)
   n <- 180
   time <- rgamma(n, 2, 1)
-  status <- factor(sample(rep(0:2, n / 3)), levels = 0:2, labels = 
-      c("censored", "Time to 2nd tumor", "Death"))
-  x <- factor(round(runif(n, 1, 2)), levels = 1:2, labels = 
-      c("Tmt A", "Tmt B"))
+  status <- factor(sample(rep(0:2, n / 3)), levels = 0:2,
+                   labels = c("censored", "Time to 2nd tumor", "Death"))
+  x <- factor(round(runif(n, 1, 2)), levels = 1:2,
+              labels = c("Tmt A", "Tmt B"))
   
   ## plot
   plot(cuminc(time, status, x))

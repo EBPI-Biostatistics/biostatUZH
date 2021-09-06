@@ -21,7 +21,7 @@ mantelHaenszel.R			ok
 plotcorr.R				ok
 populationSamplePlot.R			ok
 printWaldCI.R				ok
-quantileCumInc.R			
+quantileCumInc.R			ok			
 quantileKM.R				
 sampleSizeMcNemar.R			
 sampleSizeSurvival.R			problem
