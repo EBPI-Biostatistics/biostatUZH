@@ -39,7 +39,7 @@ survival and hazard ratios suitable for the creation of tables etc., while
 "text" gives output suitable for the text of reports. "text"-type output
 is always printed in the plots unless \code{stmt.placement} is "none".}
 
-\item{main}{Main title of the plot.}
+\item{main}{Title of the plot.}
 
 \item{xlab}{Label for the x-axis of the plot.}
 
@@ -48,7 +48,7 @@ is always printed in the plots unless \code{stmt.placement} is "none".}
 \item{labels}{Labels used to produce the legend and the contrasts
 printed in the hazard ratio statements.}
 
-\item{digits}{Number of significant digits used in rounding for ``text''-type
+\item{digits}{Number of significant digits used in rounding for text-type
 output.}
 
 \item{conf.level}{Significance level for confidence interval for the median

@@ -1,7 +1,7 @@
 behrensTest.R				ok
 bioStatUZH-package.R			
 blandAltman.R				ok
-combineSubgroups.R			
+combineSubgroups.R			ok
 confIntAUC.R				ok
 confIntCorrelation.R			ok
 confIntDiagnostic.R			ok

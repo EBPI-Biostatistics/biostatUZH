@@ -1,31 +1,35 @@
 #' Combines summary data across subgroups
 #' 
-#' Combines means and variances of a continuous outcome given in subgroups.
-#' 
+#' Combines mean estimates, standard errors, and sample sizes of
+#' several treatment and placebo groups into an overall treatment effect
+#' and its standard error. Assumes normally distributed estimates. 
 #' 
 #' @param n Vector with sample sizes in each subgroup.
 #' @param means Vector with sample means in each subgroup.
-#' @param variances Vector with sample variances in each subgroup.
-#' @param treatment Indicates which entries of each vector belong to the
+#' Has to be of same length as \code{n}.
+#' @param se Vector with sample standard errors in each subgroup.
+#' Has to be of same length as \code{n}.
+#' @param treatment Index with intagers between 1 and \code{length(n)}.
+#' Indicates which entries of each vector belong to the
 #' treatment group.
 #' @return Overall difference in means with a standard error.
 #' @author Leonhard Held
 #' @examples
 #' 
 #' combineSubgroups(n = c(10, 20, 30, 40), means = c(12, 11, 10, 9),
-#'                  variances = c(3, 4, 3, 4), treatment = c(2, 4))
+#'                  se = c(3, 4, 3, 4), treatment = c(2, 4))
 #' 
 #' @export
-combineSubgroups <- function(n, means, variances, treatment){
+combineSubgroups <- function(n, means, se, treatment){
 
     stopifnot(is.numeric(n), length(n) >= 2,
               is.finite(n), is.wholenumber(n),
               is.numeric(means), length(n) == length(means),
               is.finite(n),
-              is.numeric(variances), length(n) == length(variances),
-              is.finite(variances),
+              is.numeric(se), length(n) == length(se),
+              is.finite(se),
               is.numeric(treatment), length(treatment) <= n,
-              is.finite(variances), is.wholenumber(treatment),
+              is.finite(treatment), is.wholenumber(treatment),
               1 <= treatment, treatment <= length(n))
     
     ## sample sizes for intervention and placebo
@@ -37,8 +41,8 @@ combineSubgroups <- function(n, means, variances, treatment){
     ## overall treatment effect
     theta <- theta.trtm - theta.plac
     ## within-group variance
-    varw.trtm <- weighted.mean(variances[treatment], w = n.trtm)
-    varw.plac <- weighted.mean(variances[-treatment], w = n.plac)
+    varw.trtm <- weighted.mean(se[treatment]^2, w = n.trtm)
+    varw.plac <- weighted.mean(se[-treatment]^2, w = n.plac)
     ## between-group variance
     varb.trtm <- weighted.mean((means[treatment] - theta.trtm)^2, w = n.trtm)
     varb.plac <- weighted.mean((means[-treatment] - theta.plac)^2, w = n.plac)

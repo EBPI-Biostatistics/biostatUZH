@@ -4,28 +4,33 @@
 \alias{combineSubgroups}
 \title{Combines summary data across subgroups}
 \usage{
-combineSubgroups(n, means, variances, treatment)
+combineSubgroups(n, means, se, treatment)
 }
 \arguments{
 \item{n}{Vector with sample sizes in each subgroup.}
 
-\item{means}{Vector with sample means in each subgroup.}
+\item{means}{Vector with sample means in each subgroup.
+Has to be of same length as \code{n}.}
 
-\item{variances}{Vector with sample variances in each subgroup.}
+\item{se}{Vector with sample standard errors in each subgroup.
+Has to be of same length as \code{n}.}
 
-\item{treatment}{Indicates which entries of each vector belong to the
+\item{treatment}{Index with intagers between 1 and \code{length(n)}.
+Indicates which entries of each vector belong to the
 treatment group.}
 }
 \value{
 Overall difference in means with a standard error.
 }
 \description{
-Combines means and variances of a continuous outcome given in subgroups.
+Combines mean estimates, standard errors, and sample sizes of
+several treatment and placebo groups into an overall treatment effect
+and its standard error. Assumes normally distributed estimates.
 }
 \examples{
 
 combineSubgroups(n = c(10, 20, 30, 40), means = c(12, 11, 10, 9),
-                 variances = c(3, 4, 3, 4), treatment = c(2, 4))
+                 se = c(3, 4, 3, 4), treatment = c(2, 4))
 
 }
 \author{
