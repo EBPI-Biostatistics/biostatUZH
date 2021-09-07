@@ -25,7 +25,7 @@ quantileCumInc.R			ok
 quantileKM.R				
 sampleSizeMcNemar.R			
 sampleSizeSurvival.R			problem
-sampleSizeWilcoxTwoSample.R		
+sampleSizeWilcoxTwoSample.R		ok
 survEvents.R				ok
 survReport.R				ok
 tableOR.R				ok			

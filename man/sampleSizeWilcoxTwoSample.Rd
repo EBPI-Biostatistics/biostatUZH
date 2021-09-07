@@ -2,52 +2,57 @@
 % Please edit documentation in R/sampleSizeWilcoxTwoSample.R
 \name{sampleSizeWilcoxTwoSample}
 \alias{sampleSizeWilcoxTwoSample}
-\title{Compute sample size for two sample Wilcoxon (Mann-Whitney) test}
+\title{Sample size for two sample Wilcoxon (Mann-Whitney) test}
 \usage{
 sampleSizeWilcoxTwoSample(
-  a = 0.05,
-  b = 0.2,
-  c = 0.5,
-  pxy = 0.75,
+  delta = 0.75,
+  sig.level = 0.05,
+  power = 0.9,
+  ratio = 0.5,
   two.sided = TRUE
 )
 }
 \arguments{
-\item{a}{Significance level of test.}
+\item{delta}{Probability \eqn{P(Y_i > X_j)}.}
 
-\item{b}{Desired power of test.}
+\item{sig.level}{Significance level with default 0.05.}
 
-\item{c}{Proportion of observations in group 1: \eqn{c = m / (m + n)}
-(\eqn{c = 0.5} means equally sized groups).}
+\item{power}{Power with default 0.9.}
 
-\item{pxy}{A value for the probability \eqn{P(Y > X)}.}
+\item{ratio}{Ratio of the sample size of group 1 to the total samples size:
+\code{ratio} \eqn{= m / (m + n)}, where \eqn{m} and \eqn{m} are the sample
+sizes of group 1 and 2, respectively.
+A \code{ratio} of 0.5 implies equal group sizes.}
 
-\item{two.sided}{If \code{TRUE} a two-sided test is assumed, otherwise
-one-sided.}
+\item{two.sided}{If \code{TRUE}, the test is two-sided.
+Otherwise, it is one-sided.}
 }
 \value{
-\item{m}{Sample size of the first group.} \item{n}{Sample size of
-the second group.}
+data.frame with columns: 
+\item{delta}{\code{delta} from input.}
+\item{sig.level}{\code{sig.level} from input.}
+\item{power}{\code{power} from input.}
+\item{ratio}{\code{ratio} from input.}
+\item{two.sided}{\code{two.sided} from input.}
+\item{m}{Sample size of the group 1.}
+\item{n}{Sample size of the group 2.}
 }
 \description{
-Compute sample size to test the hypothesis that two samples come from the
-same population against that \eqn{Y}'s tend to be larger than \eqn{X}'s.
-}
-\details{
-Given two independent samples \eqn{X_1, ..., X_m} and \eqn{Y_1, ..., Y_n},
-we want to test the hypothesis that the two samples come from the same
-population against that \eqn{Y}'s tend to be larger than \eqn{X}'s.
+Compute the sample size required to test the hypothesis that two sets of independent samples,
+\eqn{X_1, ..., X_m} and \eqn{Y_1, ..., Y_n} come from the
+same population against that \eqn{Y}'s is to be larger than \eqn{X}'s.
 }
 \examples{
 
-# compute sample size for some pxy's
-pxys <- c(0.65, 0.7, 0.75)
-dat1 <- matrix(ncol = 3, nrow = length(pxys))
-colnames(dat1) <- c("P(Y > X)", "m", "n")
-for (j in 1:length(pxys)){dat1[j, ] <- c(pxys[j], 
-    sampleSizeWilcoxTwoSample(a = 0.05, b = 0.1, c = 0.5, 
-    pxy = pxys[j], two.sided = TRUE))}
-dat1
+sampleSizeWilcoxTwoSample(delta = 0.75)
+sampleSizeWilcoxTwoSample(delta = 0.85)
+sampleSizeWilcoxTwoSample(delta = 0.85, power = 0.8)
+sampleSizeWilcoxTwoSample(delta = 0.85, sig.level = 0.01)
+sampleSizeWilcoxTwoSample(delta = 0.85, two.sided = FALSE)
+
+tmp <- lapply(X = seq(0.55, 0.95, .1),
+              FUN = function(delta) sampleSizeWilcoxTwoSample(delta = delta, ratio = .25))
+do.call(what = rbind, args = tmp)
 
 }
 \references{
@@ -55,6 +60,6 @@ Nother, G.E. (1987). Sample Size Determination for Some Common
 Nonparametric Tests \emph{JASA}, \bold{82}, 644--647.
 }
 \author{
-Kaspar Rufibach \cr \email{kaspar.rufibach@gmail.com}
+Kaspar Rufibach
 }
 \keyword{htest}

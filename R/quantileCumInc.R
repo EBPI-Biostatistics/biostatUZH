@@ -33,7 +33,7 @@
 #'   quantileCumInc(time, status, group = x, quant = 0.25)
 #' }
 #'
-#' @importFrom cmprsk cuminc
+#' @importFrom cmprsk cuminc timepoints
 #' @export
 quantileCumInc <- function(time, event, group, quant = 0.5)
 {
@@ -41,10 +41,6 @@ quantileCumInc <- function(time, event, group, quant = 0.5)
     stopifnot(is.numeric(quant),
               length(quant) == 1,
               0 <= quant, quant <= 1)
-
-    
-    if (!requireNamespace("cmprsk"))
-        stop("requires cmprsk::cuminc()")
 
     t.low0 <- unlist(lapply(split(time, interaction(group, event, sep = " ")), min))
     t.up0 <- unlist(lapply(split(time, interaction(group, event, sep = " ")), max))

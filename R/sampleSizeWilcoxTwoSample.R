@@ -1,66 +1,71 @@
-#' Compute sample size for two sample Wilcoxon (Mann-Whitney) test
+#' Sample size for two sample Wilcoxon (Mann-Whitney) test
 #' 
-#' Compute sample size to test the hypothesis that two samples come from the
-#' same population against that \eqn{Y}'s tend to be larger than \eqn{X}'s.
-#' 
-#' Given two independent samples \eqn{X_1, ..., X_m} and \eqn{Y_1, ..., Y_n},
-#' we want to test the hypothesis that the two samples come from the same
-#' population against that \eqn{Y}'s tend to be larger than \eqn{X}'s.
-#' 
-#' @param a Significance level of test.
-#' @param b Desired power of test.
-#' @param c Proportion of observations in group 1: \eqn{c = m / (m + n)}
-#' (\eqn{c = 0.5} means equally sized groups).
-#' @param pxy A value for the probability \eqn{P(Y > X)}.
-#' @param two.sided If \code{TRUE} a two-sided test is assumed, otherwise
-#' one-sided.
-#' @return \item{m}{Sample size of the first group.} \item{n}{Sample size of
-#' the second group.}
-#' @author Kaspar Rufibach \cr \email{kaspar.rufibach@@gmail.com}
+#' Compute the sample size required to test the hypothesis that two sets of independent samples,
+#' \eqn{X_1, ..., X_m} and \eqn{Y_1, ..., Y_n} come from the
+#' same population against that \eqn{Y}'s is to be larger than \eqn{X}'s.
+#'  
+#' @param delta Probability \eqn{P(Y_i > X_j)}.
+#' @param sig.level Significance level with default 0.05.
+#' @param power Power with default 0.9.
+#' @param ratio Ratio of the sample size of group 1 to the total samples size:
+#' \code{ratio} \eqn{= m / (m + n)}, where \eqn{m} and \eqn{m} are the sample
+#' sizes of group 1 and 2, respectively.
+#' A \code{ratio} of 0.5 implies equal group sizes.
+#' @param two.sided If \code{TRUE}, the test is two-sided.
+#' Otherwise, it is one-sided.
+#' @return data.frame with columns: 
+#' \item{delta}{\code{delta} from input.}
+#' \item{sig.level}{\code{sig.level} from input.}
+#' \item{power}{\code{power} from input.}
+#' \item{ratio}{\code{ratio} from input.}
+#' \item{two.sided}{\code{two.sided} from input.}
+#' \item{m}{Sample size of the group 1.}
+#' \item{n}{Sample size of the group 2.}
+#' @author Kaspar Rufibach
 #' @references Nother, G.E. (1987). Sample Size Determination for Some Common
 #' Nonparametric Tests \emph{JASA}, \bold{82}, 644--647.
 #' @keywords htest
 #' @examples
 #' 
-#' # compute sample size for some pxy's
-#' pxys <- c(0.65, 0.7, 0.75)
-#' dat1 <- matrix(ncol = 3, nrow = length(pxys))
-#' colnames(dat1) <- c("P(Y > X)", "m", "n")
-#' for (j in 1:length(pxys)){dat1[j, ] <- c(pxys[j], 
-#'     sampleSizeWilcoxTwoSample(a = 0.05, b = 0.1, c = 0.5, 
-#'     pxy = pxys[j], two.sided = TRUE))}
-#' dat1
+#' sampleSizeWilcoxTwoSample(delta = 0.75)
+#' sampleSizeWilcoxTwoSample(delta = 0.85)
+#' sampleSizeWilcoxTwoSample(delta = 0.85, power = 0.8)
+#' sampleSizeWilcoxTwoSample(delta = 0.85, sig.level = 0.01)
+#' sampleSizeWilcoxTwoSample(delta = 0.85, two.sided = FALSE)
+#'
+#' tmp <- lapply(X = seq(0.55, 0.95, .1),
+#'               FUN = function(delta) sampleSizeWilcoxTwoSample(delta = delta, ratio = .25))
+#' do.call(what = rbind, args = tmp)
 #' 
 #' @export
-sampleSizeWilcoxTwoSample <- function(a = 0.05, b = 0.2, c = 0.5, pxy = 0.75, two.sided = TRUE){
+sampleSizeWilcoxTwoSample <- function(delta = 0.75, sig.level = 0.05, power = 0.9,
+                                      ratio = 0.5, two.sided = TRUE){
+    stopifnot(is.numeric(delta), length(delta) == 1,
+              is.finite(delta),
+              0 < delta, delta < 1,
+              is.numeric(sig.level), length(sig.level) == 1,
+              is.finite(sig.level), 
+              0 < sig.level, sig.level < 1,
+              is.numeric(power), length(power) == 1,
+              is.finite(power),
+              0 < power, power < 1,
+              is.numeric(ratio), length(ratio) == 1,
+              is.finite(ratio),
+              0 < ratio, ratio < 1,
+              is.logical(two.sided), length(two.sided) == 1,
+              is.finite(two.sided))
 
-# Given two independent samples X_1, ..., X_m and Y_1, ..., Y_n, 
-# we want to test the hypothesis that the two samples come from
-# the same population against that Y's tend to be larger than X's
-# Taken from Nother (1987), JASA 82, 644 - 647
-#
-# Input:
-# a:            significance level
-# b:            desired power
-# c:            proportion of observations in group 1: c = m / (m + n)
-#               (c = 0.5 means equally sized groups)
-# pxy:          P(Y > X)  
-# two.sided:    if = T --> two.sided, else one sided test 
-#
-# Output:       vector E N^2 containing
-# m:            number of observations in Sample 1
-# n:            number of observations in Sample 2
-#
-# Kaspar Rufibach, December 2007
-#
-    side <- 2
-    if (two.sided == FALSE){side <- 1}
-    za <- qnorm(1 - a / side) 
-    zb <- qnorm(1 - b)
-    N <- (za + zb) ^ 2 / (12 * c * (1 - c) * (pxy - 1 / 2) ^ 2)    
-    m <- ceiling(c * N)
-    n <- ceiling(N * (1 - c))
-    
-    return(c("m = " = m, "n = " = n))
+    za <- if(two.sided) qnorm(1 - sig.level / 2) else qnorm(1 - sig.level)
+    zb <- qnorm(power)
+    N <- (za + zb)^2 / (12 * ratio * (1 - ratio) * (delta - 1/2)^2)    
+    data.frame("delta" = delta,
+               "sig.level" = sig.level,
+               "power" = power,
+               "ratio" = ratio,
+               "two.sided" = two.sided, 
+               "m" = ceiling(ratio * N),
+               "n" = ceiling(N * (1 - ratio)))
 }
+
+
 
