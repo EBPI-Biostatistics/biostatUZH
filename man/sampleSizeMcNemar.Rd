@@ -2,41 +2,42 @@
 % Please edit documentation in R/sampleSizeMcNemar.R
 \name{sampleSizeMcNemar}
 \alias{sampleSizeMcNemar}
-\title{Compute sample size for McNemar test}
+\title{Sample size for McNemar test}
 \usage{
-sampleSizeMcNemar(p1, p2, alpha = 0.05, power = 0.8)
+sampleSizeMcNemar(p1, p2, sig.level = 0.05, power = 0.9)
 }
 \arguments{
 \item{p1}{Assumed marginal probability of the first row.}
 
-\item{p2}{Assumed marginal probability of the first column.}
+\item{p2}{Assumed marginal probability of the first column.
+Has to be larger than p1 and 0.5.}
 
-\item{alpha}{Significance level.}
+\item{sig.level}{Significance level.}
 
-\item{power}{Desired power, i.e. 1 - probability of type II error.}
+\item{power}{Power, i.e., 1 - probability of type II error.}
 }
 \value{
-\item{N}{Vector of min, max, and mid sample size as explained in
-Lachenbruch (1982).}
+Vector of min, max, and mid sample size as explained in
+Lachenbruch (1982).
 }
 \description{
-Compute sample size to test the null hypothesis of the McNemar test.
+Compute the sample size to test the null hypothesis of the McNemar test.
 }
 \details{
-Given two samples of paired binary observations, e.g. results of some
-positive/negative test on the same experimental units we want to assess the
+Given two samples of paired binary observations, e.g., results of some
+positive/negative test on the same experimental units, we want to assess the
 null hypothesis whether the probability of positives by the first method is
 equal that of positives by the second method.
 }
 \examples{
 
 # example from Lachenbruch (1982), Table II, first row
-sampleSizeMcNemar(p1 = 0.8, p2 = 0.9, alpha = 0.05, power = 0.9)
+sampleSizeMcNemar(p1 = 0.8, p2 = 0.9, sig.level = 0.05, power = 0.9)
 
 }
 \references{
 Lachenbruch (1992). Sample Size for Studies based on McNemar's
-test \emph{Stat. Med.}, \bold{11}, 1521--1525.
+test \emph{Statistics in Medicine}, \bold{11}, 1521--1525.
 }
 \author{
 Kaspar Rufibach \cr \email{kaspar.rufibach@gmail.com}

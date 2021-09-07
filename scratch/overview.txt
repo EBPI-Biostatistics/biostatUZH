@@ -22,7 +22,7 @@ plotcorr.R				ok
 populationSamplePlot.R			ok
 printWaldCI.R				ok
 quantileCumInc.R			ok			
-sampleSizeMcNemar.R			
+sampleSizeMcNemar.R			ok
 sampleSizeSurvival.R			problem
 sampleSizeWilcoxTwoSample.R		ok
 survEvents.R				ok
