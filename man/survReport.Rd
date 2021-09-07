@@ -6,7 +6,7 @@
 \usage{
 survReport(
   time,
-  status,
+  event,
   group = NULL,
   stmt.placement = c("bottomleft", "bottomright", "topright", "subtitle", "none"),
   legend.placement = c("topright", "bottomleft", "bottomright", "none"),
@@ -22,7 +22,7 @@ survReport(
 \arguments{
 \item{time}{Numeric vector of event times, censored or observed.}
 
-\item{status}{Numeric vector of censoring indicators, 1 for event, 0 for censored.}
+\item{event}{Numeric vector of censoring indicators, 1 for event, 0 for censored.}
 
 \item{group}{Kaplan-Meier plots, median survival and hazard rates will be
 computed for each \code{group}. If \code{group} is missing, the Kaplan-Meier plots
@@ -75,24 +75,24 @@ model.
 \examples{
 
 ## use Acute Myelogenous Leukemia survival data from the 'survival' package
-time <- leukemia[, 1]; status <- leukemia[, 2]; group <- leukemia[, 3]
-survReport(time = time, status = status)
-survReport(time = time, status = status, group = group)
-survReport(time = time, status = status, group = group, stmt.placement = "bottomright",
+time <- leukemia[, 1]; event <- leukemia[, 2]; group <- leukemia[, 3]
+survReport(time = time, event = event)
+survReport(time = time, event = event, group = group)
+survReport(time = time, event = event, group = group, stmt.placement = "bottomright",
            output = "plain", main = "Acute Myeloid Leukemia")
-survReport(time = time, status = status, group = group, stmt.placement = "bottomright",
+survReport(time = time, event = event, group = group, stmt.placement = "bottomright",
            output = "text", main = "AML")
-survReport(time = time, status = status, group = group, stmt.placement = "subtitle",
+survReport(time = time, event = event, group = group, stmt.placement = "subtitle",
            output = "text", main = "Acute Myeloid Leukemia")
 
 ## use Larynx data from the 'survival' package
 data(larynx)
 larynx$stage <- factor(x = larynx$stage, 1:4,  c("I", "II", "III", "IV"))
-with(larynx, survReport(time = time, status = death, group = stage, output = "text",
+with(larynx, survReport(time = time, event = death, group = stage, output = "text",
                         stmt.placement = "bottomright", main = "Larynx"))
-with(larynx, survReport(time = time, status = death, group = stage, output = "text",
+with(larynx, survReport(time = time, event = death, group = stage, output = "text",
                         stmt.placement = "subtitle", main = ""))
-with(larynx, survReport(time = time, status = death, group = stage, output = "plain",
+with(larynx, survReport(time = time, event = death, group = stage, output = "plain",
                         stmt.placement = "topright", legend.placement = "bottomright"))
 
 }
