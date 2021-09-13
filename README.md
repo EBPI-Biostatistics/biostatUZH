@@ -6,7 +6,7 @@ University of Zurich, Zurich, Switzerland.
 http://www.biostat.uzh.ch
 
 
-Currently implemented topics:
+Covered topics:
 * CI's for proportions,
 * CI's for diagnostic tests,
 * bootstrap CIs for the kappa coefficient,
@@ -25,14 +25,24 @@ Currently implemented topics:
 * hazard ratio and event time ratio interpretations,
 * a plot to check the adequacy of the Weibull model.
 
-## Installation
+## Get started:
 
+Install the package
 ```r
 devtools::install_github(repo = "florafauna/biostatUZH")
 ```
 
-## Vignettes
+List all functions of the package
+```r
+ls("package:biostatUZH")
+```
 
+Get the documentation of a function
+```r
+?confIntProportion
+```
+
+Access vignettes
 ```r
 vignette("weibull")
 vignette("aucbinormal")
