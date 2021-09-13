@@ -16,9 +16,9 @@
 #' computed for each \code{group}. If \code{group} is missing, the Kaplan-Meier plots
 #' and median survival will be produced for the entire dataset.
 #' @param stmt.placement Placement of the statement giving hazard ratios, confidence
-#' intervals and p-values in the plot. Ignored if \code{group = NA}.
+#' intervals and p-values in the plot. Ignored if \code{group = NULL}.
 #' @param legend.placement Placement of the legend in the plot. Ignored if
-#' \code{group = NA}. A warning will be produced if \code{stmt.placement} equals \code{legend.placemet}.
+#' \code{group = NULL}. A warning will be produced if \code{stmt.placement} equals \code{legend.placemet}.
 #' @param output Type of output, "plain" gives plaintext output for median
 #' survival and hazard ratios suitable for the creation of tables etc., while
 #' "text" gives output suitable for the text of reports. "text"-type output
@@ -117,7 +117,7 @@ survReport <- function(time, event, group = NULL,
     if (is.null(group)) {
         fm <- survival::Surv(time, event) ~ 1
         np <- 1
-        medians <- quantileKM(time = time, event = event, group = NA, conf.level = conf.level)$quantities[3:5]
+        medians <- quantileKM(time = time, event = event, group = NULL, conf.level = conf.level)$quantities[3:5]
         med.stmt <- paste(round(medians[1], digits), " (", round(medians[2], digits), " - ",
                           round(medians[3], digits), ")", sep = "")
     } else {

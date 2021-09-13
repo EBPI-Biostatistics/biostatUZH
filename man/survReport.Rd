@@ -29,10 +29,10 @@ computed for each \code{group}. If \code{group} is missing, the Kaplan-Meier plo
 and median survival will be produced for the entire dataset.}
 
 \item{stmt.placement}{Placement of the statement giving hazard ratios, confidence
-intervals and p-values in the plot. Ignored if \code{group = NA}.}
+intervals and p-values in the plot. Ignored if \code{group = NULL}.}
 
 \item{legend.placement}{Placement of the legend in the plot. Ignored if
-\code{group = NA}. A warning will be produced if \code{stmt.placement} equals \code{legend.placemet}.}
+\code{group = NULL}. A warning will be produced if \code{stmt.placement} equals \code{legend.placemet}.}
 
 \item{output}{Type of output, "plain" gives plaintext output for median
 survival and hazard ratios suitable for the creation of tables etc., while

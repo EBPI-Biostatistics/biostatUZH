@@ -17,9 +17,9 @@ confIntICC(dat, conf.level = 0.95, psi.re.0 = c(0, 1))
 p. 621 of Rousson et al. (2003).}
 }
 \value{
-A list containing: \item{icc(2, 1)}{ICC(2, 1): Intraclass
-correlation from a two-random effects model.} \item{icc(3, 1)}{ICC(3, 1):
-Intraclass correlation from a model with fixed rater effect.}
+A list containing:
+\item{icc(2, 1)}{ICC(2, 1): Intraclass correlation from a two-random effects model.}
+\item{icc(3, 1)}{ICC(3, 1): Intraclass correlation from a model with fixed rater effect.}
 \item{psi_r/e}{The value \eqn{\psi_{r/e}} computed from the actual data.}
 \item{ci.trained.rater}{Confidence interval under the trained rater
 assumption, see Rousson et al. (2003), Section 4.}
@@ -72,7 +72,7 @@ intraclass correlation in inter-rater reliability. \emph{Scand. J.
 Statist.}, \bold{30}, 617--624.
 }
 \seealso{
-\code{\link{computeICCrater}}
+\code{\link{computeICCrater}}, \code{\link{Aalpha}}, \code{\link{computeICCrater}}
 }
 \author{
 Kaspar Rufibach \cr \email{kaspar.rufibach@gmail.com}

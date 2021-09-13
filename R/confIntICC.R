@@ -12,9 +12,9 @@
 #' @param conf.level Confidence level for confidence interval.
 #' @param psi.re.0 2-d vector specifying the interval \eqn{[psi_0, psi_1]} on
 #' p. 621 of Rousson et al. (2003).
-#' @return A list containing: \item{icc(2, 1)}{ICC(2, 1): Intraclass
-#' correlation from a two-random effects model.} \item{icc(3, 1)}{ICC(3, 1):
-#' Intraclass correlation from a model with fixed rater effect.}
+#' @return A list containing:
+#' \item{icc(2, 1)}{ICC(2, 1): Intraclass correlation from a two-random effects model.}
+#' \item{icc(3, 1)}{ICC(3, 1): Intraclass correlation from a model with fixed rater effect.}
 #' \item{psi_r/e}{The value \eqn{\psi_{r/e}} computed from the actual data.}
 #' \item{ci.trained.rater}{Confidence interval under the trained rater
 #' assumption, see Rousson et al. (2003), Section 4.}
@@ -28,7 +28,7 @@
 #' \code{\link{confIntICC}} are computed using sums of squares, and the data
 #' must therefore be \emph{balanced}. See the example below.
 #' @author Kaspar Rufibach \cr \email{kaspar.rufibach@@gmail.com}
-#' @seealso \code{\link{computeICCrater}}
+#' @seealso \code{\link{computeICCrater}}, \code{\link{Aalpha}}, \code{\link{computeICCrater}}
 #' @references Rousson, V., Gasser, T., and Seifert, B. (2002). Assessing
 #' intrarater, interrater and test-retest reliability of continuous
 #' measurements. \emph{Statist. Med.}, \bold{21}, 3431--3446.
@@ -57,23 +57,15 @@
 #' @export
 confIntICC <- function(dat, conf.level = 0.95, psi.re.0 = c(0, 1)){
 
-    ## We compute the ICC(2, 1): Each subject is measured by each rater,
-    ## and raters are considered representative of a larger population of
-    ## similar raters. Reliability calculated from a single measurement.
-    ##
-    ## We also provide confidence intervals discussed in Rousson et al (2003),
-    ## Scand J Statist 30, 617-624.
-    ##
-    ## Input:
-    ##     - A data.frame "dat" containing the columns score, pat, rater.
-    ##     - Confidence level alpha for confidence interval.
-    ##     - psi.re.0: interval [psi_0, psi_1].
-    ##
-    ## Output:
-    ##     - 
-    ##
-    ## Kaspar Rufibach, June 25, 2008
-    ##
+    stopifnot(is.data.frame(dat),
+              c("score", "pat", "rater") %in% names(dat),
+              is.numeric(conf.level),
+              length(conf.level) == 1,
+              is.finite(conf.level),
+              0 < conf.level, conf.level < 1,
+              is.numeric(psi.re.0), length(psi.re.0) == 2,
+              psi.re.0[1] <= psi.re.0[2])
+
     
     alpha <- 1 - conf.level
     
@@ -90,11 +82,13 @@ confIntICC <- function(dat, conf.level = 0.95, psi.re.0 = c(0, 1)){
     Yj <- as.vector(unlist(lapply(split(Yij, dat$rater), mean)))
     Y <- mean(Yij)
     
-    MSs <- d / (n - 1) * sum((Yi - Y) ^ 2)
-    MSr <- n / (d - 1) * sum((Yj - Y) ^ 2)
+    MSs <- d / (n - 1) * sum((Yi - Y)^2)
+    MSr <- n / (d - 1) * sum((Yj - Y)^2)
     
     tmp <- 0
-    for (j in 1:d){tmp <- tmp + ((Yij - Yi)[dat$rater == rj[j]] - Yj[j] + Y) ^ 2}
+    for (j in 1:d){
+        tmp <- tmp + ((Yij - Yi)[dat$rater == rj[j]] - Yj[j] + Y)^2
+    }
     MSe <- 1 / ((d - 1) * (n - 1)) * sum(tmp)
     sig2.ms <- c((MSs - MSe) / d, (MSr - MSe) / n, MSe)
     
@@ -145,7 +139,7 @@ confIntICC <- function(dat, conf.level = 0.95, psi.re.0 = c(0, 1)){
 #' @export
 Aalpha <- function(alpha, n, d, MSs, MSe){
     ## compute the function A(alpha) on p. 621 of Roussen et al (2003)
-    Fa <- qf(alpha, df1 = (n - 1) * (d - 1), df2 = n - 1, ncp = 0)
+    Fa <- stats::qf(alpha, df1 = (n - 1) * (d - 1), df2 = n - 1, ncp = 0)
     (Fa * MSs - MSe) / (d * MSe)
 }
 
@@ -201,7 +195,9 @@ Aalpha <- function(alpha, n, d, MSs, MSe){
 #' @importFrom lme4 lmer VarCorr
 computeICCrater <- function(dat)
 {
-    ## we compute the ICC(2, 1): Each subject is measured by each rater, 
+    stopifnot(is.data.frame(dat),
+              c("score", "pat", "rater") %in% names(dat))
+              ## we compute the ICC(2, 1): Each subject is measured by each rater, 
     ## and raters are considered representative of a larger population of 
     ## similar raters. Reliability calculated from a single measurement.
     
@@ -227,13 +223,12 @@ lamAlpha <- function(alpha, n, d, MSr, MSe){
     ## compute the function A(alpha) on p. 621 of Roussen et al (2003)
     limit <- c(10^-5, 1000)
     if (sum(abs(sign(rootFct(limit, alpha, n, d, MSr, MSe)))) == 2){lam.a <- 0} else {
-        lam.a <- uniroot(rootFct, interval = limit, alpha, n, d, MSr, MSe)$root}
+        lam.a <- stats::uniroot(rootFct, interval = limit, alpha, n, d, MSr, MSe)$root}
     return(lam.a)    
 }
 
 rootFct <- function(x, alpha, n, d, MSr, MSe){
-
-    Fa <- qf(1 - alpha, df1 = d - 1, df2 = (n - 1) * (d - 1), ncp = x)
+    Fa <- stats::qf(1 - alpha, df1 = d - 1, df2 = (n - 1) * (d - 1), ncp = x)
     res <- Fa - MSr / MSe
     return(res)
 }
