@@ -1,5 +1,5 @@
 behrensTest.R				ok
-bioStatUZH-package.R			
+bioStatUZH-package.R			ok
 blandAltman.R				ok
 combineSubgroups.R			ok
 confIntAUC.R				ok

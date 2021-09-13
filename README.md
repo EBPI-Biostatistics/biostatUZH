@@ -3,14 +3,14 @@
 Provides R functions developed at the Department of Biostatistics,
 Epidemiology, Biostatistics and Prevention Institute,
 University of Zurich, Zurich, Switzerland.
+http://www.biostat.uzh.ch
 
 
 Currently implemented topics:
-* several CI's for proportions,
-* several CI's for diagnostic tests,
-* Fagan-Nomogram,
-* bootstrap CI's for the kappa coefficient,
-* intraclass-correlation coefficients including CI's,
+* CI's for proportions,
+* CI's for diagnostic tests,
+* bootstrap CIs for the kappa coefficient,
+* intraclass-correlation coefficients including CIs,
 * agreement for continuous measurements (Bland-Altman plot),
 * CI for the area under the curve (AUC),
 * Mantel-Haenszel estimator,
@@ -20,7 +20,7 @@ Currently implemented topics:
 * sample size computations for two-sample Mann-Whitney test,
 * sample size computations for the McNemar test,
 * sample size computations for survival outcomes, 
-* binary diagnostic test (via normal approximation and simulation),
+* binary diagnostic test
 * natural re-parametrization of Weibull output from survreg,
 * hazard ratio and event time ratio interpretations,
 * a plot to check the adequacy of the Weibull model.
@@ -34,10 +34,6 @@ devtools::install_github(repo = "florafauna/biostatUZH")
 ## Vignettes
 
 ```r
-vignette("weibull"
+vignette("weibull")
 vignette("aucbinormal")
 ```
-
-## Website
-
-* http://www.biostat.uzh.ch

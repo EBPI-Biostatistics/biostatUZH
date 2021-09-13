@@ -1,7 +1,6 @@
 Package: biostatUZH
-Title: Misc Tools of the Department of Biostatistics, EBPI, University
-        of Zurich
-Version: 1.9.1
+Title: Misc Tools of the Department of Biostatistics, EBPI, University of Zurich
+Version: 2.0.0
 Date: 2021-09-13
 Authors@R: c(person(given = "Leonhard",
                     family = "Held",
@@ -28,30 +27,22 @@ Authors@R: c(person(given = "Leonhard",
 		    comment = c(ORCID = "0000-0002-1588-2689")),
              person("Daniel", "Sabanes Bove", role = "ctb"),
              person("Uriah", "Daugaard", role = "ctb"))
-Description: Various functions developed at the Department of Biostatistics,
-             Epidemiology, Biostatistics and Prevention Institute,
-             University of Zurich, Zurich, Switzerland.
-             Currently implemented topics:
-             several CI's for proportions,
-             several CI's for diagnostic tests,
-             Fagan-Nomogram,
-             bootstrap CI's for the kappa coefficient,
-             intraclass-correlation coefficients including CI's,
-             agreement for continuous measurements (Bland-Altman plot),
-             CI for the area under the curve (AUC),
-             Mantel-Haenszel estimator,
-             Mantel-Cox hazard ratio estimator,
-             CI for the Kaplan-Meier estimate at given time points,
-             CI for quantile of a Kaplan-Meier or cumulative incidence estimate,
-             sample size computations for two-sample Mann-Whitney test,
-             sample size computations for the McNemar test,
-	     sample size computations for survival outcomes, 
-             binary diagnostic test (via normal approximation and simulation),
-	     natural re-parametrization of Weibull output from survreg,
-             hazard ratio and event time ratio interpretations,
-             a plot to check the adequacy of the Weibull model.
+Description: Provides functions developed at the Department of Biostatistics
+    at the Epidemiology, Biostatisics and Prevention Institute, University of
+    Zurich, Switzerland.  Covered topics include confidence intervals (CIs)
+    for proportions, CIs for operating characteristics of
+    diagnostic tests, Fagan-Nomogram, bootstrap CIs for the kappa coefficient,
+    intraclass-correlation coefficients including CIs, agreement for continuous
+    measurements (Bland-Altman plot), CI for the area under the curve (AUC),
+    Mantel-Haenszel estimator, Mantel-Cox hazard ratio estimator, CI for the
+    Kaplan-Meier estimate at given time points, CI for quantile of a
+    Kaplan-Meier or cumulative incidence estimate, sample size computations for
+    two-sample Mann-Whitney test, McNemar test, a binary diagnostic test,
+    natural re-parametrization of Weibull
+    output from survreg, hazard ratio and event time ratio interpretations, plot
+    to check the adequacy of the Weibull model.
 License: GPL (>=2)
-URL: http://www.biostat.uzh.ch, http://ebuzh.r-forge.r-project.org
+URL: http://www.biostat.uzh.ch, https://github.com/florafauna/biostatUZH
 Depends: R (>= 2.15.0), grDevices, graphics, stats, survival (>= 2.35), MASS
 Imports: boot, psy, lme4, xtable, cmprsk
 Suggests: prodlim, reporttools, Hmisc, surveillance,

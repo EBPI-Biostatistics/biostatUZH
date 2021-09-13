@@ -1,50 +1,93 @@
-
-
 #' Misc Tools of the Department of Biostatistics, EBPI, University of Zurich
 #' 
-#' The package \pkg{biostatUZH} collects various functions developed at the
+#' The package \pkg{biostatUZH} provides functions developed at the
 #' Department of Biostatistics at the Epidemiology, Biostatisics and Prevention
-#' Institute, University of Zurich, Switzerland.  Currently implemented topics:
-#' several CI's for proportions, several CI's for operating characteristics of
-#' diagnostic tests, Fagan-Nomogram, bootstrap CI's for the kappa coefficient,
-#' intraclass-correlation coefficients including CI's, agreement for continuous
+#' Institute, University of Zurich, Switzerland.  Covered topics include
+#' confidence intervals (CIs) for proportions, CIs for operating characteristics of
+#' diagnostic tests, Fagan-Nomogram, bootstrap CIs for the kappa coefficient,
+#' intraclass-correlation coefficients including CIs, agreement for continuous
 #' measurements (Bland-Altman plot), CI for the area under the curve (AUC),
 #' Mantel-Haenszel estimator, Mantel-Cox hazard ratio estimator, CI for the
 #' Kaplan-Meier estimate at given time points, CI for quantile of a
 #' Kaplan-Meier or cumulative incidence estimate, sample size computations for
-#' two-sample Mann-Whitney test, McNemar test, a binary diagnostic test (via
-#' normal approximation and simulation), natural re-parametrization of Weibull
+#' two-sample Mann-Whitney test, McNemar test, a binary diagnostic test,
+#' natural re-parametrization of Weibull
 #' output from survreg, hazard ratio and event time ratio interpretations, plot
 #' to check the adequacy of the Weibull model.
 #' 
-#' \tabular{ll}{ Package: \tab biostatUZH \cr URL: \tab
-#' \url{http://www.biostat.uzh.ch} \cr License: \tab GPL (>=2) \cr }
-#' 
-#' Functions that implement methods that are not implemented in elsewhere are,
-#' to the best of our knowledge: \cr \code{\link{BlandAltman}} \cr
-#' \code{\link{computeICCrater}} \cr \code{\link{confIntAUC}} \cr
-#' \code{\link{confIntAUCbinorm}} \cr \code{\link{confIntDiagnostic}} \cr
-#' \code{\link{confIntICC}} \cr \code{\link{confIntKappa}} \cr
-#' \code{\link{confIntPairedDiagnostic}} \cr
-#' \code{\link{confIntPairedProportion}} \cr
+#' Most relevant functions: \cr
+#' \code{\link{agresti}} \cr                     
+#' \code{\link{behrensTest}} \cr                 
+#' \code{\link{blandAltman}} \cr                 
+#' \code{\link{clopperPearson}} \cr              
+#' \code{\link{combineSubgroups}} \cr            
+#' \code{\link{computeICCrater}} \cr             
+#' \code{\link{confIntAUC}} \cr                  
+#' \code{\link{confIntAUCbinorm}} \cr            
+#' \code{\link{confIntCorrelation}} \cr          
+#' \code{\link{confIntDiagnostic}} \cr           
+#' \code{\link{confIntICC}} \cr                  
+#' \code{\link{confIntIndependentAUCDiff}} \cr   
 #' \code{\link{confIntIndependentDiagnostic}} \cr
-#' \code{\link{confIntIndependentProportion}} \cr \code{\link{confIntRiskDiff}}
-#' \cr \code{\link{survreg2weibull}} \cr \code{\link{faganPlot}} \cr
-#' \code{\link{populationSamplePlot}} \cr \code{\link{quantileCumInc}} \cr
-#' \code{\link{sampleSizeMcNemar}} \cr \code{\link{weibullReg}} \cr
-#' \code{\link{weibullDiag}} \cr 
-#' \code{\link{summaryROC}}
+#' \code{\link{confIntIndependentProportion}} \cr
+#' \code{\link{confIntKappa}} \cr                
+#' \code{\link{confIntKM}} \cr                   
+#' \code{\link{confIntMedian}} \cr               
+#' \code{\link{confIntOddsRatio}} \cr            
+#' \code{\link{confIntPairedAUCDiff}} \cr        
+#' \code{\link{confIntPairedDiagnostic}} \cr     
+#' \code{\link{confIntPairedProportion}} \cr     
+#' \code{\link{confIntProportion}} \cr           
+#' \code{\link{confIntRate}} \cr                 
+#' \code{\link{confIntRateDiff}} \cr             
+#' \code{\link{confIntRateWald}} \cr             
+#' \code{\link{confIntRateWilson}} \cr           
+#' \code{\link{confIntRiskDiff}} \cr             
+#' \code{\link{confIntRiskRatio}} \cr            
+#' \code{\link{faganPlot}} \cr                   
+#' \code{\link{formatCI}} \cr                    
+#' \code{\link{formatPercent}} \cr               
+#' \code{\link{formatPval}} \cr                  
+#' \code{\link{is.wholenumber}} \cr              
+#' \code{\link{jeffreys}} \cr                    
+#' \code{\link{mantelCoxHR}} \cr                 
+#' \code{\link{mantelHaenszel}} \cr              
+#' \code{\link{plotcorr}} \cr                    
+#' \code{\link{populationSamplePlot}} \cr        
+#' \code{\link{printWaldCI}} \cr                 
+#' \code{\link{quantileCumInc}} \cr              
+#' \code{\link{quantileKM}} \cr                  
+#' \code{\link{sampleSizeMcNemar}} \cr           
+#' \code{\link{sampleSizeSurvival}} \cr          
+#' \code{\link{sampleSizeWilcoxTwoSample}} \cr   
+#' \code{\link{standardErrorAUC}} \cr            
+#' \code{\link{standardErrorAUCDiff}} \cr        
+#' \code{\link{summaryROC}} \cr                  
+#' \code{\link{survEvents}} \cr                  
+#' \code{\link{survreg2weibull}} \cr             
+#' \code{\link{survReport}} \cr                  
+#' \code{\link{tableOR}} \cr                     
+#' \code{\link{tableRegression}} \cr             
+#' \code{\link{wald}} \cr                        
+#' \code{\link{waldRate}} \cr                    
+#' \code{\link{weibullDiag}} \cr                 
+#' \code{\link{weibullReg}} \cr                  
+#' \code{\link{wilson}} \cr                      
+#' \code{\link{wilsonRate}} \cr
+#'
+#' Data sets: \cr
+#' \code{\link{fischdaten}} \cr
+#' \code{\link{larynx}} \cr
+#' \code{\link{wiedat2b}} \cr                    
+#'
+#' @seealso \url{http://www.biostat.uzh.ch}
+#'
+#'
+#'
 #' 
 #' @name biostatUZH-package
 #' @aliases biostatUZH-package biostatUZH
 #' @docType package
-#' @author Main authors: Leonhard Held, Kaspar Rufibach
-#' 
-#' Secondary authors: Sarah Haile, Sebastian Meyer, Sina Rueeger,
-#' 
-#' Further contributions by: Andrea Riebler, Daniel Sabanes Bove
-#' 
-#' Maintainer: Leonhard Held \email{leonhard.held@@uzh.ch}
 #' @keywords package
 NULL
 
