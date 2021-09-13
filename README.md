@@ -7,8 +7,8 @@ http://www.biostat.uzh.ch
 
 
 Covered topics:
-* CI's for proportions,
-* CI's for diagnostic tests,
+* CIs for proportions,
+* CIs for diagnostic tests,
 * bootstrap CIs for the kappa coefficient,
 * intraclass-correlation coefficients including CIs,
 * agreement for continuous measurements (Bland-Altman plot),
