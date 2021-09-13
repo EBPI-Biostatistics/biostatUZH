@@ -32,8 +32,9 @@ Install the package
 devtools::install_github(repo = "florafauna/biostatUZH")
 ```
 
-List all functions of the package
+Load package and list all provided functions
 ```r
+library(biostatUZH)
 ls("package:biostatUZH")
 ```
 
