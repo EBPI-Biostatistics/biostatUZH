@@ -78,8 +78,20 @@ confIntCorrelation <- function(x, y, conf.level = 0.95,
          "p.value" = as.numeric(p.value), "n" = n, "p2" = p2)
 }
 
-
-
+#' Deprecated: use confIntCorrelation instead
+#' @param var1 Vector containing first variable.
+#' @param var2 Vector containing first variable.
+#' @param pp Vector in \eqn{R^2} that contains \eqn{\alpha / 2} and \eqn{1 - \alpha/2},
+#' where \eqn{alpha} is the confidence level of the confidence interval.
+#' @param meth Correlation coefficient to be used: \code{pearson} or \code{spearman}.
+#' @param type Quantile to be used: \code{z} or \code{t}.
+#' @return List with entries:
+#' \item{estimate}{Value of correlation coefficient.}
+#' \item{ci}{Computed confidence interval.}
+#' \item{p.value}{\eqn{p}-value for a test on \eqn{\rho = 0} based on the transformation.}
+#' \item{n}{Number of observations.}
+#' \item{p2}{\eqn{p}-value based on the \code{R} function \code{cor.est}.}
+#' @export
 confIntFisherTrafo <- function(var1, var2, pp = c(0.025, 0.975), meth = "spearman", type = "t"){
     .Deprecated("confIntCorrelation")
     confIntCorrelation(x = var1, y = var2, conf.level = pp[2], method = meth, type = type)
