@@ -1,16 +1,21 @@
 Package: biostatUZH
 Title: Misc Tools of the Department of Biostatistics, EBPI, University of Zurich
-Version: 2.0.0
-Date: 2021-09-14
+Version: 2.0.1
+Date: 2021-10-07
 Authors@R: c(person(given = "Leonhard",
                     family = "Held",
                     role = c("aut"),
                     email = "leonhard.held@uzh.ch",
                     comment = c(ORCID = "0000-0002-8686-5325")),
+             person(given = "Felix",	 
+                    family = "Hofmann",		 
+	            email = "felix.hofmann2@uzh.ch",
+	            role = c("cre"),
+                    comment = c(ORCID = "0000-0002-3891-6239")),
              person(given = "Florian",	 
                     family = "Gerber",		 
 	            email = "florian.gerber@uzh.ch",
-	            role = c("cre"),
+	            role = c("aut"),
                     comment = c(ORCID = "0000-0001-8545-5263")),
              person("Kaspar", "Rufibach", role = "aut",
                     email = "kaspar.rufibach@gmail.com"),
@@ -49,4 +54,4 @@ Suggests: prodlim, reporttools, Hmisc, surveillance,
     carData, km.ci, exact2x2
 Enhances: ellipse, coxphf
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2

@@ -29,7 +29,7 @@ Covered topics:
 
 Install the package
 ```r
-devtools::install_github(repo = "florafauna/biostatUZH")
+devtools::install_github(repo = "felix-hof/biostatUZH")
 ```
 
 Load package and list all provided functions
