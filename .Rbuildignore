@@ -7,3 +7,4 @@ Makefile.defs
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+DESCRIPTION-r
