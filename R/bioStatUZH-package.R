@@ -80,7 +80,7 @@
 #' \code{\link{larynx}} \cr
 #' \code{\link{wiedat2b}} \cr                    
 #'
-#' @seealso \url{http://www.biostat.uzh.ch}
+#' @seealso \url{https://www.biostat.uzh.ch}
 #'
 #'
 #'
