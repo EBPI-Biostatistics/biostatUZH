@@ -88,6 +88,6 @@ Data sets: \cr
 \code{\link{wiedat2b}} \cr
 }
 \seealso{
-\url{http://www.biostat.uzh.ch}
+\url{https://www.biostat.uzh.ch}
 }
 \keyword{package}
