@@ -154,8 +154,8 @@ tableRegression <- function(model,
     stopifnot(inherits(model, c("lm", "glm", "negbin", "coxph", "list"))) 
     # Weibull returns a list
     stopifnot(is.null(stats) ||
-              (is.character(stats) &&  stats %in%
-               c("estimate","exp.estimate", "standarderror", "t.value", "ci.95", "p.value" )))
+              (is.character(stats) &&  all(stats %in%
+               c("estimate","exp.estimate", "standarderror", "t.value", "ci.95", "p.value" ))))
     stopifnot(is.null(col.names) || is.character(col.names),
               is.null(row.names) || is.character(row.names),
               is.null(intercept) ||
@@ -166,7 +166,7 @@ tableRegression <- function(model,
               is.numeric(eps.pvalue), length(eps.pvalue) == 1, is.finite(eps.pvalue),
               0 < eps.pvalue,
               is.null(digits) ||
-              (is.numeric(digits) && is.finite(digits) && is.wholenumber(digits)))
+              (is.numeric(digits) && all(is.finite(digits)) && all(is.wholenumber(digits))))
     ## big.mark is argument to format and not tested
     stopifnot(is.logical(xtable), length(xtable) == 1, is.finite(xtable))
     ## align, caption, label are arguments to xtable and not tested here
