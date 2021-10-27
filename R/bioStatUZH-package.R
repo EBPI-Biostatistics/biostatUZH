@@ -155,8 +155,6 @@ NULL
 #' 
 #' Klein, J. and Moeschberger, M. (2003). \emph{Survival analysis: techniques
 #' for censored and truncated data}.  Springer.
-#' @source
-#' \url{http://www.mcw.edu/FileLibrary/Groups/Biostatistics/Publicfiles/DataFromSection/DataFromSectionTXT/Data_from_section_1.8.txt}
 #' @keywords datasets
 #' @examples
 #' 

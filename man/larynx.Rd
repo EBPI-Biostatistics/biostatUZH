@@ -13,9 +13,6 @@ A data frame with 90 observations on the following 5 variables.
 \item{year}{Year of diagnosis.}
 \item{death}{Indicator of death [1, if patient died at time t; 0, otherwise].} }
 }
-\source{
-\url{http://www.mcw.edu/FileLibrary/Groups/Biostatistics/Publicfiles/DataFromSection/DataFromSectionTXT/Data_from_section_1.8.txt}
-}
 \description{
 A study of 90 males with laryngeal cancer was performed, comparing survival
 times. Each patient's age, year of diagnosis, and disease stage was noted.
