@@ -1,3 +1,10 @@
+# v2.0.2
+  - update links
+  - fix errors in tableRegression() input checks
+
+# v2.0.1
+  - migrate package from https://github.com/florafauna/biostatUZH to https://github.com/felix-hof/biostatUZH
+
 # v2.0.0
   - add NEWS.md file
   - add Makefile to support bilding and testing the package
