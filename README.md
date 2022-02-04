@@ -3,7 +3,7 @@
 Provides R functions developed at the Department of Biostatistics,
 Epidemiology, Biostatistics and Prevention Institute,
 University of Zurich, Zurich, Switzerland.
-http://www.biostat.uzh.ch
+https://www.biostat.uzh.ch
 
 
 Covered topics:
