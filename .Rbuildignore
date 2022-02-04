@@ -8,3 +8,5 @@ Makefile.defs
 ^docs$
 ^pkgdown$
 DESCRIPTION-r
+WISHLIST
+
