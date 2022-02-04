@@ -52,4 +52,5 @@ vignette("aucbinormal")
 ## Note:
 From v1.8.0 to v2.0.0 the code was revised and some function
 and argument names have changed.
-See [NEWS.md](NEWS.md) for more details. 
+See [NEWS.md](NEWS.md) for more details.
+ 
