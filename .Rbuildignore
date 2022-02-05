@@ -5,7 +5,7 @@ Makefile
 Makefile.defs
 .tar.gz$
 ^_pkgdown\.yml$
-^docs$
+^doc$
 ^pkgdown$
 DESCRIPTION-r
 WISHLIST

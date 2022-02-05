@@ -14,6 +14,7 @@
     for Social and Preventive Medicine, Division of Biostatistics (\texttt{[leonhard.held,sina.rueeger]@ifspm.uzh.ch})}}
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 \maketitle
 
 AUC curves are used to measure the accurary of a classification of two groups $X$ and $Y$:

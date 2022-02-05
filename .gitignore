@@ -5,6 +5,12 @@
 # DESCRIPTION-r file
 DESCRIPTION-r
 
+# Built manual
+biostat_*.pdf
+
+# MacOS .ds_file
+.DS_Store
+
 # History files
 .Rhistory
 .Rapp.history
@@ -44,4 +50,10 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
-docs
+
+# don't track built vignettes
+inst/doc
+vignettes/*.html
+vignettes/*.R
+vignettes/*.pdf
+

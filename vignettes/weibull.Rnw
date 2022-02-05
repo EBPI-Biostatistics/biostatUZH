@@ -13,11 +13,12 @@
 \author{Sarah R. Haile\footnote{University of Zurich, Institute for Social and Preventive Medicine, Biostatistics Unit (\texttt{sarah.haile@ifspm.uzh.ch})}}
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 \maketitle
 
 Weibull accelerated failure time (AFT) regression can be performed in \prog{R} using the \pkg{survreg} function. The results are not, however, presented in a form in which the Weibull distribution is usually given. Accelerated failure time models are usually given by
 $$\log T = Y = \mu + \boldsymbol{\gamma}^T \mathbf{z} + \sigma W,$$
-where $\mathbf{z}$ are set of covariates, and $W$ has the extreme value distribution. Given tranformations
+where $\mathbf{z}$ are set of covariates, and $W$ has the extreme value distribution. Given transformations
 \begin{align*}
 \alpha & =  1/\sigma, \\
 \lambda & = \exp(-\mu/\sigma), \\
@@ -55,7 +56,7 @@ Such tables can also be produced using the \code{streg} function in \prog{stata}
 
 The following example reproduces Tables 12.1 and 12.2 from \cite{klein_03}, on the larynx data set.
 
-<<source>>=
+<<source,message=FALSE,warning=FALSE>>=
 library(biostatUZH)
 data(larynx)
 larynx$stage2 <- as.numeric(larynx$stage == 2)
@@ -64,13 +65,14 @@ larynx$stage4 <- as.numeric(larynx$stage == 4)
 @
 
 
-<<weibullReg>>=
+<<weibullReg,message=FALSE,warning=FALSE>>=
 weibullReg(Surv(time, death) ~ stage2 + stage3 + stage4 + age, data=larynx)
 @
 
 The hazard rates produced with the Weibull regression model are similar to what is obtained with Cox proportional hazards regression:
-<<coxph>>=
-summary(coxph(Surv(time, death) ~ stage2 + stage3 + stage4 + age, data=larynx))$conf.int
+<<coxph,message=FALSE,warning=FALSE>>=
+summary(coxph(Surv(time, death) ~ stage2 + stage3 + stage4 + age, 
+              data=larynx))$conf.int
 @
 
 Most of the work of the function is actually performed by \code{survreg2weibull}. These functions require the \pkg{survival} package in \prog{R}. 
@@ -88,7 +90,7 @@ with the data used to create the plot.
 
 This function requires both \pkg{survival} and \pkg{prodlim}.
 
-<<DiagPlot, fig=T>>=
+<<DiagPlot,message=FALSE,warning=FALSE,fig=T>>=
 fm <- Surv(time, death) ~ stage
 weibullDiag(formula = fm, data = larynx, 
             labels = c("Stage I", "Stage II", "Stage III", "Stage IV"))
