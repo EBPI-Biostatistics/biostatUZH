@@ -339,7 +339,7 @@ tableRegression <- function(model,
         col.names[stats == "exp.estimate"] <- "Rate Ratio"
         
         ## confint for exp.estimate (actually depends on MASS:::confint.glm)
-        ci.95 <- formatCI(exp(confint(model)), digits = digits.ci, text = text.ci)
+        ci.95 <- formatCI(exp(suppressMessages(confint(model))), digits = digits.ci, text = text.ci)
     }
     
     
@@ -369,7 +369,7 @@ tableRegression <- function(model,
         
         # CI calculation
         ci.95 <- if (clm == "glm") {
-                     formatCI(back.trafo$fct(confint(model)), digits = digits.ci, 
+                     formatCI(back.trafo$fct(suppressMessages(confint(model))), digits = digits.ci, 
                               text = text.ci)
                  } else {
                      formatCI(back.trafo$fct(confint.geeglm(model)),
@@ -467,7 +467,7 @@ tableRegression <- function(model,
 }
 
 # # From package broom version 0.5.3 (not exported from broom Namespace)
-# in order to avoid external dependences
+# in order to avoid external dependencies
 # 
 # broom:::confint.geeglm
 
