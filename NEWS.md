@@ -1,3 +1,6 @@
+# v2.0.3
+  - allow NAs in formatPval() function
+
 # v2.0.2
   - update links
   - fix errors in tableRegression() input checks
@@ -23,3 +26,4 @@
 # v1.8.0
   - Available from R-forge:
     https://r-forge.r-project.org/R/?group_id=2036
+

@@ -8,8 +8,8 @@
 #' }
 #' 
 #' @param x Numeric vector of p-values.
-#' @param break.eps Numeric value.
-#' @param break.middle Numeric value.
+#' @param break.eps Numeric vector of length 1.
+#' @param break.middle Numeric vector of length 1.
 #' @param na.form Character representation of \code{NA}s.
 #' @param ... Additional arguments passed to \code{\link{format}}.
 #' @return A vector of \code{length(x)} with formatted p-values.
@@ -41,23 +41,23 @@
 formatPval <- function(x, break.eps = 1e-04, break.middle = 0.01, na.form = "NA", ...)
 {
 
-    stopifnot(is.numeric(x), length(x) > 0,
-              0 <= x, x <= 1,
+    stopifnot(is.numeric(x), length(x) > 0L,
+              0 <= x[!is.na(x)], x[!is.na(x)] <= 1,
               is.numeric(break.eps), length(break.eps) == 1,
               is.finite(break.eps), break.eps > 0,
-              is.numeric(break.middle), length(break.middle) == 1,
+              is.numeric(break.middle), length(break.middle) == 1L,
               is.finite(break.middle), break.middle > 0,
-              is.character(na.form), length(na.form) == 1)
+              is.character(na.form), length(na.form) == 1L)
 
     format1Pval <- function (pv) {
         if (is.na(pv)) {
             na.form 
         } else if (pv < break.eps) {
             paste("<", format(break.eps, scientific = FALSE))
-	} else {
+        } else {
             largep <- pv >= break.middle
-            format(pv, digits = 1 + largep, nsmall = 1 + largep, scientific = FALSE, ...)
+            format(pv, digits = 1L + largep, nsmall = 1L + largep, scientific = FALSE, ...)
         }
     }
-    vapply(X = x, FUN = format1Pval, FUN.VALUE = "", USE.NAMES = TRUE)
+    vapply(X = x, FUN = format1Pval, FUN.VALUE = character(1L), USE.NAMES = TRUE)
 }

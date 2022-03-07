@@ -9,9 +9,9 @@ formatPval(x, break.eps = 1e-04, break.middle = 0.01, na.form = "NA", ...)
 \arguments{
 \item{x}{Numeric vector of p-values.}
 
-\item{break.eps}{Numeric value.}
+\item{break.eps}{Numeric vector of length 1.}
 
-\item{break.middle}{Numeric value.}
+\item{break.middle}{Numeric vector of length 1.}
 
 \item{na.form}{Character representation of \code{NA}s.}
 
