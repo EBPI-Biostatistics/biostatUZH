@@ -1,7 +1,7 @@
 Package: biostatUZH
 Title: Misc Tools of the Department of Biostatistics, EBPI, University of Zurich
-Version: 2.0.2
-Date: 2022-03-07
+Version: 2.0.4
+Date: 2022-09-14
 Authors@R: c(person(given = "Leonhard",
                     family = "Held",
                     role = c("aut"),
@@ -49,10 +49,21 @@ Description: Provides functions developed at the Department of Biostatistics
 License: GPL (>=2)
 URL: https://www.biostat.uzh.ch, https://github.com/felix-hof/biostatUZH
 Depends: R (>= 2.15.0), grDevices, graphics, stats, survival (>= 2.35), MASS
-Imports: boot, psy, lme4, xtable, cmprsk
-Suggests: prodlim, reporttools, Hmisc, surveillance,
-    carData, km.ci, exact2x2
+Imports: 
+    boot,
+    psy,
+    lme4,
+    xtable,
+    cmprsk,
+    prodlim
+Suggests: 
+    reporttools,
+    Hmisc,
+    surveillance,
+    carData,
+    km.ci,
+    exact2x2
 Enhances: ellipse, coxphf
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 Encoding: UTF-8

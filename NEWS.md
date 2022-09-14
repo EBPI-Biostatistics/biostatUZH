@@ -1,3 +1,7 @@
+# v2.0.4
+  - transfer ownership from https://github.com/felix-hof/biostatUZH to https://github.com/EBPI-Biostatistics/biostatUZH
+  - move `prodlim` package from `Suggests` to `Imports` section
+
 # v2.0.3
   - allow NAs in formatPval() function
 

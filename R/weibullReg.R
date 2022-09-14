@@ -226,12 +226,11 @@ ConvertWeibull <- function(model, conf.level){
 #'                 labels = c("Stage I", "Stage II","Stage III", "Stage IV"))
 #' }
 #' 
+#' @importFrom prodlim prodlim
 #' @export
 weibullDiag <- function (formula, data, labels =  NULL) 
 {
     ## 'formula' and 'data' checked in prodlim::prodlim()
-    if (!requireNamespace("prodlim"))
-        stop("requires prodlim::prodlim()")
     np <- prodlim::prodlim(formula = formula, data = data)
     if(is.null(labels))
         labels <- rownames(np$X)
