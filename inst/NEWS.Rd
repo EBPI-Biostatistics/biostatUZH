@@ -6,6 +6,53 @@
 \name{NEWS}
 \title{News for Package 'biostatUZH'}
 
+\section{Changes in biostatUZH version 2.0.4 (2022-09-14)}{
+  \itemize{
+    \item transfer package from \url{https://github.com/felix-hof/biostatUZH} to \url{https://github.com/EBPI-Biostatistics/biostatUZH}
+    \item move \pkg{prodlim} package from \code{Suggests} to \code{Imports} section in the \file{DESCRIPTION} file. This fixes an error about the missing package in the installation process.
+  }
+}
+
+\section{Changes in biostatUZH version 2.0.3 (2022-03-07)}{
+  \itemize{
+    \item allow NAs in formatPval() function
+  }
+}
+
+\section{Changes in biostatUZH version 2.0.2 (2021-10-27)}{
+  \itemize{
+    \item update links in documentation
+    \item fix errors in tableRegression() input checks
+    \item restore commit history from R-forge
+  }
+}
+
+\section{Changes in biostatUZH version 2.0.1 (2021-10-07)}{
+  \itemize{
+    \item migrate package from \url{https://github.com/florafauna/biostatUZH} to \url{https://github.com/felix-hof/biostatUZH}
+  }
+}
+
+\section{Changes in biostatUZH version 2.0.0 (2021-09-14)}{
+  \itemize{
+    \item The function \code{tableOR()} has been added to create
+    results tables from logistic regression fits for LaTeX.
+    \item add NEWS.md file
+    \item add Makefile to support bilding and testing the package
+    \item migrate from R-forge to github repo: \url{https://github.com/florafauna/biostatUZH}
+    \item improve R coding to make it more stable and readable
+    \item unify function and argument names:
+      \itemize{
+        \item function names start with lower case and use camelStyle,
+        \item argument names are lower case
+      }
+    \item improve documentation and migrate it to roxygen2 format
+    \item implement input check for all functions
+    \item combine related functions into one R file
+    \item remove unused function as discussed with Leo
+  }
+}
+
 \section{Changes in biostatUZH version 1.8.0 (2018-10-18)}{
   \itemize{
     \item The function \code{tableOR()} has been added to create
