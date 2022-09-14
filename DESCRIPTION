@@ -47,7 +47,7 @@ Description: Provides functions developed at the Department of Biostatistics
     output from survreg, hazard ratio and event time ratio interpretations, plot
     to check the adequacy of the Weibull model.
 License: GPL (>=2)
-URL: https://www.biostat.uzh.ch, https://github.com/felix-hof/biostatUZH
+URL: https://www.biostat.uzh.ch, https://github.com/EBPI-Biostatistics/biostatUZH
 Depends: R (>= 2.15.0), grDevices, graphics, stats, survival (>= 2.35), MASS
 Imports: 
     boot,
