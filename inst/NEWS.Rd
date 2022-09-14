@@ -8,7 +8,7 @@
 
 \section{Changes in biostatUZH version 2.0.4 (2022-09-14)}{
   \itemize{
-    \item transfer package from https://github.com/felix-hof/biostatUZH to https://github.com/EBPI-Biostatistics/biostatUZH
+    \item transfer package from \url{https://github.com/felix-hof/biostatUZH} to \url{https://github.com/EBPI-Biostatistics/biostatUZH}
     \item move \pkg{prodlim} package from \code{Suggests} to \code{Imports} section in the \file{DESCRIPTION} file. This fixes an error about the missing package in the installation process.
   }
 }
@@ -23,12 +23,13 @@
   \itemize{
     \item update links in documentation
     \item fix errors in tableRegression() input checks
+    \item restore commit history from R-forge
   }
 }
 
 \section{Changes in biostatUZH version 2.0.1 (2021-10-07)}{
   \itemize{
-    \item migrate package from https://github.com/florafauna/biostatUZH to https://github.com/felix-hof/biostatUZH
+    \item migrate package from \url{https://github.com/florafauna/biostatUZH} to \url{https://github.com/felix-hof/biostatUZH}
   }
 }
 
@@ -38,8 +39,7 @@
     results tables from logistic regression fits for LaTeX.
     \item add NEWS.md file
     \item add Makefile to support bilding and testing the package
-    \item migrate from R-forge to github repo:
-    https://github.com/florafauna/biostatUZH
+    \item migrate from R-forge to github repo: \url{https://github.com/florafauna/biostatUZH}
     \item improve R coding to make it more stable and readable
     \item unify function and argument names:
       \itemize{
