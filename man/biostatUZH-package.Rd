@@ -80,7 +80,15 @@ Most relevant functions: \cr
 \code{\link{weibullDiag}} \cr                 
 \code{\link{weibullReg}} \cr                  
 \code{\link{wilson}} \cr                      
-\code{\link{wilsonRate}} \cr
+\code{\link{wilsonRate}} \cr\cr
+
+Reexported functions: \cr
+\code{\link[ReplicationSuccess]{ci2p}} \cr
+\code{\link[ReplicationSuccess]{ci2estimate}} \cr
+\code{\link[ReplicationSuccess]{ci2se}} \cr
+\code{\link[ReplicationSuccess]{ci2z}} \cr
+\code{\link[ReplicationSuccess]{z2p}} \cr
+\code{\link[ReplicationSuccess]{p2z}} \cr\cr
 
 Data sets: \cr
 \code{\link{fischdaten}} \cr

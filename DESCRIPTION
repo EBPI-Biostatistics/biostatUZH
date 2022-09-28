@@ -1,7 +1,7 @@
 Package: biostatUZH
 Title: Misc Tools of the Department of Biostatistics, EBPI, University of Zurich
-Version: 2.0.4
-Date: 2022-09-14
+Version: 2.1
+Date: 2022-09-28
 Authors@R: c(person(given = "Leonhard",
                     family = "Held",
                     role = c("aut"),
@@ -55,7 +55,8 @@ Imports:
     lme4,
     xtable,
     cmprsk,
-    prodlim
+    prodlim,
+    ReplicationSuccess
 Suggests: 
     reporttools,
     Hmisc,

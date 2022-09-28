@@ -6,6 +6,12 @@
 \name{NEWS}
 \title{News for Package 'biostatUZH'}
 
+\section{Changes in biostatUZH version 2.1 (2022-09-28)}{
+  \itemize{
+    \item The package now reexports the functions \code{ci2p}, \code{ci2estimate}, \code{ci2se}, \code{ci2z}, \code{z2p}, \code{p2z} from ReplicationSuccess
+  }
+}
+
 \section{Changes in biostatUZH version 2.0.4 (2022-09-14)}{
   \itemize{
     \item transfer package from \url{https://github.com/felix-hof/biostatUZH} to \url{https://github.com/EBPI-Biostatistics/biostatUZH}
