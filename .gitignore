@@ -2,6 +2,9 @@
 /lib_legacy/*
 /scratch/*
 
+# project file
+*\.Rproj
+
 # DESCRIPTION-r file
 DESCRIPTION-r
 
