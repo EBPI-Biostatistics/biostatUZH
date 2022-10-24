@@ -1,3 +1,6 @@
+# v2.2
+  - added function `power.z.test` which is based on `power.t.test`.
+
 # v2.1
   - The package now reexports the functions `ci2p`, `ci2estimate`, `ci2se`, `ci2z`, `z2p`, `p2z` from ReplicationSuccess
 
