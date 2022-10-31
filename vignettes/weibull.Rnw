@@ -58,6 +58,7 @@ The following example reproduces Tables 12.1 and 12.2 from \cite{klein_03}, on t
 
 <<source,message=FALSE,warning=FALSE>>=
 library(biostatUZH)
+library(survival)
 data(larynx)
 larynx$stage2 <- as.numeric(larynx$stage == 2)
 larynx$stage3 <- as.numeric(larynx$stage == 3)

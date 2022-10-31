@@ -24,6 +24,7 @@
 #' @examples
 #' 
 #' ## use Acute Myelogenous Leukemia survival data contained in package 'survival'
+#' library(survival)
 #' time <- leukemia[, 1]
 #' event <- leukemia[, 2]
 #' formula <- Surv(time = time, event = event) ~ 1
@@ -61,9 +62,9 @@ confIntKM <- function(time, event, t0, conf.level = 0.95){
     alpha <- 1 - conf.level
     
     ## compute ci according to the formulas in Huesler and Zimmermann, Chapter 21
-    obj <- survfit(Surv(time = time, event = event) ~ 1, conf.int = 1 - alpha,
-                   conf.type = "plain", type = "kaplan",
-                   error = "greenwood", conf.lower = "peto")
+    obj <- survival::survfit(survival::Surv(time = time, event = event) ~ 1, conf.int = 1 - alpha,
+                             conf.type = "plain", type = "kaplan",
+                             error = "greenwood", conf.lower = "peto")
     St <- summary(obj)$surv
     t <- summary(obj)$time
     n <- summary(obj)$n.risk
@@ -81,7 +82,7 @@ confIntKM <- function(time, event, t0, conf.level = 0.95){
                 Sti <- min(St[t < ti])
                 nti <- min(n[t < ti])        
                 Var.peto <- Sti ^ 2 * (1 - Sti) / nti
-                Cti <- exp(qnorm(1 - alpha / 2) * sqrt(Var.peto) / (Sti ^ (3 / 2) * (1 - Sti)))
+                Cti <- exp(stats::qnorm(1 - alpha / 2) * sqrt(Var.peto) / (Sti ^ (3 / 2) * (1 - Sti)))
                 ci.km <- c(Sti / ((1 - Cti) * Sti + Cti), Cti * Sti / ((Cti - 1) * Sti + 1))
                 res[i, ] <- c(Sti, ci.km)
             }

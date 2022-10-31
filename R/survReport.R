@@ -64,7 +64,6 @@
 #' with(larynx, survReport(time = time, event = death, group = stage, output = "plain",
 #'                         stmt.placement = "topright", legend.placement = "bottomright"))
 #'
-#' @import survival
 #' @export
 survReport <- function(time, event, group = NULL, 
                        stmt.placement = c("bottomleft", "bottomright", "topright", "subtitle", "none"), 
@@ -76,108 +75,108 @@ survReport <- function(time, event, group = NULL,
                        labels = levels(group),
                        digits = 2,
                        conf.level = 0.95){
-
-    stopifnot(is.numeric(time),
-              length(time) > 0,
-              is.numeric(event),
-              length(event) == length(time))
-    if(!is.null(group)){
-        group <- as.factor(group)
-        stopifnot(is.finite(group),
-                  length(group) == length(time))
-    }
-    stopifnot(!is.null(stmt.placement))
-    stmt.placement <- match.arg(stmt.placement)
-    stopifnot(!is.null(legend.placement))
-    legend.placement <- match.arg(legend.placement)
-    stopifnot(!is.null(output))
-    output <- match.arg(output)
-    stopifnot(is.character(main),
-              length(main) == 1,
-              is.character(xlab),
-              length(xlab) == 1,
-              is.character(ylab),
-              length(ylab) == 1)
-    if(!is.null(group)){
-        stopifnot(is.character(labels),
-                  length(labels) == length(unique(group)))
-    }
-    stopifnot(is.numeric(digits),
-              length(digits) == 1,
-              is.finite(digits),
-              digits >= 0,
-              is.numeric(conf.level),
-              length(conf.level) == 1,
-              is.finite(conf.level),
-              0 <= conf.level, conf.level <= 1)
-    
-    if(stmt.placement == legend.placement && stmt.placement!="none")
-        warning("Legend and Hazard Ratio Statement will be overplotted! Change legend or statment placement option.")
-
-    if (is.null(group)) {
-        fm <- survival::Surv(time, event) ~ 1
-        np <- 1
-        medians <- quantileKM(time = time, event = event, group = NULL, conf.level = conf.level)$quantities[3:5]
-        med.stmt <- paste(round(medians[1], digits), " (", round(medians[2], digits), " - ",
-                          round(medians[3], digits), ")", sep = "")
+  
+  stopifnot(is.numeric(time),
+            length(time) > 0,
+            is.numeric(event),
+            length(event) == length(time))
+  if(!is.null(group)){
+    group <- as.factor(group)
+    stopifnot(is.finite(group),
+              length(group) == length(time))
+  }
+  stopifnot(!is.null(stmt.placement))
+  stmt.placement <- match.arg(stmt.placement)
+  stopifnot(!is.null(legend.placement))
+  legend.placement <- match.arg(legend.placement)
+  stopifnot(!is.null(output))
+  output <- match.arg(output)
+  stopifnot(is.character(main),
+            length(main) == 1,
+            is.character(xlab),
+            length(xlab) == 1,
+            is.character(ylab),
+            length(ylab) == 1)
+  if(!is.null(group)){
+    stopifnot(is.character(labels),
+              length(labels) == length(unique(group)))
+  }
+  stopifnot(is.numeric(digits),
+            length(digits) == 1,
+            is.finite(digits),
+            digits >= 0,
+            is.numeric(conf.level),
+            length(conf.level) == 1,
+            is.finite(conf.level),
+            0 <= conf.level, conf.level <= 1)
+  
+  if(stmt.placement == legend.placement && stmt.placement!="none")
+    warning("Legend and Hazard Ratio Statement will be overplotted! Change legend or statment placement option.")
+  
+  if (is.null(group)) {
+    fm <- survival::Surv(time, event) ~ 1
+    np <- 1
+    medians <- quantileKM(time = time, event = event, group = NULL, conf.level = conf.level)$quantities[3:5]
+    med.stmt <- paste(round(medians[1], digits), " (", round(medians[2], digits), " - ",
+                      round(medians[3], digits), ")", sep = "")
+  } else {
+    fm <- survival::Surv(time, event) ~ group
+    np <- length(table(group))
+    medians <- quantileKM(time = time, event = event, group = group, conf.level = conf.level)$quantities[,3:5]
+    med.stmt <- paste(round(medians[,1], digits), " (", round(medians[,2], digits), " - ",
+                      round(medians[,3], digits), ")", sep = "")
+  }
+  
+  sv <- survival::survfit(formula = fm)
+  tab <- summary(object = sv)$table
+  
+  plot(sv, col = 1:np, lty = 1:np, conf.int = FALSE, main = main, xlab = xlab, ylab = ylab)
+  if(np > 1){
+    cph <- survival::coxph(fm)
+    cph.var <- cph$var
+    if(np > 2)
+      cph.var <- diag(cph.var)
+    z <- coef(cph) / sqrt(cph.var)
+    if(np == 2){
+      pval <- 1 - stats::pchisq(survival::survdiff(fm)$chisq,
+                         df = length(survival::survdiff(fm)$n) - 1)
     } else {
-        fm <- survival::Surv(time, event) ~ group
-        np <- length(table(group))
-        medians <- quantileKM(time = time, event = event, group = group, conf.level = conf.level)$quantities[,3:5]
-        med.stmt <- paste(round(medians[,1], digits), " (", round(medians[,2], digits), " - ",
-                          round(medians[,3], digits), ")", sep = "")
+      pval <- stats::pnorm(-abs(z)) * 2
     }
+    contra <- paste(labels[1], " vs. ", labels[2:np], sep = "")
+    hr.txt <- cbind(exp(stats::coef(cph)), exp(stats::confint(cph, level = conf.level)), pval)
+    rownames(hr.txt) <- contra
     
-    sv <- survival::survfit(formula = fm)
-    tab <- summary(object = sv)$table
-    
-    plot(sv, col = 1:np, lty = 1:np, conf.int = FALSE, main = main, xlab = xlab, ylab = ylab)
-    if(np > 1){
-        cph <- coxph(fm)
-        cph.var <- cph$var
-        if(np > 2)
-            cph.var <- diag(cph.var)
-        z <- coef(cph) / sqrt(cph.var)
-        if(np == 2){
-            pval <- 1 - pchisq(survival::survdiff(fm)$chisq,
-                               df = length(survival::survdiff(fm)$n) - 1)
-        } else {
-            pval <- pnorm(-abs(z)) * 2
-        }
-        contra <- paste(labels[1], " vs. ", labels[2:np], sep = "")
-        hr.txt <- cbind(exp(coef(cph)), exp(confint(cph, level = conf.level)), pval)
-        rownames(hr.txt) <- contra
-        
-        hr.stmt <- paste(contra, ": HR ", round(hr.txt[,1], digits), " (", round(hr.txt[,2], digits),
-                         " - ", round(hr.txt[,3], digits), "), p ", ifelse(hr.txt[,4] < 0.0001, "", "= "),
-                         format.pval(hr.txt[,4], digits = digits, eps = 0.0001), sep = "") 
-        hr.stmt2 <- hr.stmt
-        if(!stmt.placement %in% c("topright"))
-            hr.stmt2 <- rev(hr.stmt)
-        if(!stmt.placement %in% c("subtitle", "none")){
-            mult <- switch(stmt.placement, bottomleft = 1 / 50, bottomright = 1 - 1 / 50, topright = 1 - 1/50)
-            algn <- switch(stmt.placement, bottomleft = 4, bottomright = 2, topright = 2)
-            incr <- (1:(np - 1)) / 20
-            vert <- switch(stmt.placement, bottomleft = 0 + incr, bottomright = 0 + incr, topright = 1 - incr, none = 0)
-            text(x = max(sv$time) * mult, y = vert, labels = hr.stmt2, pos = algn)
-        }
-        if(stmt.placement == "subtitle"){    
-            mtext(hr.stmt2, side = 3, line = 0:(np - 2))
-        }
-        if(legend.placement != "none")
-            legend(legend.placement, labels, col = 1:np, lty = 1:np, bty = "n")
+    hr.stmt <- paste(contra, ": HR ", round(hr.txt[,1], digits), " (", round(hr.txt[,2], digits),
+                     " - ", round(hr.txt[,3], digits), "), p ", ifelse(hr.txt[,4] < 0.0001, "", "= "),
+                     format.pval(hr.txt[,4], digits = digits, eps = 0.0001), sep = "") 
+    hr.stmt2 <- hr.stmt
+    if(!stmt.placement %in% c("topright"))
+      hr.stmt2 <- rev(hr.stmt)
+    if(!stmt.placement %in% c("subtitle", "none")){
+      mult <- switch(stmt.placement, bottomleft = 1 / 50, bottomright = 1 - 1 / 50, topright = 1 - 1/50)
+      algn <- switch(stmt.placement, bottomleft = 4, bottomright = 2, topright = 2)
+      incr <- (1:(np - 1)) / 20
+      vert <- switch(stmt.placement, bottomleft = 0 + incr, bottomright = 0 + incr, topright = 1 - incr, none = 0)
+      graphics::text(x = max(sv$time) * mult, y = vert, labels = hr.stmt2, pos = algn)
     }
-    
-    if(output == "plain"){
-        tmp.out <- list(med = medians)
-        if(np > 1)
-            tmp.out$hr <- hr.txt
-    } else {
-        tmp.out <- list(med = med.stmt)
-        if(np > 1)
-            tmp.out$hr <- hr.stmt
+    if(stmt.placement == "subtitle"){    
+      graphics::mtext(hr.stmt2, side = 3, line = 0:(np - 2))
     }
-    tmp.out
+    if(legend.placement != "none")
+      graphics::legend(legend.placement, labels, col = 1:np, lty = 1:np, bty = "n")
+  }
+  
+  if(output == "plain"){
+    tmp.out <- list(med = medians)
+    if(np > 1)
+      tmp.out$hr <- hr.txt
+  } else {
+    tmp.out <- list(med = med.stmt)
+    if(np > 1)
+      tmp.out$hr <- hr.stmt
+  }
+  tmp.out
 }
 
 
@@ -237,75 +236,77 @@ survReport <- function(time, event, group = NULL,
 #' quantileKM(time = time, event = event, group = group, quantile = 0.25,
 #'            conf.type = "log")
 #'
-#' @import survival
 #' @export
-quantileKM <- function(time, event, group = NULL, quantile = 0.5, conf.level = 0.95,
-                       conf.type = c("log-log", "log", "plain","none")){
+quantileKM <- function(time, event, group = NULL, quantile = 0.5, 
+                       conf.level = 0.95, conf.type = c("log-log", "log", 
+                                                        "plain","none")){
+  
+  stopifnot(is.numeric(time),
+            length(time) > 0,
+            is.numeric(event),
+            length(event) == length(time))
+  if(!is.null(group)){
+    group <- as.factor(group)
+    stopifnot(is.finite(group),
+              length(group) == length(time))
+  }
+  stopifnot(is.numeric(quantile), length(quantile) == 1,
+            is.finite(quantile),
+            0 <= quantile, quantile <= 1,
+            is.numeric(conf.level), length(conf.level) == 1,
+            is.finite(conf.level),
+            0 < conf.level, conf.level < 1)
+  
+  stopifnot(!is.null(conf.type))
+  conf.type <- match.arg(conf.type)
+  
+  s.obj <- survival::Surv(time, event)
+  
+  if (!is.null(group)) {
+    group.f <- as.factor(group)
+    n.level <- length(levels(group.f))
+    quant.mat <- matrix(NA, ncol = 5, nrow = n.level)
+    sdiff <- survival::survdiff(s.obj ~ group.f)
     
-    stopifnot(is.numeric(time),
-              length(time) > 0,
-              is.numeric(event),
-              length(event) == length(time))
-    if(!is.null(group)){
-        group <- as.factor(group)
-        stopifnot(is.finite(group),
-                  length(group) == length(time))
-    }
-    stopifnot(is.numeric(quantile), length(quantile) == 1,
-              is.finite(quantile),
-              0 <= quantile, quantile <= 1,
-              is.numeric(conf.level), length(conf.level) == 1,
-              is.finite(conf.level),
-              0 < conf.level, conf.level < 1)
+    ## p-value log-rank test
+    p.val <- 1 - stats::pchisq(sdiff$chisq, df = n.level - 1)
+    quant.surv <- survival::survfit(s.obj ~ group.f, conf.int = conf.level,
+                                    conf.type = conf.type)
     
-    stopifnot(!is.null(conf.type))
-    conf.type <- match.arg(conf.type)
+    ## quantile of event time, incl. confidence intervals
+    for (j in 1:n.level){
+      tmp <- summary(quant.surv[j])
+      quant.mat[j, 1] <- quant.surv[j]$n
+      quant.mat[j, 2] <- sum(quant.surv[j]$n.event)
+      
+      ## add Inf to omit warnings in case quantile is not reached by 
+      ## survival curve (or pointwise ci curve)
+      quant.mat[j, 3] <- min(Inf, tmp$time[tmp$surv <= quantile], na.rm = TRUE)
+      quant.mat[j, 4] <- min(Inf, tmp$time[tmp$lower <= quantile], na.rm = TRUE)
+      quant.mat[j, 5] <- min(Inf, tmp$time[tmp$upper <= quantile], na.rm = TRUE)
+    }        
     
-    s.obj <- Surv(time, event)
+    dimnames(quant.mat)[[1]] <- paste("group = ", levels(group.f), sep = "")
+  }
+  
+  if (is.null(group)) {
+    p.val <- NA
+    n.level <- 1
+    quant.mat <- matrix(NA, ncol = 5, nrow = n.level)
+    quant.surv <- survival::survfit(s.obj ~ 1, conf.int = conf.level, 
+                                    conf.type = conf.type)
+    tmp <- quant.surv
+    quant.mat[1, 1] <- tmp$n
+    quant.mat[1, 2] <- sum(tmp$n.event)
     
-    if (!is.null(group)) {
-        group.f <- as.factor(group)
-        n.level <- length(levels(group.f))
-        quant.mat <- matrix(NA, ncol = 5, nrow = n.level)
-        sdiff <- survdiff(s.obj ~ group.f)
-        
-        ## p-value log-rank test
-        p.val <- 1 - pchisq(sdiff$chisq, df = n.level - 1)
-        quant.surv <- survfit(s.obj ~ group.f, conf.int = conf.level,
-                              conf.type = conf.type)
-        
-        ## quantile of event time, incl. confidence intervals
-        for (j in 1:n.level){
-            tmp <- summary(quant.surv[j])
-            quant.mat[j, 1] <- quant.surv[j]$n
-            quant.mat[j, 2] <- sum(quant.surv[j]$n.event)
-            
-            ## add Inf to omit warnings in case quantile is not reached by 
-            ## survival curve (or pointwise ci curve)
-            quant.mat[j, 3] <- min(Inf, tmp$time[tmp$surv <= quantile], na.rm = TRUE)
-            quant.mat[j, 4] <- min(Inf, tmp$time[tmp$lower <= quantile], na.rm = TRUE)
-            quant.mat[j, 5] <- min(Inf, tmp$time[tmp$upper <= quantile], na.rm = TRUE)
-        }        
-        
-        dimnames(quant.mat)[[1]] <- paste("group = ", levels(group.f), sep = "")
-    }
-    
-    if (is.null(group)) {
-        p.val <- NA
-        n.level <- 1
-        quant.mat <- matrix(NA, ncol = 5, nrow = n.level)
-        quant.surv <- survfit(s.obj ~ 1, conf.int = conf.level, conf.type = conf.type)
-        tmp <- quant.surv
-        quant.mat[1, 1] <- tmp$n
-        quant.mat[1, 2] <- sum(tmp$n.event)
-        
-        ## add Inf to omit warnings in case quantile is not reached by 
-        ## survival curve
-        quant.mat[1, 3] <- min(Inf, tmp$time[tmp$surv <= quantile], na.rm = TRUE)
-        quant.mat[1, 4] <- min(Inf, tmp$time[tmp$lower <= quantile], na.rm = TRUE)
-        quant.mat[1, 5] <- min(Inf, tmp$time[tmp$upper <= quantile], na.rm = TRUE)        
-    }    
-    
-    dimnames(quant.mat)[[2]] <- c("n", "events", "quantile", "lower.ci", "upper.ci")      
-    list("quantities" = quant.mat, "p.val" = p.val)
+    ## add Inf to omit warnings in case quantile is not reached by 
+    ## survival curve
+    quant.mat[1, 3] <- min(Inf, tmp$time[tmp$surv <= quantile], na.rm = TRUE)
+    quant.mat[1, 4] <- min(Inf, tmp$time[tmp$lower <= quantile], na.rm = TRUE)
+    quant.mat[1, 5] <- min(Inf, tmp$time[tmp$upper <= quantile], na.rm = TRUE)        
+  }    
+  
+  dimnames(quant.mat)[[2]] <- c("n", "events", "quantile", "lower.ci", 
+                                "upper.ci")      
+  list("quantities" = quant.mat, "p.val" = p.val)
 }

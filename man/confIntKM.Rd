@@ -37,6 +37,7 @@ than that based on Greenwood's formula.
 \examples{
 
 ## use Acute Myelogenous Leukemia survival data contained in package 'survival'
+library(survival)
 time <- leukemia[, 1]
 event <- leukemia[, 2]
 formula <- Surv(time = time, event = event) ~ 1

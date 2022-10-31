@@ -48,7 +48,7 @@ power.z.test <- function (n = NULL,
                           sd = 1, 
                           sig.level = 0.05, 
                           power = NULL,
-                          type = c("two.sample", "one.sample"),
+                          type = c("two.sample", "one.sample", "paired"),
                           alternative = c("two.sided", "one.sided")
                           ){
   
@@ -70,20 +70,20 @@ power.z.test <- function (n = NULL,
   
   # set alternative and type for now
   type <- match.arg(type)
-  tsample <- switch(type, one.sample = 1, two.sample = 2)# , paired = 1)
+  tsample <- switch(type, one.sample = 1, two.sample = 2, paired = 1)
   alternative <- match.arg(alternative)
   tside <- switch(alternative, one.sided = 1, two.sided = 2)
   
   if(is.null(n)){
-    n <- tsample * ((qnorm(power) + qnorm(1 - sig.level/tside)) * sd / delta)^2
+    n <- tsample * ((stats::qnorm(power) + stats::qnorm(1 - sig.level/tside)) * sd / delta)^2
   } else if(is.null(delta)){
-    delta <- sd * sqrt(tsample / n) * (qnorm(power) + qnorm(1 - sig.level/tside))
+    delta <- sd * sqrt(tsample / n) * (stats::qnorm(power) + stats::qnorm(1 - sig.level/tside))
   } else if(is.null(sd)){
-    sd <- abs(delta) * sqrt(n) / (sqrt(tsample) * (qnorm(power) + qnorm(1 - sig.level/tside)))
+    sd <- abs(delta) * sqrt(n) / (sqrt(tsample) * (stats::qnorm(power) + stats::qnorm(1 - sig.level/tside)))
   } else if(is.null(sig.level)){
-    sig.level <- tside * (1 - pnorm(sqrt(n/tsample) * abs(delta)/sd - qnorm(power)))
+    sig.level <- tside * (1 - stats::pnorm(sqrt(n/tsample) * abs(delta)/sd - stats::qnorm(power)))
   } else if(is.null(power)){
-    power <- pnorm(sqrt(n/tsample) * abs(delta) / sd - qnorm(1 - sig.level/tside))
+    power <- stats::pnorm(sqrt(n/tsample) * abs(delta) / sd - stats::qnorm(1 - sig.level/tside))
   }
   
   # Create notes (copied from stats::power.t.test)

@@ -23,7 +23,7 @@ covariates, and \eqn{1-\code{conf.level}/2} confidence intervals.}
 }
 \description{
 Transforms output from \code{\link{survreg}} using the Weibull distribution
-to a more natural parameterization. See details for more information.
+to a more natural parametrization. See details for more information.
 }
 \details{
 The \code{\link{survreg}} function fits a Weibull accelerated failure time

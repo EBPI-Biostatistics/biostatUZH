@@ -30,15 +30,15 @@
 #' x <- runif(n = n)
 #' y <- 2 * x + 0.5 * rnorm(n = n)
 #' confIntCorrelation(x = x, y = y)
-#'
+#' 
 #' @export
 confIntCorrelation <- function(x, y, conf.level = 0.95,
                                method = c("spearman", "pearson"),
                                type = c("t", "z")){
 
-    stopifnot(is.numeric(x), length(x) >= 2, is.finite(x),
+    stopifnot(is.numeric(x), length(x) >= 2L, is.finite(x),
               is.numeric(y), length(y) == length(x), is.finite(y),
-              length(conf.level) == 1, is.finite(conf.level),
+              length(conf.level) == 1L, is.finite(conf.level),
               0 < conf.level, conf.level < 1,
               !is.null(method))
     method <- match.arg(method)
@@ -46,25 +46,25 @@ confIntCorrelation <- function(x, y, conf.level = 0.95,
     type <- match.arg(type)
 
     ## default values
-    ci <- NA
-    p.value <- NA
+    ci <- NA_real_
+    p.value <- NA_real_
 
     n <- length(x)
     alpha <- 1 - conf.level
-    corEst <- cor.test(x = x, y = y, use = "pairwise", method = method,
-                       conf.level = conf.level)
+    corEst <- stats::cor.test(x = x, y = y, use = "pairwise", method = method,
+                              conf.level = conf.level)
     estimate <- corEst$estimate
     p2 <- corEst$p.value
     
-    if (n >= 4){
+    if (n >= 4L){
         rho <- 0.5 * log((1 + corEst$estimate) / (1 - corEst$estimate))
         
         if (type == "z"){
-            quant <- qnorm(1 - alpha / 2)
-            p.value <- pnorm(abs(rho) * sqrt(n - 3))
+            quant <- stats::qnorm(1 - alpha / 2)
+            p.value <- stats::pnorm(abs(rho) * sqrt(n - 3))
         } else if (type == "t"){
-            quant <- qt(1 - alpha / 2, df = n - 3)
-            p.value <- pt(abs(rho) * sqrt(n - 3), df = n - 3)
+            quant <- stats::qt(1 - alpha / 2, df = n - 3)
+            p.value <- stats::pt(abs(rho) * sqrt(n - 3), df = n - 3)
         }
         
         ci <- rho + c(-1, 1) * quant / sqrt(n - 3)
@@ -94,7 +94,7 @@ confIntCorrelation <- function(x, y, conf.level = 0.95,
 #' @export
 confIntFisherTrafo <- function(var1, var2, pp = c(0.025, 0.975), meth = "spearman", type = "t"){
     .Deprecated("confIntCorrelation")
-    confIntCorrelation(x = var1, y = var2, conf.level = pp[2], method = meth, type = type)
+    confIntCorrelation(x = var1, y = var2, conf.level = pp[2L], method = meth, type = type)
 }
 
 

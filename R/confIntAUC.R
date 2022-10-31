@@ -36,12 +36,12 @@ confIntAUC <- function(cases, controls, conf.level = 0.95){
     ## estimate AUC as normalized test statistic of Wilcoxon test
     ncontrols <- length(controls)
     ncases <- length(cases)
-    auc <- as.numeric(wilcox.test(cases, controls, exact = FALSE)$statistic /
+    auc <- as.numeric(stats::wilcox.test(cases, controls, exact = FALSE)$statistic /
                (ncases * ncontrols))
     aucSE <- standardErrorAUC(cases, controls)
 
     ## compute confidence intervals on original scale
-    z <- qnorm((1 + conf.level) / 2)
+    z <- stats::qnorm((1 + conf.level) / 2)
     lower <- auc - z * aucSE
     upper <- auc + z * aucSE
 
@@ -55,12 +55,12 @@ confIntAUC <- function(cases, controls, conf.level = 0.95){
     lowerLogit <- 1 / (1 + exp(-logitLowCI))
     upperLogit <- 1 / (1 + exp(-logitUpCI))
     
-    res <- data.frame(matrix(NA, ncol = 4))
-    colnames(res) <- c("type", "lower", "AUC", "upper")
-    res[1, 2:4] <- c(lower, auc, upper)
-    res[2, 2:4] <- c(lowerLogit, auc, upperLogit)
-    res[, 1] <- c("Wald", "logit Wald")
-    res
+    data.frame(type = c("Wald", "logit Wald"),
+               lower = c(lower, lowerLogit),
+               AUC = c(auc, auc),
+               upper = c(upper, upperLogit),
+               stringsAsFactors = FALSE)
+    
 }
 
 
@@ -108,72 +108,57 @@ confIntAUC <- function(cases, controls, conf.level = 0.95){
 #' controlsB <- rnorm(n = 200)
 #' 
 #' confIntIndependentAUCDiff(casesA = casesA, controlsA = controlsA,
-#'                           casesB = casesB, controlsB = controlsB, type = "Wald")
+#'                           casesB = casesB, controlsB = controlsB, type = "wald")
 #' confIntIndependentAUCDiff(casesA = casesA, controlsA = controlsA,
 #'                           casesB = casesB, controlsB = controlsB, type = "logit")
-#' 
 #' @export
 confIntIndependentAUCDiff <- function(casesA, controlsA, casesB, controlsB,
-                                      type = c("Wald", "logit"), conf.level = 0.95)
+                                      type = c("wald", "logit"), conf.level = 0.95)
 {
     stopifnot(is.numeric(casesA), length(casesA) >= 1, is.finite(casesA),
               is.numeric(controlsA), length(controlsA) >= 1, is.finite(controlsA),
               is.numeric(casesB), length(casesB) >= 1, is.finite(casesB),
               is.numeric(controlsB), length(controlsB) >= 1, is.finite(controlsB),
               !is.null(type))
-    type <- match.arg(tolower(type), choices = c("wald", "logit"))
+    type <- match.arg(tolower(type), choices = c("wald", "logit")) # type is now lower case!
     stopifnot(is.numeric(conf.level), length(conf.level) == 1,
               is.finite(conf.level), 0 < conf.level, conf.level < 1)
     
     resA <- confIntAUC(casesA, controlsA, conf.level = conf.level)
     resB <- confIntAUC(casesB, controlsB, conf.level = conf.level)
-    factor <- qnorm((1 + conf.level) / 2)
+    factor <- stats::qnorm((1 + conf.level) / 2)
+    
+    row <- switch(type, wald = 1L, logit = 2L)
+    
+    ## take intervals on original scale
+    aucA <- resA[row, 3L]
+    aucB <- resB[row, 3L]
+    D <- aucA - aucB
+    lowerA <- resA[row, 2L]
+    lowerB <- resB[row, 2L]
+    upperA <- resA[row, 4L]
+    upperB <- resB[row, 4L]
 
-    if(type == "Wald"){
-        ## take intervals on original scale
-        aucA <- resA[1, 3]
-        aucB <- resB[1, 3]
-        D <- aucA - aucB
-        lowerA <- resA[1, 2]
-        lowerB <- resB[1, 2]
-        upperA <- resA[1, 4]
-        upperB <- resB[1, 4]
+    if(type == "wald"){
+      
         ## compute and combine standard errors
         seA <- (upperA - lowerA) / (2 * factor)
         seB <- (upperB - lowerB) / (2 * factor)
         seD <- sqrt(seA^2 + seB^2)
         lowerD <- D - factor * seD
         upperD <- D + factor * seD
-
-        res <- data.frame(matrix(data = NA, ncol = 4))
-        colnames(res) <- c("outcome", "lower", "estimate", "upper")
-        res[1, 2:4] <- resA[1, 2:4] # Wald interval on original scale
-        res[2, 2:4] <- resB[1, 2:4] # Wald interval on original scale
-        res[3, 2:4] <- c(lowerD, D, upperD)
-        res[, 1] <- c("AUC Test 1", "AUC Test 2", "AUC Difference")
-        return(res)
+        
+    } else {
+      
+      ## Apply Newcombe trick
+      lowerD <- D - sqrt((aucA - lowerA)^2 + (aucB - upperB)^2)
+      upperD <- D + sqrt((aucA - upperA)^2 + (aucB - lowerB)^2)
+      
     }
-    ## else type == "Logit"
-    ## take intervals on logit scale
-    aucA <- resA[2, 3]
-    aucB <- resB[2, 3]
-    D <- aucA - aucB
-    lowerA <- resA[2, 2]
-    lowerB <- resB[2, 2]
-    upperA <- resA[2, 4]
-    upperB <- resB[2, 4]
     
-    ## Apply Newcombe trick
-    lowerD <- D - sqrt((aucA - lowerA)^2 + (aucB - upperB)^2)
-    upperD <- D + sqrt((aucA - upperA)^2 + (aucB - lowerB)^2)
-    
-    res <- data.frame(matrix(data = NA, ncol = 4))
-    colnames(res) <- c("outcome", "lower", "estimate", "upper")
-    res[1, 2:4] <- resA[2, 2:4] # Wald interval on logit scale
-    res[2, 2:4] <- resB[2, 2:4] # Wald interval on logit scale
-    res[3, 2:4] <- c(lowerD, D, upperD)
-    res[, 1] <- c("AUC Test 1", "AUC Test 2", "AUC Difference")
-    res
+    res <- as.data.frame(rbind(resA[row, 2:4], resB[row, 2:4], c(lowerD, D, upperD)))
+    res <- cbind(data.frame(c("AUC Test 1", "AUC Test 2", "AUC Difference")), res)
+    stats::setNames(res, c("outcome", "lower", "estimate", "upper"))
 }
 
 
@@ -208,35 +193,33 @@ confIntIndependentAUCDiff <- function(casesA, controlsA, casesB, controlsB,
 #' @export
 confIntPairedAUCDiff <- function(cases, controls, conf.level = 0.95){
     cases <- as.matrix(cases[,1:2])
-    stopifnot(is.numeric(cases), length(cases) > 1,
-              ncol(cases) == 2, is.finite(cases))
+    stopifnot(is.numeric(cases), length(cases) > 1L,
+              ncol(cases) == 2L, is.finite(cases))
     controls <- as.matrix(controls[,1:2])
-    stopifnot(is.numeric(controls), length(controls) > 1,
-              ncol(controls) >= 2, is.finite(controls),
-              is.numeric(conf.level), length(conf.level) == 1,
+    stopifnot(is.numeric(controls), length(controls) > 1L,
+              ncol(controls) >= 2L, is.finite(controls),
+              is.numeric(conf.level), length(conf.level) == 1L,
               is.finite(conf.level), 0 < conf.level, conf.level < 1)
     
     # estimate AUC as normalized test statistic of Wilcoxon test
     ncontrols <- nrow(controls)
     ncases <- nrow(cases)
-    auc <- numeric(2)
+    auc <- numeric(2L)
     for(k in 1:2)
-        auc[k] <- as.numeric(wilcox.test(cases[,k], controls[,k], exact = FALSE)$statistic / (ncases * ncontrols))
-    aucDiff <- auc[1] - auc[2]
+        auc[k] <- as.numeric(stats::wilcox.test(cases[,k], controls[,k], exact = FALSE)$statistic / (ncases * ncontrols))
+    aucDiff <- auc[1L] - auc[2L]
     aucDiffSE <- standardErrorAUCDiff(cases, controls)
 
     # compute confidence intervals on original scale
-    z <- qnorm((1 + conf.level) / 2)
+    z <- stats::qnorm((1 + conf.level) / 2)
     lower <- aucDiff - z * aucDiffSE
     upper <- aucDiff + z * aucDiffSE
 
-    res <- data.frame(matrix(NA, ncol = 4))
-    colnames(res) <- c("outcome", "lower", "estimate", "upper")
-    res[1, 2:4] <- confIntAUC(cases[,1], controls[,1])[2, 2:4] ## avoids overshoot
-    res[2, 2:4] <- confIntAUC(cases[,2], controls[,2])[2, 2:4] ## avoids overshoot
-    res[3, 2:4] <- c(lower, aucDiff, upper)
-    res[, 1] <- c("AUC Test 1", "AUC Test 2", "AUC Difference")
-    res
+    res <- as.data.frame(rbind(confIntAUC(cases[,1L], controls[,1L])[2L, 2:4], ## avoids overshoot
+                               confIntAUC(cases[,2L], controls[,2L])[2L, 2:4], ## avoids overshoot
+                               c(lower, aucDiff, upper)))
+    res <- cbind(data.frame(c("AUC Test 1", "AUC Test 2", "AUC Difference")), res)
+    stats::setNames(res, c("outcome", "lower", "estimate", "upper"))
 }
 
 
@@ -260,18 +243,18 @@ confIntPairedAUCDiff <- function(cases, controls, conf.level = 0.95){
 #' @export
 standardErrorAUCDiff <- function(cases, controls){
     cases <- as.matrix(cases[,1:2])
-    stopifnot(is.numeric(cases), length(cases) > 1,
-              ncol(cases) == 2, is.finite(cases))
+    stopifnot(is.numeric(cases), length(cases) > 1L,
+              ncol(cases) == 2L, is.finite(cases))
     controls <- as.matrix(controls[,1:2])
-    stopifnot(is.numeric(controls), length(controls) > 1,
-              ncol(controls) >= 2, is.finite(controls))
+    stopifnot(is.numeric(controls), length(controls) > 1L,
+              ncol(controls) >= 2L, is.finite(controls))
 
     ncases <- nrow(cases)
     ncontrols <- nrow(controls)
     # non-disease placement values of cases
-    C <- matrix(data = NA, nrow = ncases, ncol = 2)
+    C <- matrix(data = NA, nrow = ncases, ncol = 2L)
     # disease placement values of controls
-    R <- matrix(data = NA, nrow = ncontrols, ncol = 2)
+    R <- matrix(data = NA, nrow = ncontrols, ncol = 2L)
 
     for(k in 1:2){
         for(i in 1:ncases)
@@ -279,7 +262,7 @@ standardErrorAUCDiff <- function(cases, controls){
         for(j in 1:ncontrols)
             R[j,k] <- mean(as.numeric(cases[,k] > controls[j,k]) + 0.5 * as.numeric(cases[,k] == controls[j,k]))
     }
-    sqrt((var(R[,1] - R[,2]) / ncontrols + var(C[,1] - C[,2]) / ncases))
+    sqrt((stats::var(R[,1] - R[,2]) / ncontrols + stats::var(C[,1] - C[,2]) / ncases))
 }
 
 
@@ -367,23 +350,22 @@ standardErrorAUCDiff <- function(cases, controls){
 #' lines(x = resBinormBoot$x.val, y = resBinormBoot$y.val, type = "l",
 #'       col = 4, lwd = 2, lty = 2)
 #' 
-#' @importFrom boot boot boot.ci
 #' @export
 confIntAUCbinorm <- function(cases, controls, conf.level = 0.95, method = c("boot", "wald"),
                              replicates = 1000, grid = 100, var.equal = TRUE){ 
 
-    stopifnot(is.numeric(cases), length(cases) >= 1, is.finite(cases),
-              is.numeric(controls), length(controls) >= 1, is.finite(controls),
-              is.numeric(conf.level), length(conf.level) == 1,
+    stopifnot(is.numeric(cases), length(cases) >= 1L, is.finite(cases),
+              is.numeric(controls), length(controls) >= 1L, is.finite(controls),
+              is.numeric(conf.level), length(conf.level) == 1L,
               is.finite(conf.level), 0 < conf.level, conf.level < 1,
               !is.null(method))
     method <- match.arg(method)
-    stopifnot(is.numeric(replicates), length(replicates) == 1,
+    stopifnot(is.numeric(replicates), length(replicates) == 1L,
               is.wholenumber(replicates), replicates >= 1,
-              is.numeric(grid), length(grid) == 1,
+              is.numeric(grid), length(grid) == 1L,
               is.wholenumber(grid), grid >= 1,
               is.logical(var.equal), is.finite(var.equal),
-              length(var.equal) == 1)
+              length(var.equal) == 1L)
     
     alpha <- 1 - conf.level
 
@@ -394,9 +376,9 @@ confIntAUCbinorm <- function(cases, controls, conf.level = 0.95, method = c("boo
         ## data in two columns: y (measurements), status (0 = control, 1 = case)
         
         ts <- seq(from = 0, to = 1, length.out = grid)		
-        a <- (mean(cases) - mean(controls)) / sd(cases)
-        b <- sd(controls) / sd(cases)	
-        biroc <- pnorm(a + b * qnorm(ts))
+        a <- (mean(cases) - mean(controls)) / stats::sd(cases)
+        b <- stats::sd(controls) / stats::sd(cases)	
+        biroc <- stats::pnorm(a + b * stats::qnorm(ts))
 
         dat <- cbind(c(controls, cases), c(rep(0, length(controls)), rep(1, length(cases))))
 
@@ -404,15 +386,15 @@ confIntAUCbinorm <- function(cases, controls, conf.level = 0.95, method = c("boo
             dat <- data[x, ]
             cases <- dat[dat[, 2] == 1, 1]
             controls <- dat[dat[, 2] == 0, 1]
-            a <- (mean(cases) - mean(controls)) / sd(cases)
-            b <- sd(controls) / sd(cases)
-            auc <- pnorm(a * (b ^ 2 + 1) ^ (-1 / 2))
+            a <- (mean(cases) - mean(controls)) / stats::sd(cases)
+            b <- stats::sd(controls) / stats::sd(cases)
+            auc <- stats::pnorm(a * (b ^ 2 + 1) ^ (-1 / 2))
             auc
         }
 
         ## compute bootstrap ci
-        res <- boot(data = dat, statistic = AUCbinorm, R = replicates)
-        aucbin <- boot.ci(boot.out = res, type = "bca")
+        res <- boot::boot(data = dat, statistic = AUCbinorm, R = replicates)
+        aucbin <- boot::boot.ci(boot.out = res, type = "bca")
 
         return(list("a" = a, "b" = b, "x.val" = ts, "y.val" = biroc,
                     "auc" = res$t0, "lowCI" = aucbin$bca[4],
@@ -429,14 +411,14 @@ confIntAUCbinorm <- function(cases, controls, conf.level = 0.95, method = c("boo
         mu0 <- mean(controls)
         mu1 <- mean(cases)
         
-        s0 <- s1 <- sd(c(cases, controls))
+        s0 <- s1 <- stats::sd(c(cases, controls))
         auc.se <- sqrt(1 / n0 + 1 / n1)
         
         a <- (mu1 - mu0) / s1
         b <- s0 / s1
-        auc <- pnorm(a / (sqrt(1 + b^2)))
-        lowCI <- pnorm((a - qnorm(1 - alpha / 2) * auc.se) / (sqrt(1 + b^2)))
-        upCI <- pnorm((a + qnorm(1-alpha/2) * auc.se) / (sqrt(1 + b^2)))
+        auc <- stats::pnorm(a / (sqrt(1 + b^2)))
+        lowCI <- stats::pnorm((a - stats::qnorm(1 - alpha / 2) * auc.se) / (sqrt(1 + b^2)))
+        upCI <- stats::pnorm((a + stats::qnorm(1-alpha/2) * auc.se) / (sqrt(1 + b^2)))
         
         return(list("a" = a, "b" = b, "auc" = auc, "lowCI" = lowCI, "upCI" = upCI,
                     method = method))
@@ -529,7 +511,6 @@ confIntAUCbinorm <- function(cases, controls, conf.level = 0.95, method = c("boo
 #' lines(x = res$x.val, y = res$y.val, type = "l", col = 2, lwd = 2, lty = 2)
 #' lines(x = resBinormBoot$x.val, y = resBinormBoot$y.val, type = "l",
 #'       col = 4, lwd = 2, lty = 2)
-#' 
 #' @export
 summaryROC <- function(cases, controls, conf.level = 0.95){
    # Compute:
@@ -545,18 +526,18 @@ summaryROC <- function(cases, controls, conf.level = 0.95){
     #
     # Kaspar Rufibach, September 2008
 
-    stopifnot(is.numeric(cases), length(cases) >= 1, is.finite(cases),
-              is.numeric(controls), length(controls) >= 1, is.finite(controls),
-              is.numeric(conf.level), length(conf.level) == 1,
+    stopifnot(is.numeric(cases), length(cases) >= 1L, is.finite(cases),
+              is.numeric(controls), length(controls) >= 1L, is.finite(controls),
+              is.numeric(conf.level), length(conf.level) == 1L,
               is.finite(conf.level), 0 < conf.level, conf.level < 1)
     
     alpha <- 1 - conf.level
     
     n1 <- length(controls)
     n2 <- length(cases)
-    cutoffs <- c(Inf, rev(sort(unique(c(cases, controls)))))
+    cutoffs <- c(Inf, sort(unique(c(cases, controls)), decreasing = TRUE))
     n <- length(cutoffs)
-    tps <- rep(NA, n)
+    tps <- rep(NA_integer_, n)
     tns <- tps; fps <- tps; fns <- tps; n1tmp <- tps; n3tmp <- tps
     
     for (i in 1:n){
@@ -579,17 +560,17 @@ summaryROC <- function(cases, controls, conf.level = 0.95){
     npvs <- tns / (fns + tns)
     
     # compute confidence intervals
-    npvs.ci <- ppvs.ci <- sens.ci <- spec.ci <- matrix(NA, nrow = n, ncol = 2)
+    npvs.ci <- ppvs.ci <- sens.ci <- spec.ci <- matrix(NA_real_, nrow = n, ncol = 2L)
     
     for (i in 1:n){
         spec.ci[i, ] <- wilson(x = tns[i], n = (tns + fps)[i],
-                               conf.level = conf.level)[c(1, 3)]
+                               conf.level = conf.level)[c(1L, 3L)]
         sens.ci[i, ] <- wilson(x = tps[i], n = (tps + fns)[i],
-                               conf.level = conf.level)[c(1, 3)]
+                               conf.level = conf.level)[c(1L, 3L)]
         ppvs.ci[i, ] <- wilson(x = tps[i], n = (tps + fps)[i],
-                               conf.level = conf.level)[c(1, 3)]
+                               conf.level = conf.level)[c(1L, 3L)]
         npvs.ci[i, ] <- wilson(x = tns[i], n = (fns + tns)[i],
-                               conf.level = conf.level)[c(1, 3)]
+                               conf.level = conf.level)[c(1L, 3L)]
     }
     
     # compute q2 and q1
@@ -602,7 +583,7 @@ summaryROC <- function(cases, controls, conf.level = 0.95){
     auc <- sum(n1tmp * tps + 0.5 * n1tmp * n3tmp) / (n1 * n2)
 
     # estimate AUC as test statistic of Wilcoxon test
-    auc <- as.numeric(wilcox.test(cases, controls, exact = FALSE)$statistic /
+    auc <- as.numeric(stats::wilcox.test(cases, controls, exact = FALSE)$statistic /
                                (n1 * n2))
     auc.var <- (n1 * n2) ^ (-1) * (auc * (1 - auc) + (n2 - 1) * (q1 - auc ^ 2) +
                                    (n1 - 1) * (q2 - auc ^ 2))
@@ -616,7 +597,7 @@ summaryROC <- function(cases, controls, conf.level = 0.95){
     # compute confidence intervals
     # on original scale
     auc.se <- sqrt(auc.var)
-    q <- qnorm(1 - alpha / 2)
+    q <- stats::qnorm(1 - alpha / 2)
     lowCI <- auc - q * auc.se
     upCI <- auc + q * auc.se
     
@@ -671,14 +652,14 @@ standardErrorAUC <- function(cases, controls) {
     ncontrols <- length(controls)
 
     ## non-disease placement values of cases
-    C <- rep(NA, ncases)
+    C <- rep(NA_real_, ncases)
     ## disease placement values of controls
-    R <- rep(NA, ncontrols)
+    R <- rep(NA_real_, ncontrols)
 
     for(i in 1:ncases)
         C[i] <- mean(as.numeric(controls < cases[i]) + 0.5 * as.numeric(controls == cases[i]))
     for(j in 1:ncontrols)
         R[j] <- mean(as.numeric(cases > controls[j]) + 0.5 * as.numeric(cases == controls[j]))
 
-    sqrt((var(R) / ncontrols + var(C) / ncases))
+    sqrt((stats::var(R) / ncontrols + stats::var(C) / ncases))
 }

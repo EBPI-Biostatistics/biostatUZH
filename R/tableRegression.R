@@ -131,8 +131,6 @@
 #'                      data = larynx)
 #' tableRegression(model = mod.wb)
 #'
-#' @import MASS
-#' @importFrom xtable xtable print.xtable
 #' @export
 tableRegression <- function(model,
                             stats = NULL,
@@ -150,320 +148,322 @@ tableRegression <- function(model,
                             label = NULL,
                             vars = NULL,
                             ...) {
-    
-    stopifnot(inherits(model, c("lm", "glm", "negbin", "coxph", "list"))) 
-    # Weibull returns a list
-    stopifnot(is.null(stats) ||
+  
+  stopifnot(inherits(model, c("lm", "glm", "negbin", "coxph", "list"))) 
+  # Weibull returns a list
+  stopifnot(is.null(stats) ||
               (is.character(stats) &&  all(stats %in%
-               c("estimate","exp.estimate", "standarderror", "t.value", "ci.95", "p.value" ))))
-    stopifnot(is.null(col.names) || is.character(col.names),
-              is.null(row.names) || is.character(row.names),
-              is.null(intercept) ||
+                                             c("estimate","exp.estimate", "standarderror", "t.value", "ci.95", "p.value" ))))
+  stopifnot(is.null(col.names) || is.character(col.names),
+            is.null(row.names) || is.character(row.names),
+            is.null(intercept) ||
               (is.logical(intercept) && length(intercept) == 1 && is.finite(intercept)),
-              !is.null(text))
-    text <- match.arg(arg = text)
-    stopifnot(is.character(text.ci),
-              is.numeric(eps.pvalue), length(eps.pvalue) == 1, is.finite(eps.pvalue),
-              0 < eps.pvalue,
-              is.null(digits) ||
+            !is.null(text))
+  text <- match.arg(arg = text)
+  stopifnot(is.character(text.ci),
+            is.numeric(eps.pvalue), length(eps.pvalue) == 1, is.finite(eps.pvalue),
+            0 < eps.pvalue,
+            is.null(digits) ||
               (is.numeric(digits) && all(is.finite(digits)) && all(is.wholenumber(digits))))
-    ## big.mark is argument to format and not tested
-    stopifnot(is.logical(xtable), length(xtable) == 1, is.finite(xtable))
-    ## align, caption, label are arguments to xtable and not tested here
-    stopifnot(is.null(vars) || is.character(vars))
+  ## big.mark is argument to format and not tested
+  stopifnot(is.logical(xtable), length(xtable) == 1, is.finite(xtable))
+  ## align, caption, label are arguments to xtable and not tested here
+  stopifnot(is.null(vars) || is.character(vars))
+  
+  raw.col.names.german <- c("Koeffizient", "Exp(Koeffizient)", "Standardfehler", "$t$-Wert", "95\\%-Konfidenzintervall", "$p$-Wert")
+  raw.col.names.english <- c("Coefficient", "Exp(Coefficient)", "Standarderror", "$t$-value", "95\\%-confidence interval", "$p$-value")
+  raw.stats <- c("estimate", "exp.estimate", "standarderror", "t.value", "ci.95", "p.value")
+  
+  clm <- class(model)[1]
+  if (clm %in% c("glm", "geeglm")) {
+    cl <- model$family$family
+  } else {
+    cl <- clm
+  }
+  ## lm >> linear model
+  ## binomial >> generalized linear model
+  ## poisson >> generalized linear model
+  ## list >> weibull
+  ## coxph >> survival
+  ## negbin >> negative binomial model (fit by MASS::glm.nb)
+  
+  ## LM
+  ## -------------
+  if (clm == "lm")
+  {
+    ## intercept
+    if(is.null(intercept)) intercept <- TRUE
     
-    raw.col.names.german <- c("Koeffizient", "Exp(Koeffizient)", "Standardfehler", "$t$-Wert", "95\\%-Konfidenzintervall", "$p$-Wert")
-    raw.col.names.english <- c("Coefficient", "Exp(Coefficient)", "Standarderror", "$t$-value", "95\\%-confidence interval", "$p$-value")
-    raw.stats <- c("estimate", "exp.estimate", "standarderror", "t.value", "ci.95", "p.value")
+    ## stats
+    k <- c(1, 5, 6)
+    if(is.null(stats)) stats <- raw.stats[k]
     
-    clm <- class(model)[1]
-    if (clm %in% c("glm", "geeglm")) {
-        cl <- model$family$family
-    } else {
-        cl <- clm
+    ## col.names >> dependent on stats & text
+    ind <- sapply(stats, function(x) which(x == raw.stats)) #which(raw.stats %in% stats)
+    if(is.null(col.names))
+    {
+      if(text == "german") col.names <- raw.col.names.german[ind]
+      if(text == "english") col.names <- raw.col.names.english[ind]
     }
-    ## lm >> linear model
-    ## binomial >> generalized linear model
-    ## poisson >> generalized linear model
-    ## list >> weibull
-    ## coxph >> survival
-    ## negbin >> negative binomial model (fit by MASS::glm.nb)
     
-    ## LM
+    ## row.names >> dependent on intercept & text
+    if(is.null(row.names))
+    {
+      row.names <- names(model$coef)[-1]
+      if(intercept)
+      {
+        if(text == "german") intercept.nam <- "Achsenabschnitt"
+        if(text == "english") intercept.nam <- "Intercept"
+        row.names <- c(intercept.nam, row.names)
+      }
+      
+    }
+    
+    ## digits
+    if(is.null(digits)) digits <- rep(2, length(stats))
+    
+  } else {
+    ## rest
     ## -------------
-    if (clm == "lm")
+    
+    ## intercept
+    if(is.null(intercept))
     {
-        ## intercept
-        if(is.null(intercept)) intercept <- TRUE
-        
-        ## stats
-        k <- c(1, 5, 6)
-        if(is.null(stats)) stats <- raw.stats[k]
-        
-        ## col.names >> dependent on stats & text
-        ind <- sapply(stats, function(x) which(x == raw.stats)) #which(raw.stats %in% stats)
-        if(is.null(col.names))
+      ## intercept is omitted when having weibull
+      ## or logit or Poisson regression or coxph
+      intercept <- ! ((clm %in% c("list", "coxph")) | (cl %in% c("binomial", "quasibinomial", "poisson", "quasipoisson")))
+    }
+    
+    ## stats
+    k <- c(2, 5, 6)
+    if(is.null(stats)) stats <- raw.stats[k]
+    
+    ## col.names >> dependent on stats & text
+    ind <- sapply(stats, function(x) which(x == raw.stats))#which(raw.stats %in% stats)
+    if(is.null(col.names))
+    {
+      exp.nam <- switch(
+        cl,
+        "poisson" =, "quasipoisson" =, "negbin" = "Rate Ratio",
+        "binomial" =, "quasibinomial" = "Odds Ratio",
+        "coxph" = "Hazard Ratio",
+        "Exp(Coefficient)"
+      )
+      
+      ind.exp <- raw.stats == "exp.estimate"
+      raw.col.names.german[ind.exp] <- exp.nam
+      raw.col.names.english[ind.exp] <- exp.nam
+      
+      if(text == "german") col.names <- raw.col.names.german[ind]
+      if(text == "english") col.names <- raw.col.names.english[ind]
+    }
+    
+    ## row.names >> dependent on intercept & text
+    if(is.null(row.names))
+    {
+      if(clm == "list")
+      {
+        row.names <- rownames(model$coef)[-c(1,2)]
+      }else{
+        if(clm == "coxph")
         {
-            if(text == "german") col.names <- raw.col.names.german[ind]
-            if(text == "english") col.names <- raw.col.names.english[ind]
+          row.names <- names(model$coefficients)
+        }else{
+          row.names <- names(model$coef)[-1]
         }
-        
-        ## row.names >> dependent on intercept & text
-        if(is.null(row.names))
-        {
-            row.names <- names(model$coef)[-1]
-            if(intercept)
-            {
-                if(text == "german") intercept.nam <- "Achsenabschnitt"
-                if(text == "english") intercept.nam <- "Intercept"
-                row.names <- c(intercept.nam, row.names)
-            }
-            
-        }
-        
-        ## digits
-        if(is.null(digits)) digits <- rep(2, length(stats))
-        
+      }
+      
+      if(intercept)
+      {
+        if(text == "german") intercept.nam <- "Achsenabschnitt"
+        if(text == "english") intercept.nam <- "Intercept"
+        row.names <- c(intercept.nam, row.names)
+      }
+    }
+    
+    ## digits
+    if(is.null(digits)) digits <- rep(2, length(stats))
+    
+  }
+  
+  
+  ## warning intercept
+  if(intercept & clm %in% c("list", "coxph"))
+  {
+    warning("Weibull and Cox models do not include an intercept. Set intercept = FALSE")
+  }
+  
+  ## digitis ci
+  if("ci.95" %in% stats)
+  {
+    digits.ci <- digits[stats %in% "ci.95"]
+  }else{
+    digits.ci <- 2
+  }
+  
+  ## text.ci
+  ## if(is.null(text.ci)) text.ci <- text
+  
+  #col.names <- sub("%", "\\\\%", col.names)
+  
+  # linear model -----------------------------------------------------------
+  ## linear model
+  
+  if (clm == "lm")
+  {
+    estimate <- summary(model)$coef[,1]
+    exp.estimate <- exp(estimate)
+    standarderror <- summary(model)$coef[,2]
+    t.value <- summary(model)$coef[,3]
+    p.value <- summary(model)$coef[,4]
+    ci.95 <- formatCI(stats::confint(model), digits = digits.ci, text = text.ci)
+  }
+  
+  
+  
+  
+  # negbin ------------------------------------------------------------------
+  ## negbin
+  
+  
+  if (clm %in% c("negbin")) {
+    estimate <- summary(model)$coef[, 1]
+    exp.estimate <- exp(estimate)
+    standarderror <- summary(model)$coef[, 2]
+    t.value <- summary(model)$coef[, 3]
+    p.value <- summary(model)$coef[, 4]
+    
+    # change colnames
+    col.names[stats == "exp.estimate"] <- "Rate Ratio"
+    
+    ## confint for exp.estimate (actually depends on MASS:::confint.glm)
+    ci.95 <- formatCI(exp(suppressMessages(stats::confint(model))), 
+                      digits = digits.ci, text = text.ci)
+  }
+  
+  
+  # glm / gee ---------------------------------------------------------------
+  if (clm %in% c("glm", "geeglm")) { # both using the same family
+    
+    back.trafo <- switch(paste0(c(model$family$family, model$family$link), collapse = "."),
+                         "binomial.logit" = list("fct" = exp, "name" = "Odds Ratio"),
+                         "quasibinomial.logit" = list("fct" = exp, "name" = "Odds Ratio"),
+                         
+                         "gaussian.identity" = list("fct" = identity, "name" = "Estimate"),
+                         "quasi.identity" = list("fct" = identity, "name" = "Estimate"),
+                         
+                         "poisson.log" = list("fct" = exp, "name" = "Rate Ratio"),
+                         "quasipoisson.log" = list("fct" = exp, "name" = "Rate Ratio"))
+    
+    # change colnames
+    col.names[stats == "exp.estimate"] <- c(back.trafo$name)
+    
+    # calculating
+    estimate <- summary(model)$coef[, 1]
+    exp.estimate <- back.trafo$fct(estimate) # bad name for variable
+    standarderror <- summary(model)$coef[, 2]
+    t.value <- summary(model)$coef[, 3]
+    p.value <- summary(model)$coef[, 4]
+    
+    
+    # CI calculation
+    ci.95 <- if (clm == "glm") {
+      formatCI(back.trafo$fct(suppressMessages(stats::confint(model))), 
+               digits = digits.ci, 
+               text = text.ci)
     } else {
-        ## rest
-        ## -------------
-        
-        ## intercept
-        if(is.null(intercept))
-        {
-            ## intercept is omitted when having weibull
-            ## or logit or Poisson regression or coxph
-            intercept <- ! ((clm %in% c("list", "coxph")) | (cl %in% c("binomial", "quasibinomial", "poisson", "quasipoisson")))
-        }
-        
-        ## stats
-        k <- c(2, 5, 6)
-        if(is.null(stats)) stats <- raw.stats[k]
-        
-        ## col.names >> dependent on stats & text
-        ind <- sapply(stats, function(x) which(x == raw.stats))#which(raw.stats %in% stats)
-        if(is.null(col.names))
-        {
-            exp.nam <- switch(
-                cl,
-                "poisson" =, "quasipoisson" =, "negbin" = "Rate Ratio",
-                "binomial" =, "quasibinomial" = "Odds Ratio",
-                "coxph" = "Hazard Ratio",
-                "Exp(Coefficient)"
-            )
-            
-            ind.exp <- raw.stats == "exp.estimate"
-            raw.col.names.german[ind.exp] <- exp.nam
-            raw.col.names.english[ind.exp] <- exp.nam
-            
-            if(text == "german") col.names <- raw.col.names.german[ind]
-            if(text == "english") col.names <- raw.col.names.english[ind]
-        }
-        
-        ## row.names >> dependent on intercept & text
-        if(is.null(row.names))
-        {
-            if(clm == "list")
-            {
-                row.names <- rownames(model$coef)[-c(1,2)]
-            }else{
-                if(clm == "coxph")
-                {
-                    row.names <- names(model$coefficients)
-                }else{
-                    row.names <- names(model$coef)[-1]
-                }
-            }
-            
-            if(intercept)
-            {
-                if(text == "german") intercept.nam <- "Achsenabschnitt"
-                if(text == "english") intercept.nam <- "Intercept"
-                row.names <- c(intercept.nam, row.names)
-            }
-        }
-        
-        ## digits
-        if(is.null(digits)) digits <- rep(2, length(stats))
-        
+      formatCI(back.trafo$fct(confint.geeglm(model)),
+               digits = digits.ci, text = text.ci)
     }
-    
-    
-    ## warning intercept
-    if(intercept & clm %in% c("list", "coxph"))
-    {
-        warning("Weibull and Cox models do not include an intercept. Set intercept = FALSE")
-    }
-    
-    ## digitis ci
-    if("ci.95" %in% stats)
-    {
-        digits.ci <- digits[stats %in% "ci.95"]
-    }else{
-        digits.ci <- 2
-    }
-    
-    ## text.ci
-    ## if(is.null(text.ci)) text.ci <- text
-    
-    #col.names <- sub("%", "\\\\%", col.names)
-    
-    # linear model -----------------------------------------------------------
-    ## linear model
-    
-    if (clm == "lm")
-    {
-        estimate <- summary(model)$coef[,1]
-        exp.estimate <- exp(estimate)
-        standarderror <- summary(model)$coef[,2]
-        t.value <- summary(model)$coef[,3]
-        p.value <- summary(model)$coef[,4]
-        ci.95 <- formatCI(confint(model), digits = digits.ci, text = text.ci)
-    }
-    
-    
-    
-    
-    # negbin ------------------------------------------------------------------
-    ## negbin
-    
-    
-    if (clm %in% c("negbin")) {
-        estimate <- summary(model)$coef[, 1]
-        exp.estimate <- exp(estimate)
-        standarderror <- summary(model)$coef[, 2]
-        t.value <- summary(model)$coef[, 3]
-        p.value <- summary(model)$coef[, 4]
-        
-        # change colnames
-        col.names[stats == "exp.estimate"] <- "Rate Ratio"
-        
-        ## confint for exp.estimate (actually depends on MASS:::confint.glm)
-        ci.95 <- formatCI(exp(suppressMessages(confint(model))), digits = digits.ci, text = text.ci)
-    }
-    
-    
-    # glm / gee ---------------------------------------------------------------
-    if (clm %in% c("glm", "geeglm")) { # both using the same family
-        
-        back.trafo <- switch(paste0(c(model$family$family, model$family$link), collapse = "."),
-                             "binomial.logit" = list("fct" = exp, "name" = "Odds Ratio"),
-                             "quasibinomial.logit" = list("fct" = exp, "name" = "Odds Ratio"),
-                             
-                             "gaussian.identity" = list("fct" = identity, "name" = "Estimate"),
-                             "quasi.identity" = list("fct" = identity, "name" = "Estimate"),
-                             
-                             "poisson.log" = list("fct" = exp, "name" = "Rate Ratio"),
-                             "quasipoisson.log" = list("fct" = exp, "name" = "Rate Ratio"))
-        
-        # change colnames
-        col.names[stats == "exp.estimate"] <- c(back.trafo$name)
-        
-        # calculating
-        estimate <- summary(model)$coef[, 1]
-        exp.estimate <- back.trafo$fct(estimate) # bad name for variable
-        standarderror <- summary(model)$coef[, 2]
-        t.value <- summary(model)$coef[, 3]
-        p.value <- summary(model)$coef[, 4]
-        
-        
-        # CI calculation
-        ci.95 <- if (clm == "glm") {
-                     formatCI(back.trafo$fct(suppressMessages(confint(model))), digits = digits.ci, 
-                              text = text.ci)
-                 } else {
-                     formatCI(back.trafo$fct(confint.geeglm(model)),
-                              digits = digits.ci, text = text.ci)
-                 }
-    }
-        
-    ## coxmod ------------------------------------------------------------------
-    if (clm == "coxph") {
-        estimate <- summary(model)$coefficients[,1]
-        exp.estimate <- exp(estimate)
-        standarderror <- summary(model)$coefficients[,3]
-        t.value <- summary(model)$coefficients[,4]
-        p.value <- summary(model)$coefficients[,5]
-        ci.95 <- formatCI(cbind(summary(model)$conf.int[,3], summary(model)$conf.int[,4]),
-                          digits = digits.ci, text = text.ci) 
-    }
-    
-    
-    # weibull -----------------------------------------------------------------
-    if (clm == "list") {
-        estimate <- model$coef[-c(1:2),1]
-        exp.estimate <- exp(estimate)
-        standarderror <- model$coef[-c(1:2), 2]
-        t.value <- NA
-        p.value <- 2 * pnorm(- abs(estimate / standarderror))
-        ci1 <- estimate - qnorm(0.975) * standarderror
-        ci2 <- estimate + qnorm(0.975) * standarderror
-        ci.95 <- formatCI(exp(cbind(ci1, ci2)), digits = digits.ci, text = text.ci) 
-        col.names[stats == "exp.estimate"] <- c("Hazard Ratio")
-    }
-    
-    
-    # bring everything together -----------------------------------------------
-    output <- data.frame(estimate, exp.estimate, standarderror, t.value, ci.95, p.value,
-                         stringsAsFactors = FALSE)
-    
-    if(!intercept && !(clm %in% c("list", "coxph"))) {
-        ## in weibull and coxph there is anyway no intercept plotted #
-        output <- output[-1,]
-    }
-    
-    ## extract return outputs ------------------------------------------
-    if (nrow(output) > 1) {
-        output.return <- output[, ind]
-        colnames(output.return) <- col.names
-        rownames(output.return) <- row.names
+  }
+  
+  ## coxmod ------------------------------------------------------------------
+  if (clm == "coxph") {
+    estimate <- summary(model)$coefficients[,1]
+    exp.estimate <- exp(estimate)
+    standarderror <- summary(model)$coefficients[,3]
+    t.value <- summary(model)$coefficients[,4]
+    p.value <- summary(model)$coefficients[,5]
+    ci.95 <- formatCI(cbind(summary(model)$conf.int[,3], summary(model)$conf.int[,4]),
+                      digits = digits.ci, text = text.ci) 
+  }
+  
+  
+  # weibull -----------------------------------------------------------------
+  if (clm == "list") {
+    estimate <- model$coef[-c(1:2),1]
+    exp.estimate <- exp(estimate)
+    standarderror <- model$coef[-c(1:2), 2]
+    t.value <- NA
+    p.value <- 2 * stats::pnorm(- abs(estimate / standarderror))
+    ci1 <- estimate - stats::qnorm(0.975) * standarderror
+    ci2 <- estimate + stats::qnorm(0.975) * standarderror
+    ci.95 <- formatCI(exp(cbind(ci1, ci2)), digits = digits.ci, text = text.ci) 
+    col.names[stats == "exp.estimate"] <- c("Hazard Ratio")
+  }
+  
+  
+  # bring everything together -----------------------------------------------
+  output <- data.frame(estimate, exp.estimate, standarderror, t.value, ci.95, p.value,
+                       stringsAsFactors = FALSE)
+  
+  if(!intercept && !(clm %in% c("list", "coxph"))) {
+    ## in weibull and coxph there is anyway no intercept plotted #
+    output <- output[-1,]
+  }
+  
+  ## extract return outputs ------------------------------------------
+  if (nrow(output) > 1) {
+    output.return <- output[, ind]
+    colnames(output.return) <- col.names
+    rownames(output.return) <- row.names
+  } else {
+    output.return <- data.frame(output[,ind])
+    names(output.return) <- col.names
+    rownames(output.return) <- row.names
+  }
+  
+  
+  # formatieren des outputs -------------------------------------------------
+  for (i in 1:ncol(output.return)) {
+    if(stats[i] == "p.value") {
+      output.return[,i] <- formatPval(as.numeric(as.character(output.return[,i])),
+                                      break.eps = eps.pvalue)
     } else {
-        output.return <- data.frame(output[,ind])
-        names(output.return) <- col.names
-        rownames(output.return) <- row.names
-    }
-    
-    
-    # formatieren des outputs -------------------------------------------------
-    for (i in 1:ncol(output.return)) {
-        if(stats[i] == "p.value") {
-            output.return[,i] <- formatPval(as.numeric(as.character(output.return[,i])),
-                                            break.eps = eps.pvalue)
-        } else {
-            if(stats[i] != "ci.95") {
-                output.return[,i] <-  sapply(output.return[,i], function(x)
-                    format(as.numeric(as.character(x)), big.mark = big.mark,
-                           digits = digits[i], nsmall = digits[i], scientific = FALSE))
-                if(stats[i] == "exp.estimate" && nrow(output.return) > 1) {
-                    output.return[-1,i] <- sapply(output.return[-1,i], function(x)
-                        format(as.numeric(as.character(x)), digits = digits[i],
-                               big.mark = big.mark, nsmall = digits[i], scientific = FALSE))
-                }
-            }
+      if(stats[i] != "ci.95") {
+        output.return[,i] <-  sapply(output.return[,i], function(x)
+          format(as.numeric(as.character(x)), big.mark = big.mark,
+                 digits = digits[i], nsmall = digits[i], scientific = FALSE))
+        if(stats[i] == "exp.estimate" && nrow(output.return) > 1) {
+          output.return[-1,i] <- sapply(output.return[-1,i], function(x)
+            format(as.numeric(as.character(x)), digits = digits[i],
+                   big.mark = big.mark, nsmall = digits[i], scientific = FALSE))
         }
+      }
     }
-    
-     
-    # table -------------------------------------------------------------------
-    if (xtable) {
-        if (is.null(align))
-            align <- paste(rep("r", length(stats) + 1), collapse = "")
-        xtab <- xtable::xtable(output.return, caption = caption, label = label, align = align)
-        ## options for print.xtable (can be overwritten by ... arguments)
-        oopt <- options(
-            xtable.include.rownames = TRUE,
-            xtable.floating = TRUE,
-            xtable.type = "latex",
-            xtable.size = "footnotesize",
-            xtable.table.placement = "!h",
-            xtable.sanitize.colnames.function = identity  # do not escape "$"
-        )
-        on.exit(options(oopt))
-        xtable::print.xtable(xtab, ...)
-        return(invisible(xtab))
-    } else {
-        return(output.return)
-    }
+  }
+  
+  
+  # table -------------------------------------------------------------------
+  if (xtable) {
+    if (is.null(align))
+      align <- paste(rep("r", length(stats) + 1), collapse = "")
+    xtab <- xtable::xtable(output.return, caption = caption, label = label, align = align)
+    ## options for print.xtable (can be overwritten by ... arguments)
+    oopt <- options(
+      xtable.include.rownames = TRUE,
+      xtable.floating = TRUE,
+      xtable.type = "latex",
+      xtable.size = "footnotesize",
+      xtable.table.placement = "!h",
+      xtable.sanitize.colnames.function = identity  # do not escape "$"
+    )
+    on.exit(options(oopt))
+    xtable::print.xtable(xtab, ...)
+    return(invisible(xtab))
+  } else {
+    return(output.return)
+  }
 }
 
 # # From package broom version 0.5.3 (not exported from broom Namespace)
@@ -472,11 +472,11 @@ tableRegression <- function(model,
 # broom:::confint.geeglm
 
 confint.geeglm <- function(object, parm, level = 0.95, ...) {
-  cc <- coef(summary(object))
-  mult <- qnorm((1+level)/2)
+  cc <- stats::coef(summary(object))
+  mult <- stats::qnorm((1+level)/2)
   citab <- with(as.data.frame(cc),
-                cbind(lwr=Estimate-mult*Std.err,
-                      upr=Estimate+mult*Std.err))
+                cbind(lwr = Estimate - mult*Std.err,
+                      upr = Estimate + mult*Std.err))
   rownames(citab) <- rownames(cc)
   citab[parm,]
 }

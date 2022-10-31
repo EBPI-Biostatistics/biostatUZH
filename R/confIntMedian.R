@@ -44,11 +44,11 @@ confIntMedian <- function(x, conf.level = 0.95){
 
     v <- sort(x)
     n <- length(x)
-    m <- median(x)
+    m <- stats::median(x)
     
     ## exact using binomial probabilities
     if (n > 0){
-        i <- qbinom(alpha / 2, n, 0.5)
+        i <- stats::qbinom(alpha / 2, n, 0.5)
         if (i > 0){
             exact <- c(m, v[i], v[n - i + 1])
         } else {
@@ -61,8 +61,8 @@ confIntMedian <- function(x, conf.level = 0.95){
     ## approximate according to Altman (2000), p. 37
     approx <- c(NA, NA, NA)
     if (n > 0){
-        r <- round(n / 2 - (qnorm(1 - alpha / 2) * sqrt(n) / 2))
-        s <- round(1 + n / 2 + (qnorm(1 - alpha / 2) * sqrt(n) / 2))
+        r <- round(n / 2 - (stats::qnorm(1 - alpha / 2) * sqrt(n) / 2))
+        s <- round(1 + n / 2 + (stats::qnorm(1 - alpha / 2) * sqrt(n) / 2))
         approx <- c(m, v[r], v[s])
     }
     

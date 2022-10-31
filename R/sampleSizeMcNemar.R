@@ -45,8 +45,8 @@ sampleSizeMcNemar <- function(p1, p2, sig.level = 0.05, power = 0.9){
     p1p <- p2
     p11 <- sort(seq(min(p1p, pp1), p1p + pp1 - 1, by = -10^-4))
     s <- (pp1 - p11) / (pp1 + p1p - 2 * p11)
-    nl <- ceiling(0.25 * (qnorm(sig.level / 2) + qnorm(1 - power))^2 / (0.5 - s)^2  / (abs(pp1 + p1p - 2 * p11)))
-    N <- nl[c(1, median(1:length(nl)), length(nl))]
+    nl <- ceiling(0.25 * (stats::qnorm(sig.level / 2) + stats::qnorm(1 - power))^2 / (0.5 - s)^2  / (abs(pp1 + p1p - 2 * p11)))
+    N <- nl[c(1, stats::median(1:length(nl)), length(nl))]
     names(N) <- c("N_l min", "N_l mid", "N_l max")
     N
 }

@@ -10,7 +10,7 @@ confIntIndependentAUCDiff(
   controlsA,
   casesB,
   controlsB,
-  type = c("Wald", "logit"),
+  type = c("wald", "logit"),
   conf.level = 0.95
 )
 }
@@ -53,10 +53,9 @@ casesB <- rnorm(n = 100, mean = 1.5)
 controlsB <- rnorm(n = 200)
 
 confIntIndependentAUCDiff(casesA = casesA, controlsA = controlsA,
-                          casesB = casesB, controlsB = controlsB, type = "Wald")
+                          casesB = casesB, controlsB = controlsB, type = "wald")
 confIntIndependentAUCDiff(casesA = casesA, controlsA = controlsA,
                           casesB = casesB, controlsB = controlsB, type = "logit")
-
 }
 \references{
 Newcombe, R.G. (1998). \emph{Interval estimation for the

@@ -43,7 +43,7 @@ confIntRateWald <- function(x, t, conf.level = 0.95) {
               is.finite(conf.level),
               0 < conf.level, conf.level < 1)
     lambda <- x / t
-    q <- qnorm(p = (1 + conf.level) / 2)
+    q <- stats::qnorm(p = (1 + conf.level) / 2)
     ef <- exp(q / sqrt(x))
     cbind("rate" = lambda, "lower" = lambda / ef, "upper" = lambda * ef)
 }
@@ -68,7 +68,7 @@ confIntRateWilson <- function(x, t, conf.level = 0.95) {
               is.finite(conf.level),
               0 < conf.level, conf.level < 1)
     lambda <- x / t
-    q <- qnorm(p = (1 + conf.level) / 2)
+    q <- stats::qnorm(p = (1 + conf.level) / 2)
     a <- x + q^2 / 2
     b <- q / 2 * sqrt(4 * x + q^2)
     cbind("rate" = lambda, "lower" = (a - b) / t,
@@ -77,7 +77,7 @@ confIntRateWilson <- function(x, t, conf.level = 0.95) {
 
 #' @export
 wilsonRate <- function(x, t, conf.level = 0.95){
-    .Deprecated(new = "confIntRateWald")
+    .Deprecated(new = "confIntRateWilson")
     confIntRateWilson(x = x, t = t, conf.level = conf.level)
 }
 
@@ -117,7 +117,7 @@ confIntRateDiff <- function(x, t, conf.level = 0.95){
 
     diff <- matrix(ci1[1] - ci2[1])
     se.diff <- sqrt(x[1] / t[1]^2 + x[2] / t[2]^2)
-    z <- qnorm((1 + conf.level) / 2)
+    z <- stats::qnorm((1 + conf.level) / 2)
     wald.lower <- diff - z * se.diff
     wald.upper <- diff + z * se.diff
     score.lower <- diff - sqrt((ci1[1] - ci1[2])^2 + (ci2[3] - ci2[1])^2)

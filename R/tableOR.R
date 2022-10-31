@@ -46,7 +46,6 @@
 #' tableOR(model = model, latex = FALSE, short = TRUE, 
 #'         caption = "Changes in odds for being in a lower class, i.e. 2nd or 3rd class")
 #'
-#' @importFrom xtable xtable print.xtable
 #' @export
 tableOR <- function(model, caption = "", label = "", size = "scriptsize",
                     factorNames = NULL, table.placement = "ht",
@@ -54,7 +53,7 @@ tableOR <- function(model, caption = "", label = "", size = "scriptsize",
                     short = FALSE, latex = TRUE, rmStat = FALSE, wald = FALSE) {
 
     if(!(inherits(x = model, what = "polr") ||
-         (inherits(x = model, what = "glm") &&  family(model)$family == "binomial")))
+         (inherits(x = model, what = "glm") &&  stats::family(model)$family == "binomial")))
         stop("Unknown model. only polr() and glm(..,family = binomial()) models are supported.")
     stopifnot(is.character(caption), length(caption) == 1,
               is.character(label), length(label) == 1,
@@ -87,12 +86,12 @@ tableOR <- function(model, caption = "", label = "", size = "scriptsize",
     k <- length(modelSummary$xlevels) # no. of regressors/factors
     table <- as.data.frame(modelSummary$coefficients[1:(nrow(modelSummary$coefficients) -
                                                         nIntercepts),]) # removing intercepts
-    table$`p-value` <- formatPval((1 - pnorm(abs(table$`t value`))) * 2)
+    table$`p-value` <- formatPval((1 - stats::pnorm(abs(table$`t value`))) * 2)
     table$OR <- sprintf('%.2f', exp(table$Value))
     if (wald) {
-      table$CI <- formatCI(exp(confint.default(model)), text = language)
+      table$CI <- formatCI(exp(stats::confint.default(model)), text = language)
     } else {
-      table$CI <- formatCI(exp(confint(model)), text = language)
+      table$CI <- formatCI(exp(stats::confint(model)), text = language)
     }
     table$`t value` <- sprintf('%.2f', table$`t value`)
   } else { # glm ...
@@ -102,9 +101,9 @@ tableOR <- function(model, caption = "", label = "", size = "scriptsize",
     table$`Pr(>|z|)` <- formatPval(table$`Pr(>|z|)`)
     table$OR <- sprintf('%.2f', exp(table$Estimate))
     if(wald) {
-      table$CI <- formatCI(exp(confint.default(model)), text = language)[2:(nrow(table)+1)]
+      table$CI <- formatCI(exp(stats::confint.default(model)), text = language)[2:(nrow(table)+1)]
     } else {
-      table$CI <- formatCI(exp(confint(model)), text = language)[2:(nrow(table)+1)]
+      table$CI <- formatCI(exp(stats::confint(model)), text = language)[2:(nrow(table)+1)]
     }
     table$`z value` <- sprintf('%.2f', table$`z value`)
     colnames(table)[4] <- "p-value"

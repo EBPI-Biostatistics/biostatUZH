@@ -33,7 +33,6 @@
 #'   quantileCumInc(time, status, group = x, quant = 0.25)
 #' }
 #'
-#' @importFrom cmprsk cuminc timepoints
 #' @export
 quantileCumInc <- function(time, event, group, quant = 0.5)
 {
@@ -76,7 +75,7 @@ quantileCumInc <- function(time, event, group, quant = 0.5)
             i5 <- low < up
         }
         if (i1 * i2 * i3 * i4 * i5 == 1){
-            res[r, 1] <- uniroot(tmp, interval = c(t.low0[r], t.up0[r]), time, event, group)$root
+            res[r, 1] <- stats::uniroot(tmp, interval = c(t.low0[r], t.up0[r]), time, event, group)$root
         }
     }
     return(res)

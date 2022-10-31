@@ -102,7 +102,7 @@ confIntICC <- function(dat, conf.level = 0.95, psi.re.0 = c(0, 1)){
     
     ## asymptotically correct CI, p. 620
     Ln <- (MSs - MSe) / (MSs + d * (d - 1) * MSr /
-                         (n * qchisq(alpha / 2, df = d - 1)) + (d - 1) * MSe)
+                         (n * stats::qchisq(alpha / 2, df = d - 1)) + (d - 1) * MSe)
     
     ## population of trained raters: L_n on p. 621
     Ltr <- Aalpha(alpha / 2, n, d, MSs, MSe) /
@@ -134,7 +134,6 @@ confIntICC <- function(dat, conf.level = 0.95, psi.re.0 = c(0, 1)){
 #' @param d See indicated reference.
 #' @param MSs See indicated reference.
 #' @param MSe See indicated reference.
-#' @import stats
 #' @seealso confIntICC
 #' @export
 Aalpha <- function(alpha, n, d, MSs, MSe){
@@ -192,7 +191,6 @@ Aalpha <- function(alpha, n, d, MSs, MSe){
 #' computeICCrater(dat2)
 #' 
 #' @export
-#' @importFrom lme4 lmer VarCorr
 computeICCrater <- function(dat)
 {
     stopifnot(is.data.frame(dat),
@@ -218,6 +216,9 @@ computeICCrater <- function(dat)
     return(res)
 }
 
+#'
+#' @noRd
+#' 
 lamAlpha <- function(alpha, n, d, MSr, MSe){
     
     ## compute the function A(alpha) on p. 621 of Roussen et al (2003)
@@ -227,6 +228,9 @@ lamAlpha <- function(alpha, n, d, MSr, MSe){
     return(lam.a)    
 }
 
+#'
+#' @noRd
+#' 
 rootFct <- function(x, alpha, n, d, MSr, MSe){
     Fa <- stats::qf(1 - alpha, df1 = d - 1, df2 = (n - 1) * (d - 1), ncp = x)
     res <- Fa - MSr / MSe

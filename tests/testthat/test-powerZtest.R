@@ -37,7 +37,7 @@ test_that("power.z.test results are consistent", {
   missing <- c("delta", "sd", "sig.level", "power")
   # Set the possible scenario combinations
   grid <- expand.grid(
-    type = c("one.sample", "two.sample"),               # one or two sample test
+    type = c("one.sample", "two.sample", "paired"),     # one or two sample test
     alternative = c("one.sided", "two.sided"),          # one or two sided
     stringsAsFactors = FALSE
   )

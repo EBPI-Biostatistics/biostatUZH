@@ -10,7 +10,7 @@ power.z.test(
   sd = 1,
   sig.level = 0.05,
   power = NULL,
-  type = c("two.sample", "one.sample"),
+  type = c("two.sample", "one.sample", "paired"),
   alternative = c("two.sided", "one.sided")
 )
 }

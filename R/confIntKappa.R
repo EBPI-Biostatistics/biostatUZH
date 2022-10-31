@@ -38,8 +38,6 @@
 #' confIntKappa(data = expsy[, c(11,13,15)], type = "not Cohen", weights = "absolute",
 #'              m = 200, conf.level = 0.95)
 #' 
-#' @importFrom psy lkappa
-#' @importFrom boot boot
 #' @export
 confIntKappa <- function(data,
                          type = c("not Cohen", "Cohen"),
@@ -75,8 +73,8 @@ confIntKappa <- function(data,
     kappam.boot <- function(data, x) {
         psy::lkappa(r = data[x,], type = type, weights = weights)
     }
-    res <- boot(data = data, statistic = kappam.boot, R = m)
-    quantil <- quantile(x = res$t, probs = c(alpha / 2, 1 - alpha / 2)) 
+    res <- boot::boot(data = data, statistic = kappam.boot, R = m)
+    quantil <- stats::quantile(x = res$t, probs = c(alpha / 2, 1 - alpha / 2)) 
     
     if(weights == "squared"){
         message(paste0("Caution, used levels in weighted Kappa: ",

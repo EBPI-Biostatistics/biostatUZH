@@ -1,3 +1,13 @@
+# v2.2.1
+  - added option `type = "paired"` to `power.z.test`
+  - Changes in `confIntIndependentAUCDiff`:
+    - fixed error where setting `type = "Wald"` would return the same result as `type = "logit"` due to an issue with uppercase and lowercase characters.
+    - changed choices for the `type` argument to lowercase `"wald"` and `"logit"`. However, the uppercase variants still work.
+    - removed code repetitions in function.
+  - change dependency structure such that the package only depends on R itself. 
+    - All other dependencies are moved from `Depends` to the `Imports` section of the `DESCRIPTION` file. This avoids potential issues when other packages mask functions that `biostatUZH` relies on.
+    - Calls to functions from other packages are now clearly labelled through consequent use of the `::` operator.
+
 # v2.2
   - added function `power.z.test` which is based on `power.t.test`.
 
@@ -20,7 +30,7 @@
 
 # v2.0.0
   - add NEWS.md file
-  - add Makefile to support bilding and testing the package
+  - add Makefile to support building and testing the package
   - migrate from R-forge to github repo:
     https://github.com/florafauna/biostatUZH
   - improve R coding to make it more stable and readable

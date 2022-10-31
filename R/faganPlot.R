@@ -39,52 +39,52 @@ faganPlot <- function(probPreInit = c(.1, .2, .5, 1, 2, 5, 10, 20, 30, 40, 50, 7
 # pretest probabilities & chances
     probPre <- probPreInit / 100
     probPre <- sort(c(probPre, 0.5, 1 - probPre))
-    cpre <- qlogis(probPre)
+    cpre <- stats::qlogis(probPre)
     
 # log - likelihood ratios
     t <- c(1, 2, 5)
     d <- rep(c(1000, 100, 10, 1, 0.1, 0.01), times = 1, each = 3)
-    rep(t, times = 6)
+    #rep(t, times = 6) # Commented this out because it does nothing
     lr <- c(t / d, 1000)
     llr <- log(lr)
     
 # plot parameters
     tick <- 0.05  # tick width
-    oldPar <- par(mar = c(1, 1, 1, 1))
+    oldPar <- graphics::par(mar = c(1, 1, 1, 1))
     on.exit(oldPar)
     plot(0, 0, type ='n', xlab = '', yaxt = 'n', ylab = '', xaxt = 'n',
          xlim = 1.3 * c(-1, 1), ylim = c(-8, 7), bty = "n")
     
                                         # plot pre-test probabilities
-    segments(-1, min(cpre), -1, max(cpre))
-    segments(-1 - tick, rev(cpre), -1 + tick, rev(cpre))
-    text(-1.1, rev(cpre), round(100 * probPre, 2), adj = 1, cex = cex)
+    graphics::segments(-1, min(cpre), -1, max(cpre))
+    graphics::segments(-1 - tick, rev(cpre), -1 + tick, rev(cpre))
+    graphics::text(-1.1, rev(cpre), round(100 * probPre, 2), adj = 1, cex = cex)
     
                                         # plot log likelihood ratios
     llr <- llr / 2
-    segments(0, min(llr), 0, max(llr))
-    segments(-tick, llr, tick, llr)
-    text(-0.1, llr, round(lr, 3), adj = 1, cex = cex)
+    graphics::segments(0, min(llr), 0, max(llr))
+    graphics::segments(-tick, llr, tick, llr)
+    graphics::text(-0.1, llr, round(lr, 3), adj = 1, cex = cex)
     
                                         # plot post-test probabilities
-    segments(1, min(cpre), 1, max(cpre))
-    segments(1 - tick, cpre, 1 + tick, cpre)
-    text(1.1, cpre, round(100 * probPre, 2), adj = 0, cex = cex)
+    graphics::segments(1, min(cpre), 1, max(cpre))
+    graphics::segments(1 - tick, cpre, 1 + tick, cpre)
+    graphics::text(1.1, cpre, round(100 * probPre, 2), adj = 0, cex = cex)
     
                                         # other texts
     if (language == "english"){
-        text(-1.3, 0, "Pre-test probability (%)", srt = 90)
-        text(1.3, 0, "Post-test probability (%)", srt = 90)
-        text(0, 4.2, "Likelihood ratio")
+      graphics::text(-1.3, 0, "Pre-test probability (%)", srt = 90)
+      graphics::text(1.3, 0, "Post-test probability (%)", srt = 90)
+      graphics::text(0, 4.2, "Likelihood ratio")
     }    
     if (language == "german"){
-        text(-1.3, 0, "Pre-test Wahrscheinlichkeit (%)", srt = 90)
-        text(1.3, 0, "Post-test Wahrscheinlichkeit (%)", srt = 90)
-        text(0, 4.2, "Likelihood Quotient")
+      graphics::text(-1.3, 0, "Pre-test Wahrscheinlichkeit (%)", srt = 90)
+      graphics::text(1.3, 0, "Post-test Wahrscheinlichkeit (%)", srt = 90)
+      graphics::text(0, 4.2, "Likelihood Quotient")
     }
     
     if (identical(title, NA) == FALSE){
-        mtext(title, 3, 0)
+      graphics::mtext(title, 3, 0)
     }
     invisible(NULL)
 }
@@ -99,13 +99,13 @@ faganPlot <- function(probPreInit = c(.1, .2, .5, 1, 2, 5, 10, 20, 30, 40, 50, 7
 faganLine <- function(probPre, likRatio = c(1, 1)){
 
                                         # draw line: test is positiv
-    logitsPost <- log(likRatio[1]) + qlogis(probPre)
+    logitsPost <- log(likRatio[1]) + stats::qlogis(probPre)
     probPost <- exp(logitsPost) / (1 + exp(logitsPost))
-    segments(-1, qlogis(1 - probPre), 1, logitsPost, lwd = 2, col = 2)
+    graphics::segments(-1, stats::qlogis(1 - probPre), 1, logitsPost, lwd = 2, col = 2)
     
                                         # draw line: test is negativ
-    logitsPost <- log(likRatio[2]) + qlogis(probPre)
+    logitsPost <- log(likRatio[2]) + stats::qlogis(probPre)
     probPost <- exp(logitsPost) / (1 + exp(logitsPost))
-    segments(-1, qlogis(1 - probPre), 1, logitsPost, lwd = 2, col = 3)
+    graphics::segments(-1, stats::qlogis(1 - probPre), 1, logitsPost, lwd = 2, col = 3)
     invisible(NULL)
 }

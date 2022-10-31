@@ -25,13 +25,13 @@
 #' @examples
 #' 
 #' ## load Acute Myelogenous Leukemia survival data
+#' library(survival)
 #' data("leukemia", package = "survival")
 #' 
 #' mantelCoxHR(time = leukemia[, 1],
 #'             event = leukemia[, 2],
 #'             group = as.factor(leukemia[, 3]))
 #'
-#' @import survival
 #' @export
 mantelCoxHR <- function(time, event, group, conf.level = 0.95){
 
@@ -43,7 +43,7 @@ mantelCoxHR <- function(time, event, group, conf.level = 0.95){
 
     alpha <- 1 - conf.level
     group <- as.factor(group)
-    s <- summary(survfit(Surv(time, event) ~ group, conf.type = "none") )
+    s <- summary(survival::survfit(survival::Surv(time, event) ~ group, conf.type = "none") )
     dat <- data.frame(s$time, s$strata, s$n.risk, s$n.event) 
     dat <- dat[order(s$time), ] 
     lev <- levels(dat$s.strata)
@@ -85,15 +85,15 @@ mantelCoxHR <- function(time, event, group, conf.level = 0.95){
     
     ## compute confidence interval
     se.log.hr <- sqrt(V / (Q * R))
-    ci.hr <- exp(log(hr) + qnorm(c(alpha / 2, 1 - alpha / 2)) * se.log.hr)
+    ci.hr <- exp(log(hr) + stats::qnorm(c(alpha / 2, 1 - alpha / 2)) * se.log.hr)
     
     ## p-value logrank test
     chi2 <- U ^ 2 / V
-    p.val <- pchisq(chi2, df = 1, lower.tail = FALSE)
+    p.val <- stats::pchisq(chi2, df = 1, lower.tail = FALSE)
     
     ## compare to HR computed from Cox-regression 
-    fit2 <- coxph(Surv(time, event) ~ group)
-    cfit2 <- as.numeric(coef(fit2))
+    fit2 <- survival::coxph(survival::Surv(time, event) ~ group)
+    cfit2 <- as.numeric(stats::coef(fit2))
     hr.cox <- exp(cfit2)
     
     list("mantelCox.hr" = hr, "ci.hr" = ci.hr, "p.val.logrank" = p.val, "coxph.hr" = hr.cox)

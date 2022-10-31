@@ -35,10 +35,10 @@
 #' @export
 confIntIndependentDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, adjust=FALSE)
 {
-    stopifnot(is.numeric(tp), length(tp) == 2, is.finite(tp), is.wholenumber(tp),
-              is.numeric(fp), length(fp) == 2, is.finite(fp), is.wholenumber(fp),
-              is.numeric(tn), length(tn) == 2, is.finite(tn), is.wholenumber(tn),
-              is.numeric(fn), length(fn) == 2, is.finite(fn), is.wholenumber(fn),
+    stopifnot(is.numeric(tp), length(tp) == 2L, is.finite(tp), is.wholenumber(tp),
+              is.numeric(fp), length(fp) == 2L, is.finite(fp), is.wholenumber(fp),
+              is.numeric(tn), length(tn) == 2L, is.finite(tn), is.wholenumber(tn),
+              is.numeric(fn), length(fn) == 2L, is.finite(fn), is.wholenumber(fn),
               is.numeric(conf.level), length(conf.level) == 1, is.finite(conf.level), 
               0 < conf.level, conf.level < 1,
               is.logical(adjust), length(adjust) == 1, is.finite(adjust))
@@ -55,27 +55,25 @@ confIntIndependentDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, adju
     se.log.rLRp <- sqrt(sum(se.log.TPF^2 + se.log.FPF^2))
     se.log.rLRm <- sqrt(sum(se.log.TNF^2 + se.log.FNF^2))
 
-    resultA <- confIntDiagnostic(tp[1], fp[1], tn[1], fn[1])
-    resultB <- confIntDiagnostic(tp[2], fp[2], tn[2], fn[2])
+    resultA <- confIntDiagnostic(tp[1L], fp[1L], tn[1L], fn[1L])
+    resultB <- confIntDiagnostic(tp[2L], fp[2L], tn[2L], fn[2L])
 
     rEstimates <- resultA[,"estimate"] / resultB[,"estimate"]
     FNF <- fn / (fn + tp)
-    rFNF <- FNF[1] / FNF[2] 
+    rFNF <- FNF[1L] / FNF[2L] 
     FPF <- fp / (fp + tn)
-    rFPF <-  FPF[1] / FPF[2] 
+    rFPF <-  FPF[1L] / FPF[2L]
     rEstimates <- c(rEstimates[1:2], rEstimates[3:4])
     if(adjust)
         conf.level <- sqrt(conf.level)
-    z <- qnorm((1 + conf.level) / 2)
+    z <- stats::qnorm((1 + conf.level) / 2)
     EF <- exp(z * c(se.log.rTPF, se.log.rTNF, se.log.rLRp, se.log.rLRm))
-
-    res <- data.frame(matrix(NA, ncol=4, nrow=4))
-    colnames(res) <- c("type", "estimate", "lower", "upper")
-    res[, 1] <- c("rSens", "rSpec", "rLRplus", "rLRminus")
-    res[, 2] <- rEstimates
-    res[, 3] <- rEstimates / EF
-    res[, 4] <- rEstimates * EF
-    res
+    
+    data.frame(type = c("rSens", "rSpec", "rLRplus", "rLRminus"),
+               estimate = rEstimates,
+               lower = rEstimates / EF,
+               upper = rEstimates * EF,
+               stringsAsFactors = FALSE)
 }
 
 
@@ -112,28 +110,28 @@ confIntIndependentDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, adju
 #' confIntDiagnostic(tp = 629, fp = 3885, tn = 117744, fn = 97, digits = 2)  
 #' 
 #' @export
-confIntDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, cohort = FALSE, pr = NA,
-                              digits = NA)
+confIntDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, cohort = FALSE, 
+                              pr = NA, digits = NA)
 {
-    stopifnot(is.numeric(tp), length(tp) == 1, is.finite(tp), is.wholenumber(tp),
-              is.numeric(fp), length(fp) == 1, is.finite(fp), is.wholenumber(fp),
-              is.numeric(tn), length(tn) == 1, is.finite(tn), is.wholenumber(tn),
-              is.numeric(fn), length(fn) == 1, is.finite(fn), is.wholenumber(fn),
+    stopifnot(is.numeric(tp), length(tp) == 1L, is.finite(tp), is.wholenumber(tp),
+              is.numeric(fp), length(fp) == 1L, is.finite(fp), is.wholenumber(fp),
+              is.numeric(tn), length(tn) == 1L, is.finite(tn), is.wholenumber(tn),
+              is.numeric(fn), length(fn) == 1L, is.finite(fn), is.wholenumber(fn),
               is.numeric(conf.level), length(conf.level) == 1, is.finite(conf.level), 
               0 < conf.level, conf.level < 1,
-              is.logical(cohort), length(cohort)==1, is.finite(cohort),
-              length(pr) == 1, is.na(pr) || (0 < pr && pr < 1),
-              length(digits) == 1,
+              is.logical(cohort), length(cohort) == 1L, is.finite(cohort),
+              length(pr) == 1L, is.na(pr) || (0 < pr && pr < 1),
+              length(digits) == 1L,
               is.na(digits) || (is.numeric(digits) && is.finite(digits) &&
                                 is.wholenumber(digits) && digits >= 0)
               )
 
-    res <- data.frame(matrix(data = NA, nrow = 8, ncol = 4))
+    res <- matrix(data = NA_real_, nrow = 8L, ncol = 3L)
 
-    colnames(res) <- c("type", "lower", "estimate", "upper")
+    colnames(res) <- c("lower", "estimate", "upper")
 
-    res[1, 2:4] <- wilson(x = tp, n = tp + fn, conf.level = conf.level)
-    res[2, 2:4] <- wilson(x = tn, n= tn + fp, conf.level = conf.level)
+    res[1L, ] <- wilson(x = tp, n = tp + fn, conf.level = conf.level)
+    res[2L, ] <- wilson(x = tn, n= tn + fp, conf.level = conf.level)
     if(tp > 0 && fp > 0 && fn > 0 && tn > 0){
         LRplus <- confIntRiskRatio(x = c(tp, fp), n = c(tp + fn, fp + tn),
                                    conf.level = conf.level)
@@ -141,9 +139,9 @@ confIntDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, cohort = FALSE,
                                     conf.level = conf.level)
         DOR <- confIntOddsRatio(x = c(tp, fp), n = c(tp + fn, tn + fp),
                                 conf.level = conf.level)
-        res[3, 2:4] <- LRplus 
-        res[4, 2:4] <- LRminus
-        res[5, 2:4] <- DOR
+        res[3L, ] <- LRplus 
+        res[4L, ] <- LRminus
+        res[5L, ] <- DOR
     }
     
     if(!is.na(pr)){
@@ -152,23 +150,27 @@ confIntDiagnostic <- function(tp, fp, tn, fn, conf.level = 0.95, cohort = FALSE,
         PPV <- PPV.odds/(1 + PPV.odds)
         NPV.inv.odds <- pr.odds * LRminus
         NPV <- rev(1 / (1 + NPV.inv.odds))
-        res[6, 2:4] <- PPV
-        res[7, 2:4] <- NPV
-        res[8, 3] <- pr
+        res[6L, ] <- PPV
+        res[7L, ] <- NPV
+        res[8L, 3L] <- pr
     }
     if(is.na(pr) && cohort){
-        res[6, 2:4] <- wilson(x = tp, n = tp + fp, conf.level = conf.level)
-        res[7, 2:4] <- wilson(x = tn, n = tn + fn, conf.level = conf.level)
-        res[8, 2:4] <- wilson(x = tp + fn, n = tp + tn + fp + fn, conf.level = conf.level)
+        res[6L, ] <- wilson(x = tp, n = tp + fp, conf.level = conf.level)
+        res[7L, ] <- wilson(x = tn, n = tn + fn, conf.level = conf.level)
+        res[8L, ] <- wilson(x = tp + fn, n = tp + tn + fp + fn, conf.level = conf.level)
     }
-
-    res[, 1] <- c("Sensitivity", "Specificity", "LRplus", "LRminus", "DOR", "PPV",
-                  "NPV", "Prevalence")
-    res <- res[, c(1,3,2,4)]
+    
+    res <- cbind(data.frame(type = c("Sensitivity", "Specificity", "LRplus", 
+                                     "LRminus", "DOR", "PPV", "NPV", "Prevalence")),
+                 as.data.frame(res))
+    
+    # res[, 1L] <- c("Sensitivity", "Specificity", "LRplus", "LRminus", "DOR", "PPV",
+    #                "NPV", "Prevalence")
+    #res <- res[, c(1,3,2,4)] This does nothing
     
     if(!is.na(digits)){
-        formatedStr <- format(unlist(res[, 2:4]), nsmall = digits, digits = digits)
-        res[, 2:4] <- as.numeric(ifelse(is.na(unlist(res[, 2:4])), NA, formatedStr))
+        formatedStr <- format(unlist(res[, ]), nsmall = digits, digits = digits)
+        res[, ] <- as.numeric(ifelse(is.na(unlist(res[, ])), NA, formatedStr))
     }
     res
 }
@@ -241,7 +243,7 @@ confIntPairedDiagnostic <- function(diseased, nonDiseased, conf.level = 0.95, ad
     rEstimates <- c(rPF[2], rNF[1], rev(rLR))
     if(adjust)
         conf.level <- sqrt(conf.level)
-    z <- qnorm((1 + conf.level) / 2)
+    z <- stats::qnorm((1 + conf.level) / 2)
     EF <- exp(z*c(seLogrTPF, seLogrTNF, seLogrLRplus, seLogrLRminus))
 
     res <- data.frame(matrix(data = NA, ncol = 4, nrow = 4))
@@ -295,7 +297,7 @@ confIntRiskDiff <- function(x, n, conf.level = 0.95){
 
     diff <- matrix(ci1[2] - ci2[2])
     se.diff <- sqrt((ci1[2] * (1 - ci1[2])) / n[1] + (ci2[2] * (1 - ci2[2])) / n[2])  
-    z <- qnorm((1 + conf.level) / 2)
+    z <- stats::qnorm((1 + conf.level) / 2)
     wald.lower <- diff - z * se.diff
     wald.upper <- diff + z * se.diff
     score.lower <- diff - sqrt((ci1[2] - ci1[1])^2 + (ci2[3] - ci2[2])^2)
@@ -352,7 +354,7 @@ confIntRiskRatio <- function(x, n, conf.level = 0.95){
     Risk <- x / n
     RiskRatio <- Risk[1] / Risk[2]
     se.log.RiskRatio <- sqrt(sum(1 / x) - sum(1 / n))
-    z <- qnorm((1 + conf.level) / 2)
+    z <- stats::qnorm((1 + conf.level) / 2)
     EF <- exp(z * se.log.RiskRatio)
     wald.lower <- RiskRatio / EF
     wald.upper <- RiskRatio * EF
@@ -401,7 +403,7 @@ confIntOddsRatio <- function(x, n, conf.level = 0.95){
     Odds <- x / y
     OddsRatio <- Odds[1] / Odds[2]
     se.log.OddsRatio <- sqrt(sum(1 / x) + sum(1 / y))
-    z <- qnorm((1 + conf.level) / 2)
+    z <- stats::qnorm((1 + conf.level) / 2)
     EF <- exp(z * se.log.OddsRatio)
     wald.lower <- OddsRatio / EF
     wald.upper <- OddsRatio * EF

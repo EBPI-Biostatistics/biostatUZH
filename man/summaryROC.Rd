@@ -83,7 +83,6 @@ segments(x0 = 0, y0 = 0, x1 = 1, y1 = 1, lty = 2)
 lines(x = res$x.val, y = res$y.val, type = "l", col = 2, lwd = 2, lty = 2)
 lines(x = resBinormBoot$x.val, y = resBinormBoot$y.val, type = "l",
       col = 4, lwd = 2, lty = 2)
-
 }
 \references{
 The original reference for the computation of the confidence interval is:

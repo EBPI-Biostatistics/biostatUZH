@@ -36,16 +36,16 @@ combineSubgroups <- function(n, means, se, treatment){
     n.trtm <- n[treatment]
     n.plac <- n[-treatment]
     ## mean response in both groups
-    theta.trtm <- weighted.mean(means[treatment], w = n.trtm)
-    theta.plac <- weighted.mean(means[-treatment], w = n.plac)
+    theta.trtm <- stats::weighted.mean(means[treatment], w = n.trtm)
+    theta.plac <- stats::weighted.mean(means[-treatment], w = n.plac)
     ## overall treatment effect
     theta <- theta.trtm - theta.plac
     ## within-group variance
-    varw.trtm <- weighted.mean(se[treatment]^2, w = n.trtm)
-    varw.plac <- weighted.mean(se[-treatment]^2, w = n.plac)
+    varw.trtm <- stats::weighted.mean(se[treatment]^2, w = n.trtm)
+    varw.plac <- stats::weighted.mean(se[-treatment]^2, w = n.plac)
     ## between-group variance
-    varb.trtm <- weighted.mean((means[treatment] - theta.trtm)^2, w = n.trtm)
-    varb.plac <- weighted.mean((means[-treatment] - theta.plac)^2, w = n.plac)
+    varb.trtm <- stats::weighted.mean((means[treatment] - theta.trtm)^2, w = n.trtm)
+    varb.plac <- stats::weighted.mean((means[-treatment] - theta.plac)^2, w = n.plac)
     ## total variance
     var.trtm <- varw.trtm + varb.trtm
     var.plac <- varw.plac + varb.plac

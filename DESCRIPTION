@@ -1,7 +1,7 @@
 Package: biostatUZH
 Title: Misc Tools of the Department of Biostatistics, EBPI, University of Zurich
 Version: 2.2
-Date: 2022-10-24
+Date: 2022-10-31
 Authors@R: c(person(given = "Leonhard",
                     family = "Held",
                     role = c("aut"),
@@ -48,7 +48,7 @@ Description: Provides functions developed at the Department of Biostatistics
     to check the adequacy of the Weibull model.
 License: GPL (>=2)
 URL: https://www.biostat.uzh.ch, https://github.com/EBPI-Biostatistics/biostatUZH
-Depends: R (>= 2.15.0), grDevices, graphics, stats, survival (>= 2.35), MASS
+Depends: R (>= 2.15.0)
 Imports: 
     boot,
     psy,
@@ -56,7 +56,11 @@ Imports:
     xtable,
     cmprsk,
     prodlim,
-    ReplicationSuccess
+    ReplicationSuccess,
+    survival (>= 2.35),
+    stats,
+    graphics,
+    MASS
 Suggests: 
     reporttools,
     Hmisc,
@@ -64,8 +68,10 @@ Suggests:
     carData,
     km.ci,
     exact2x2,
-    testthat (>= 3.0.0)
-Enhances: ellipse, coxphf
+    testthat (>= 3.0.0),
+    ellipse
+Enhances: 
+    coxphf
 LazyData: true
 RoxygenNote: 7.2.1
 Encoding: UTF-8

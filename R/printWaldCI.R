@@ -30,10 +30,10 @@ printWaldCI <- function(theta, se.theta, conf.level = 0.95, FUN = identity, digi
               is.numeric(digits), length(digits) == 1,
               is.finite(digits), is.wholenumber(digits), 0 <= digits)
 
-    z <- qnorm((1 + conf.level) / 2)
+    z <- stats::qnorm((1 + conf.level) / 2)
     ci.l <- theta - z * se.theta
     ci.u <- theta + z * se.theta
-    p <-  2 * pnorm(abs(theta) / se.theta, lower.tail = FALSE)
+    p <-  2 * stats::pnorm(abs(theta) / se.theta, lower.tail = FALSE)
     effect <- round(FUN(theta), digits = digits)
     ci <- formatCI(c(FUN(ci.l), FUN(ci.u)), digits = digits, text = "english")
     p <- formatPval(p)

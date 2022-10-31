@@ -182,32 +182,32 @@ PrEvent <- function(HR, a.length, f.length, dist = c("exponential", "weibull", "
         stopifnot(!is.null(lambda), lambda > 0)
         if(method == "exact"){
             pr.event.cnt <- 1 - 1/a *
-                integrate(function(x){
-                    1-pexp(x,lambda)
+                stats::integrate(function(x){
+                    1-stats::pexp(x,lambda)
                 }, lower = f, upper = a+f)$value
-            pr.event.trt <- 1 - 1/a * integrate(function(x){
-                (1-pexp(x,lambda))^HR
+            pr.event.trt <- 1 - 1/a * stats::integrate(function(x){
+                (1-stats::pexp(x,lambda))^HR
             }, lower = f, upper = a+f)$value
         } else {
-            S1 <- 1-pexp(f, lambda)
-            S2 <- 1-pexp(.5*a + f, lambda)
-            S3 <- 1-pexp(a + f, lambda)
+            S1 <- 1-stats::pexp(f, lambda)
+            S2 <- 1-stats::pexp(.5*a + f, lambda)
+            S3 <- 1-stats::pexp(a + f, lambda)
         }
     }
     if(dist == "weibull"){
         stopifnot(!is.null(lambda), !is.null(shape))
         if(method == "exact"){
-            pr.event.cnt <- 1-1/a*integrate(function(x){
-                1-pweibull(x,shape,lambda)
+            pr.event.cnt <- 1-1/a*stats::integrate(function(x){
+                1-stats::pweibull(x,shape,lambda)
             }, lower = f, upper = a+f)$value
-            pr.event.trt <- 1-1/a*integrate(function(x){
-                (1-pweibull(x,shape,lambda))^HR
+            pr.event.trt <- 1-1/a*stats::integrate(function(x){
+                (1-stats::pweibull(x,shape,lambda))^HR
             }, lower = f, upper = a+f)$value
         }
         else {
-            S1 <- 1-pweibull(f,shape,lambda)
-            S2 <- 1-pweibull(.5*a+f,shape,lambda)
-            S3 <- 1-pweibull(a+f,shape,lambda)
+            S1 <- 1-stats::pweibull(f,shape,lambda)
+            S2 <- 1-stats::pweibull(.5*a+f,shape,lambda)
+            S3 <- 1-stats::pweibull(a+f,shape,lambda)
         }
     }
     if(dist == "non-parametric"){

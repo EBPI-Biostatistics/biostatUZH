@@ -64,7 +64,7 @@ confIntProportion <- function(x, n, conf.level = 0.95)
 
 #' @rdname confIntProportion
 #' @return \code{wald} returns the Wald confidence interval.
-#' @export 
+#' @export
 wald <- function(x, n, conf.level = 0.95)
 {
     stopifnot(is.numeric(x), length(x) == 1,
@@ -77,7 +77,7 @@ wald <- function(x, n, conf.level = 0.95)
               is.finite(conf.level),
               0 < conf.level, conf.level < 1)
 
-    q <- qnorm(p = (1 + conf.level) / 2)
+    q <- stats::qnorm(p = (1 + conf.level) / 2)
     prop <- x / n         
     limits <- prop + c(-1, 1) * q * sqrt(prop * (1 - prop) / n)
     c("lower" = max(0, limits[1]), "prop" = prop, "upper" = min(1, limits[2]))
@@ -101,7 +101,7 @@ wilson <- function(x, n, conf.level = 0.95)
               is.finite(conf.level),
               0 < conf.level, conf.level < 1)
     
-    q <- qnorm(p = (1 + conf.level) / 2)
+    q <- stats::qnorm(p = (1 + conf.level) / 2)
     q2 <- q^2
     prop <- x / n
     mid <- (x + q2 / 2) / (n + q2)
@@ -124,7 +124,7 @@ agresti <- function(x, n, conf.level = 0.95)
               length(conf.level) == 1,
               is.finite(conf.level),
               0 < conf.level, conf.level < 1)
-    k <- qnorm(p = (conf.level + 1) / 2)
+    k <- stats::qnorm(p = (conf.level + 1) / 2)
     ptilde <- (x + 2) / (n + 4)
     z <- abs(k)
     stderr <- sqrt(ptilde * (1 - ptilde) / (n + 4))
@@ -150,8 +150,8 @@ jeffreys <- function(x, n, conf.level = 0.95)
     q <- (1 - conf.level) / 2
     alpha <- x + 0.5
     beta <- n - x + 0.5
-    pihat <- qbeta(0.5, alpha, beta)
-    limits <- qbeta(c(q, 1 - q), alpha, beta)
+    pihat <- stats::qbeta(0.5, alpha, beta)
+    limits <- stats::qbeta(c(q, 1 - q), alpha, beta)
     c("lower" = limits[1], "pihat" = pihat, "upper" = limits[2])
 }
 
@@ -177,8 +177,8 @@ clopperPearson <- function(x, n, conf.level = 0.95)
         ll <- (a / 2) ^ (1 / n)
         ul <- 1
     } else {
-        ll <- 1/(1 + (n - x + 1) / (x * qf(a / 2, 2 * x, 2 * (n - x + 1))))
-        ul <- 1/(1 + (n - x) / ((x + 1) * qf(1 - a / 2, 2 * (x + 1), 2 * (n - x))))
+        ll <- 1/(1 + (n - x + 1) / (x * stats::qf(a / 2, 2 * x, 2 * (n - x + 1))))
+        ul <- 1/(1 + (n - x) / ((x + 1) * stats::qf(1 - a / 2, 2 * (x + 1), 2 * (n - x))))
     }
     c("lower" = ll, "prop" = x / n, "upper" = ul)
 } 
@@ -265,7 +265,7 @@ confIntIndependentProportion <- function(x, n, conf.level = 0.95)
 
     ## Wald interval
     se.D <- sqrt(p1 * (1 - p1) / n[1] + p2 * (1 - p2) / n[2])
-    factor <- qnorm(1 - alpha / 2)
+    factor <- stats::qnorm(1 - alpha / 2)
     D.lower <- D - factor * se.D
     D.upper <- D + factor * se.D
     wald <- c(D.lower, D.upper)

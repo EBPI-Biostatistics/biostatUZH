@@ -88,7 +88,7 @@ mantelHaenszel <- function(exposure, outcome, stratum){
     }
     
     test.stat <- (abs(sum(M[, 1] - M[, 2])) - 0.5) ^ 2 / sum(M[, 3])
-    p.val <- 1 - pchisq(test.stat, df = 1)
+    p.val <- 1 - stats::pchisq(test.stat, df = 1)
     
     dimnames(tab) <- list(c("Case exposure yes", "Case exposure no"), rep(0:4))
     list("tab" = tab, "test.stat" = test.stat, "p.val" = p.val)

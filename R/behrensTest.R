@@ -27,10 +27,10 @@ behrensTest <- function(x, y, conf.level = 0.95,
     
     alpha <- 1 - conf.level
     m1 <- mean(x)
-    s1 <- sd(x)
+    s1 <- stats::sd(x)
     n1 <- sum(!is.na(x))
     m2 <- mean(y)
-    s2 <- sd(y)
+    s2 <- stats::sd(y)
     n2 <- sum(!is.na(y))
   
     nu1 <- n1 - 1
@@ -49,22 +49,22 @@ behrensTest <- function(x, y, conf.level = 0.95,
     t.value <- diff / (a * diff.se)
     
     if(alternative == "two.sided"){
-        c <- qt(alpha / 2, df = df, lower.tail = FALSE)
+        c <- stats::qt(alpha / 2, df = df, lower.tail = FALSE)
         lower <- diff - a * diff.se * c
         upper <- diff + a * diff.se * c
-        p <- 2 * pt(abs(t.value), df = df, lower.tail = FALSE)
+        p <- 2 * stats::pt(abs(t.value), df = df, lower.tail = FALSE)
     }
     if(alternative == "less"){
-        c <- qt(alpha, df = df, lower.tail = FALSE)
+        c <- stats::qt(alpha, df = df, lower.tail = FALSE)
         lower <- -Inf
         upper <- diff + a * diff.se * c
-        p <-  pt(t.value, df = df, lower.tail = TRUE)
+        p <-  stats::pt(t.value, df = df, lower.tail = TRUE)
     }
     if(alternative == "greater"){
-        c <- qt(alpha, df = df, lower.tail = FALSE)
+        c <- stats::qt(alpha, df = df, lower.tail = FALSE)
         lower <- diff - a * diff.se * c
         upper <- Inf
-        p <-  pt(t.value, df = df, lower.tail = FALSE)
+        p <-  stats::pt(t.value, df = df, lower.tail = FALSE)
     }
     c("lower" = lower, "diff" = diff, "upper" = upper,
       "t-value" = t.value, "df" = df, "p-value" = p)

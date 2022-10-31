@@ -36,6 +36,7 @@ estimate received via Cox-regression do not coincide.
 \examples{
 
 ## load Acute Myelogenous Leukemia survival data
+library(survival)
 data("leukemia", package = "survival")
 
 mantelCoxHR(time = leukemia[, 1],

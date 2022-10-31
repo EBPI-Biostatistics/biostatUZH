@@ -39,13 +39,12 @@
 #' data(larynx)
 #' weibullReg(Surv(time, death) ~ factor(stage) + age, data = larynx)
 #' 
-#' @import survival
 #' @export
 weibullReg <- function (formula, data, conf.level = 0.95) 
 {
     ## 'formula' checked in survreg()
     ## 'data' and 'conf.level' checked in survreg2weibull()
-    m <- survreg(formula = formula, data = data, dist = "weibull")
+    m <- survival::survreg(formula = formula, data = data, dist = "weibull")
     mle <- survreg2weibull(model = m, conf.level = conf.level)
     list(formula = formula, coef = mle$vars, HR = mle$HR, 
          ETR = mle$ETR, summary = summary(m))
@@ -55,7 +54,7 @@ weibullReg <- function (formula, data, conf.level = 0.95)
 #' Transformation of survreg output for the Weibull distribution
 #' 
 #' Transforms output from \code{\link{survreg}} using the Weibull distribution
-#' to a more natural parameterization. See details for more information.
+#' to a more natural parametrization. See details for more information.
 #' 
 #' The \code{\link{survreg}} function fits a Weibull accelerated failure time
 #' model of the form
@@ -118,7 +117,7 @@ survreg2weibull <- function (model, conf.level = 0.95)
               !is.null(conf.level), length(conf.level) == 1,
               is.finite(conf.level), 0 < conf.level, conf.level < 1)
     alpha <- 1 - conf.level
-    qa <- qnorm(1 - alpha / 2)
+    qa <- stats::qnorm(1 - alpha / 2)
     Int.Only <- (nrow(summary(model)$table) == 2)
     sigma <- summary(model)$scale
     mu <- summary(model)$coef[1]
@@ -226,35 +225,34 @@ ConvertWeibull <- function(model, conf.level){
 #'                 labels = c("Stage I", "Stage II","Stage III", "Stage IV"))
 #' }
 #' 
-#' @importFrom prodlim prodlim
 #' @export
 weibullDiag <- function (formula, data, labels =  NULL) 
 {
-    ## 'formula' and 'data' checked in prodlim::prodlim()
-    np <- prodlim::prodlim(formula = formula, data = data)
-    if(is.null(labels))
-        labels <- rownames(np$X)
-    else
-        stopifnot(is.character(labels), length(labels) == nrow(np$X))
-    cols <- NA
-    for (i in 1:length(np$size.strata)) {
-        cols <- c(cols, rep(i, np$size.strata[i]))
-    }
-    cols <- cols[!is.na(cols)]
-    window <- c(-0.5, 0.5)
-    y.range <- range(log(-log(np$surv)), finite = TRUE)
-    x.range <- log(range(np$time))
-    plot(0, 0, type = "n", ylim = y.range + window, xlim = x.range + window,
-         xlab = "Log Survival Time", ylab = "Log Cumulative Hazard", 
-         main = "Weibull Regression\nDiagnostic Plot")
-    for (i in 1:length(np$size.strata)) {
-        t <- np$time[cols == i]
-        s <- np$surv[cols == i]
-        h <- np$haz[cols == i]
-        points(log(t), log(-log(s)), col = i, pch = i, lty = i, lwd = 2, type = "b")
-    }
-    legend("topleft", legend = labels, col = 1:length(np$size.strata), 
-           pch = 1:length(np$size.strata), lwd = 2, lty = i:length(np$size.strata))
-    pCH <- list(x = log(np$time), y = log(-log(np$surv)), strata = cols, 
-                stata.def = np$X)
+  ## 'formula' and 'data' checked in prodlim::prodlim()
+  np <- prodlim::prodlim(formula = formula, data = data)
+  if(is.null(labels))
+    labels <- rownames(np$X)
+  else
+    stopifnot(is.character(labels), length(labels) == nrow(np$X))
+  cols <- NA
+  for (i in 1:length(np$size.strata)) {
+    cols <- c(cols, rep(i, np$size.strata[i]))
+  }
+  cols <- cols[!is.na(cols)]
+  window <- c(-0.5, 0.5)
+  y.range <- range(log(-log(np$surv)), finite = TRUE)
+  x.range <- log(range(np$time))
+  plot(0, 0, type = "n", ylim = y.range + window, xlim = x.range + window,
+       xlab = "Log Survival Time", ylab = "Log Cumulative Hazard", 
+       main = "Weibull Regression\nDiagnostic Plot")
+  for (i in 1:length(np$size.strata)) {
+    t <- np$time[cols == i]
+    s <- np$surv[cols == i]
+    h <- np$haz[cols == i]
+    graphics::points(log(t), log(-log(s)), col = i, pch = i, lty = i, lwd = 2, type = "b")
+  }
+  graphics::legend("topleft", legend = labels, col = 1:length(np$size.strata), 
+                   pch = 1:length(np$size.strata), lwd = 2, lty = i:length(np$size.strata))
+  pCH <- list(x = log(np$time), y = log(-log(np$surv)), strata = cols, 
+              stata.def = np$X)
 }
