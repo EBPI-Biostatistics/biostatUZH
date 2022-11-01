@@ -24,7 +24,7 @@ to check the adequacy of the Weibull model.
 \details{
 Most relevant functions: \cr
 \code{\link{agresti}} \cr                     
-\code{\link{behrensTest}} \cr                 
+\code{\link{behrens.test}} \cr                 
 \code{\link{blandAltman}} \cr                 
 \code{\link{clopperPearson}} \cr              
 \code{\link{combineSubgroups}} \cr            
@@ -61,6 +61,7 @@ Most relevant functions: \cr
 \code{\link{mantelHaenszel}} \cr              
 \code{\link{plotcorr}} \cr                    
 \code{\link{populationSamplePlot}} \cr        
+\code{\link{power.z.test}} \cr        
 \code{\link{printWaldCI}} \cr                 
 \code{\link{quantileCumInc}} \cr              
 \code{\link{quantileKM}} \cr                  

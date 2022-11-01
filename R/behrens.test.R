@@ -6,17 +6,17 @@
 #' @param alternative Character string specifying the alternative hypothesis,
 #' must be one of "two.sided" (default), "greater", and "less".
 #' @param conf.level Confidence level of the interval, default is 0.95.
-#' @details Computes behrens version of the t-test for unequal variances
+#' @details Computes Behrens version of the t-test for unequal variances
 #' based on approximate solution as in Box & Tiao, 1973, Section 2.5.3;
 #' see also Armitage, Berry, Matthews, 2002, Section 4.3.
 #' @examples
 #' weightWomen <- c(38.9, 61.2, 73.3, 21.8, 63.4, 64.6, 48.4, 48.8, 48.5)
 #' weightMen <-   c(67.8, 60  , 63.4, 76,   89.4, 73.3, 67.3, 61.3)
 #'
-#' behrensTest(x = weightWomen, y = weightMen)
-#' behrensTest(x = weightWomen, y = weightMen, alternative = "less")
+#' behrens.test(x = weightWomen, y = weightMen)
+#' behrens.test(x = weightWomen, y = weightMen, alternative = "less")
 #' @export
-behrensTest <- function(x, y, conf.level = 0.95,
+behrens.test <- function(x, y, conf.level = 0.95,
                         alternative = c("two.sided", "greater", "less")){
     stopifnot(is.numeric(x), length(x) >= 1, is.finite(x),
               is.numeric(y), length(y) >= 1, is.finite(y),
@@ -24,6 +24,8 @@ behrensTest <- function(x, y, conf.level = 0.95,
               0 < conf.level, conf.level < 1,
               !is.null(alternative))
     alternative <- match.arg(alternative)
+    
+    dname <- paste(deparse1(substitute(x)), "and", deparse1(substitute(y)))
     
     alpha <- 1 - conf.level
     m1 <- mean(x)
@@ -46,26 +48,37 @@ behrensTest <- function(x, y, conf.level = 0.95,
         ((nu1 - 2)^2 * (nu1 - 4)) * sin2.phi^2 
     df <- 4 + f1^2 / f2
     a <- sqrt((df - 2) / df * f1)
-    t.value <- diff / (a * diff.se)
+    diff.se <- a * diff.se
+    t.value <- diff / diff.se
     
     if(alternative == "two.sided"){
         c <- qt(alpha / 2, df = df, lower.tail = FALSE)
-        lower <- diff - a * diff.se * c
-        upper <- diff + a * diff.se * c
+        lower <- diff - diff.se * c
+        upper <- diff + diff.se * c
         p <- 2 * pt(abs(t.value), df = df, lower.tail = FALSE)
     }
     if(alternative == "less"){
         c <- qt(alpha, df = df, lower.tail = FALSE)
         lower <- -Inf
-        upper <- diff + a * diff.se * c
+        upper <- diff + diff.se * c
         p <-  pt(t.value, df = df, lower.tail = TRUE)
     }
     if(alternative == "greater"){
         c <- qt(alpha, df = df, lower.tail = FALSE)
-        lower <- diff - a * diff.se * c
+        lower <- diff - diff.se * c
         upper <- Inf
         p <-  pt(t.value, df = df, lower.tail = FALSE)
     }
-    c("lower" = lower, "diff" = diff, "upper" = upper,
-      "t-value" = t.value, "df" = df, "p-value" = p)
+    names(t.value) <- "t"
+    names(df) <- "df"
+    names(diff) <- "difference in means"
+    cint <- c(lower, upper)
+    attr(cint, "conf.level") <- conf.level
+    method <- "Behrens' t-test"
+    rval <- list(statistic = t.value, parameter = df, p.value = p, 
+                 conf.int = cint, estimate = diff, null.value = 0, 
+                 stderr = diff.se, alternative = alternative, method = method, 
+                 data.name = dname)
+    class(rval) <- "htest"
+    rval
 }
