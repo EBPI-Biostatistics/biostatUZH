@@ -1,3 +1,6 @@
+# v2.2.1
+  - Renamed function `behrensTest` to `behrens.test` and return an object of class `htest` such that the print methods from the `stats`-package can be used on it.
+
 # v2.2
   - added function `power.z.test` which is based on `power.t.test`.
 

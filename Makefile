@@ -1,7 +1,7 @@
 include Makefile.defs
 
 PACKAGE = biostatUZH
-VERSION = 2.2
+VERSION = 2.2.1
 TAR = $(PACKAGE)_$(VERSION).tar.gz
 
 

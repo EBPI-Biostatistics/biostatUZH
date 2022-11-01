@@ -6,6 +6,12 @@
 \name{NEWS}
 \title{News for Package 'biostatUZH'}
 
+\section{Changes in biostatUZH version 2.2.1 (2022-11-01)}{
+  \itemize{
+    \item Renamed function \code{behrensTest} to \code{behrens.test} and return an object of class \code{htest} such that the print methods from the \pkg{stats}-package can be used on it.
+  }
+}
+
 \section{Changes in biostatUZH version 2.2 (2022-10-24)}{
   \itemize{
     \item Added the function \code{power.z.test} that allows sample size calculations based on normal approximations.
