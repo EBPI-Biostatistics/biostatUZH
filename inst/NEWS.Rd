@@ -6,6 +6,14 @@
 \name{NEWS}
 \title{News for Package 'biostatUZH'}
 
+\section{Changes in biostatUZH version 2.2.2 (2022-11-04)}{
+  \itemize{
+    \item Made \code{behrens.test} a generic with a \code{default} method and a method for \code{formula} objects.
+    \item Added function \code{formatPvalStrict} which allows the user to fix the number of digits after the decimal point.
+    \item Added an argument \code{strict} to the function \code{tableRegression} which indicates whether *p*-values should be formatted with \code{formatPvalStrict} or \code{formatPval}.
+  }
+}
+
 \section{Changes in biostatUZH version 2.2.1 (2022-11-01)}{
   \itemize{
     \item Renamed function \code{behrensTest} to \code{behrens.test} and return an object of class \code{htest} such that the print methods from the \pkg{stats}-package can be used on it.

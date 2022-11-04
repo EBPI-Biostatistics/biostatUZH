@@ -1,39 +1,45 @@
+# v2.2.2
+  - Made `behrens.test` a generic with a `default` method and a method for `formula` objects.
+  - Added function `formatPvalStrict` which allows the user to fix the number of digits after
+  the decimal point.
+  - Added an argument `strict` to the function `tableRegression` which indicates whether *p*-values should be formatted with `formatPvalStrict` or `formatPval`.
+
 # v2.2.1
   - Renamed function `behrensTest` to `behrens.test` and return an object of class `htest` such that the print methods from the `stats`-package can be used on it.
 
 # v2.2
-  - added function `power.z.test` which is based on `power.t.test`.
+  - Added function `power.z.test` which is based on `power.t.test`.
 
 # v2.1
   - The package now reexports the functions `ci2p`, `ci2estimate`, `ci2se`, `ci2z`, `z2p`, `p2z` from ReplicationSuccess
 
 # v2.0.4
-  - transfer ownership from https://github.com/felix-hof/biostatUZH to https://github.com/EBPI-Biostatistics/biostatUZH
-  - move `prodlim` package from `Suggests` to `Imports` section
+  - Transfer ownership from https://github.com/felix-hof/biostatUZH to https://github.com/EBPI-Biostatistics/biostatUZH
+  - Move `prodlim` package from `Suggests` to `Imports` section
 
 # v2.0.3
-  - allow NAs in formatPval() function
+  - Allow `NA`s in `formatPval()` function
 
 # v2.0.2
-  - update links
-  - fix errors in tableRegression() input checks
+  - Update links
+  - Fix errors in `tableRegression()` input checks
 
 # v2.0.1
-  - migrate package from https://github.com/florafauna/biostatUZH to https://github.com/felix-hof/biostatUZH
+  - Migrate package from https://github.com/florafauna/biostatUZH to https://github.com/felix-hof/biostatUZH
 
 # v2.0.0
-  - add NEWS.md file
-  - add Makefile to support bilding and testing the package
-  - migrate from R-forge to github repo:
+  - Add NEWS.md file
+  - Add Makefile to support bilding and testing the package
+  - Migrate from R-forge to github repo:
     https://github.com/florafauna/biostatUZH
-  - improve R coding to make it more stable and readable
-  - unify function and argument names:
+  - Improve R coding to make it more stable and readable
+  - Unify function and argument names:
     function names start with lower case and use camelStyle,
     argument names are lower case
-  - improve documentation and migrate it to roxygen2 format
-  - implement input check for all functions
-  - combine related functions into one R file
-  - remove unused function as discussed with Leo
+  - Improve documentation and migrate it to roxygen2 format
+  - Implement input check for all functions
+  - Combine related functions into one R file
+  - Remove unused function as discussed with Leo
 
 
 # v1.8.0

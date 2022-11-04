@@ -65,6 +65,6 @@ behrens.test(x = weightWomen, y = weightMen, alternative = "less")
 
 # using the formula interface
 weight <- matrix(c(weightWomen, weightMen, rep(1, 9), rep(2, 8)), ncol = 2)
-colnames(weigth) <- c("measure", "sex") 
+colnames(weight) <- c("measure", "sex") 
 behrens.test(measure ~ sex, data = weight)
 }

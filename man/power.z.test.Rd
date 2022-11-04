@@ -69,3 +69,6 @@ power.z.test(power = power, delta = delta, sig.level = NULL, n = n,
 power.z.test(delta = delta, sd = sd, sig.level = sig.level, n = n)
 
 }
+\author{
+Felix Hofmann
+}

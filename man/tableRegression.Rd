@@ -14,6 +14,7 @@ tableRegression(
   text.ci = text,
   eps.pvalue = 1e-04,
   digits = NULL,
+  strict = FALSE,
   big.mark = "'",
   xtable = TRUE,
   align = NULL,
@@ -49,10 +50,17 @@ language names.}
 \item{text.ci}{Either "english", "german" or "none". The language used to
 denote confidence interval, see \code{\link{formatCI}}.}
 
-\item{eps.pvalue}{P-values smaller than \code{eps.pvalue} will be formatted
-as "< eps.pvalue".}
+\item{eps.pvalue}{If \code{strict = FALSE}, p-values smaller than 
+\code{eps.pvalue} will be formatted as "< eps.pvalue". Otherwise this
+argument is ignored.}
 
 \item{digits}{Vector of length \code{stats}, digits used for each column.}
+
+\item{strict}{Either \code{TRUE} or \code{FALSE} (default). If \code{FALSE}, 
+p-values are formatted with \code{\link[biostatUZH]{formatPval}}. Otherwise
+\code{\link[biostatUZH]{formatPvalStrict}} is used to format p-values. 
+This argument is thus only relevant when the argument \code{stats} is 
+either \code{NULL} or contains \code{"p.value"}.}
 
 \item{big.mark}{Character vector as in \code{\link[base]{format}}.}
 
@@ -96,6 +104,11 @@ mod.lm <- lm(Sepal.Length ~ Sepal.Width, data = iris)
 mod.lm1 <- lm(Sepal.Length ~ .^2, data = iris) 
 
 tableRegression(model = mod.lm)
+
+## strict argument is used to force p-values to have a certain number
+## of digits (here 4).
+tableRegression(model = mod.lm, digits = c(2, 2, 4), strict = TRUE)
+tableRegression(model = mod.lm, digits = c(2, 2, 4), strict = FALSE)
 
 ## choosing columns, columns and row naming in german
 tableRegression(model = mod.lm1, stats = c("estimate", "t.value", "p.value"),
