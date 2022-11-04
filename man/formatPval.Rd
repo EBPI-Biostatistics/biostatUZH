@@ -2,9 +2,12 @@
 % Please edit documentation in R/formatPval.R
 \name{formatPval}
 \alias{formatPval}
+\alias{formatPvalStrict}
 \title{Format p-Values}
 \usage{
 formatPval(x, break.eps = 1e-04, break.middle = 0.01, na.form = "NA", ...)
+
+formatPvalStrict(x, digits = 2L, na.form = "NA", ...)
 }
 \arguments{
 \item{x}{Numeric vector of p-values.}
@@ -15,23 +18,42 @@ formatPval(x, break.eps = 1e-04, break.middle = 0.01, na.form = "NA", ...)
 
 \item{na.form}{Character representation of \code{NA}s.}
 
-\item{...}{Additional arguments passed to \code{\link{format}}.}
+\item{...}{Additional arguments passed to \code{\link[base]{format}} or 
+\code{\link[base]{formatC}}.}
+
+\item{digits}{Numeric vector of length 1 or \code{length(x)} indicating the 
+number of digits after the decimal point that should be returned.}
 }
 \value{
 A vector of \code{length(x)} with formatted p-values.
 }
 \description{
-Formats p-values according to:
+\code{formatPval} returns p-values according to the number of significant
+digits:
 \itemize{
 \item p-values \code{< break.eps} are written as \code{"< break.eps"}.
-\item p-values \code{>= break.eps} but \code{< break.middle} have 1 digit.
-\item p-values \code{>= break.middle} have 2 digits.
+\item p-values \code{>= break.eps} but \code{< break.middle} have 1 
+significant digit.
+\item p-values \code{>= break.middle} have 2 significant digits.
 }
+
+whereas \code{formatPvalStrict} allows the user to fix the number of digits
+after the decimal point. In case of \code{digits = 2} this means:
+\itemize{
+\item p-values \code{< 0.01} (10^(-\code{digits})) are written as \code{"< 0.01"}.
+\item p-values \code{>= 0.01} are rounded to 2 digits after the decimal 
+point.
+}
+}
+\details{
+\code{formatPval} internally uses \code{\link[base]{format}} whereas
+\code{formatPvalStrict} uses \code{\link[base]{formatC}}.
 }
 \examples{
 
 x <- c(1e-8, 0.00568, 0.0345, 0.885)
 biostatUZH::formatPval(x)  # "< 0.0001" "0.006" "0.035" "0.89"
+biostatUZH::formatPvalStrict(x, digits = 2) # "< 0.01" "< 0.01" "0.03" "0.89"
 
 ## compare to formatting of other packages
 if (requireNamespace("reporttools")) {
@@ -55,5 +77,5 @@ the \pkg{base} function \code{\link{format.pval}},
 \code{\link[surveillance]{formatPval}} in package \pkg{surveillance}
 }
 \author{
-Sina Rueeger and Sebastian Meyer
+Sina Rueeger, Sebastian Meyer, and Felix Hofmann
 }

@@ -2,24 +2,50 @@
 % Please edit documentation in R/behrens.test.R
 \name{behrens.test}
 \alias{behrens.test}
+\alias{behrens.test.default}
+\alias{behrens.test.formula}
 \title{Behrens version of the t-test for unequal variances}
 \usage{
-behrens.test(
+behrens.test(x, ...)
+
+\method{behrens.test}{default}(
   x,
   y,
+  alternative = c("two.sided", "greater", "less"),
+  mu = 0,
   conf.level = 0.95,
-  alternative = c("two.sided", "greater", "less")
+  ...
 )
+
+\method{behrens.test}{formula}(formula, data, subset, na.action, ...)
 }
 \arguments{
 \item{x}{Numeric vector of data values.}
 
-\item{y}{Numeric vector of data values.}
+\item{...}{Further arguments to be passed to or from methods.}
 
-\item{conf.level}{Confidence level of the interval, default is 0.95.}
+\item{y}{Numeric vector of data values.}
 
 \item{alternative}{Character string specifying the alternative hypothesis,
 must be one of "two.sided" (default), "greater", and "less".}
+
+\item{mu}{A number indicating the difference in means under the
+null-hypothesis.}
+
+\item{conf.level}{Confidence level of the interval, default is 0.95.}
+
+\item{formula}{A formula of the form \code{lhs ~ rhs} where \code{lhs} is a numeric 
+variable giving the data values and \code{rhs} is a factor with two levels giving 
+the corresponding groups.}
+
+\item{data}{An optional matrix or data frame 
+(or similar: see \link[stats]{model.frame}) containing the variables in the 
+formula formula. By default the variables are taken from \code{environment(formula)}.}
+
+\item{subset}{An optional vector specifying a subset of observations to be used.}
+
+\item{na.action}{A function which indicates what should happen when the data 
+contain \code{NA}s. Defaults to \code{getOption("na.action")}.}
 }
 \description{
 Behrens version of the t-test for unequal variances.
@@ -33,6 +59,12 @@ see also Armitage, Berry, Matthews, 2002, Section 4.3.
 weightWomen <- c(38.9, 61.2, 73.3, 21.8, 63.4, 64.6, 48.4, 48.8, 48.5)
 weightMen <-   c(67.8, 60  , 63.4, 76,   89.4, 73.3, 67.3, 61.3)
 
+# using the default method
 behrens.test(x = weightWomen, y = weightMen)
 behrens.test(x = weightWomen, y = weightMen, alternative = "less")
+
+# using the formula interface
+weight <- matrix(c(weightWomen, weightMen, rep(1, 9), rep(2, 8)), ncol = 2)
+colnames(weight) <- c("measure", "sex") 
+behrens.test(measure ~ sex, data = weight)
 }

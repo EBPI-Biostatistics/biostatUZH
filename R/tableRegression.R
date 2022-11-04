@@ -28,9 +28,15 @@
 #' language names.
 #' @param text.ci Either "english", "german" or "none". The language used to
 #' denote confidence interval, see \code{\link{formatCI}}.
-#' @param eps.pvalue P-values smaller than \code{eps.pvalue} will be formatted
-#' as "< eps.pvalue".
+#' @param eps.pvalue If \code{strict = FALSE}, p-values smaller than 
+#' \code{eps.pvalue} will be formatted as "< eps.pvalue". Otherwise this
+#' argument is ignored.
 #' @param digits Vector of length \code{stats}, digits used for each column.
+#' @param strict Either \code{TRUE} or \code{FALSE} (default). If \code{FALSE}, 
+#' p-values are formatted with \code{\link[biostatUZH]{formatPval}}. Otherwise
+#' \code{\link[biostatUZH]{formatPvalStrict}} is used to format p-values. 
+#' This argument is thus only relevant when the argument \code{stats} is 
+#' either \code{NULL} or contains \code{"p.value"}.
 #' @param big.mark Character vector as in \code{\link[base]{format}}.
 #' @param xtable If TRUE, a Latex table is returned, otherwise a data.frame is
 #' returned.
@@ -57,6 +63,11 @@
 #' mod.lm1 <- lm(Sepal.Length ~ .^2, data = iris) 
 #' 
 #' tableRegression(model = mod.lm)
+#' 
+#' ## strict argument is used to force p-values to have a certain number
+#' ## of digits (here 4).
+#' tableRegression(model = mod.lm, digits = c(2, 2, 4), strict = TRUE)
+#' tableRegression(model = mod.lm, digits = c(2, 2, 4), strict = FALSE)
 #' 
 #' ## choosing columns, columns and row naming in german
 #' tableRegression(model = mod.lm1, stats = c("estimate", "t.value", "p.value"),
@@ -143,6 +154,7 @@ tableRegression <- function(model,
                             text.ci = text,
                             eps.pvalue = 0.0001,
                             digits = NULL,
+                            strict = FALSE,
                             big.mark = "'",
                             xtable = TRUE,
                             align = NULL,
@@ -166,7 +178,16 @@ tableRegression <- function(model,
               is.numeric(eps.pvalue), length(eps.pvalue) == 1, is.finite(eps.pvalue),
               0 < eps.pvalue,
               is.null(digits) ||
-              (is.numeric(digits) && all(is.finite(digits)) && all(is.wholenumber(digits))))
+              (is.numeric(digits) && all(is.finite(digits)) && all(is.wholenumber(digits))),
+              is.logical(strict), length(strict) == 1L, !is.na(strict))
+    if(!is.null(stats) && !is.null(digits)){
+      if(length(stats) != length(digits)) stop("'digits' must have same length as 'stats'.")
+    }
+    if(is.null(stats) && !is.null(digits)){
+      if(!(length(digits) %in% c(1L, 3L))) 
+        stop("If 'stats' is NULL, 'digits' must be length 1 or length 3.")
+      if(length(digits) == 1L) digits <- rep(digits, 3L)
+    }
     ## big.mark is argument to format and not tested
     stopifnot(is.logical(xtable), length(xtable) == 1, is.finite(xtable))
     ## align, caption, label are arguments to xtable and not tested here
@@ -299,7 +320,7 @@ tableRegression <- function(model,
     if("ci.95" %in% stats)
     {
         digits.ci <- digits[stats %in% "ci.95"]
-    }else{
+    } else {
         digits.ci <- 2
     }
     
@@ -339,7 +360,8 @@ tableRegression <- function(model,
         col.names[stats == "exp.estimate"] <- "Rate Ratio"
         
         ## confint for exp.estimate (actually depends on MASS:::confint.glm)
-        ci.95 <- formatCI(exp(suppressMessages(confint(model))), digits = digits.ci, text = text.ci)
+        ci.95 <- formatCI(exp(suppressMessages(confint(model))), 
+                          digits = digits.ci, text = text.ci)
     }
     
     
@@ -426,21 +448,25 @@ tableRegression <- function(model,
     
     # formatieren des outputs -------------------------------------------------
     for (i in 1:ncol(output.return)) {
-        if(stats[i] == "p.value") {
-            output.return[,i] <- formatPval(as.numeric(as.character(output.return[,i])),
-                                            break.eps = eps.pvalue)
+      if(stats[i] == "p.value") {
+        output.return[,i] <- if(strict){
+          formatPvalStrict(output.return[, i], digits = digits[i])
         } else {
-            if(stats[i] != "ci.95") {
-                output.return[,i] <-  sapply(output.return[,i], function(x)
-                    format(as.numeric(as.character(x)), big.mark = big.mark,
-                           digits = digits[i], nsmall = digits[i], scientific = FALSE))
-                if(stats[i] == "exp.estimate" && nrow(output.return) > 1) {
-                    output.return[-1,i] <- sapply(output.return[-1,i], function(x)
-                        format(as.numeric(as.character(x)), digits = digits[i],
-                               big.mark = big.mark, nsmall = digits[i], scientific = FALSE))
-                }
-            }
+          formatPval(as.numeric(as.character(output.return[,i])),
+                     break.eps = eps.pvalue)
         }
+      } else {
+        if(stats[i] != "ci.95") {
+          output.return[,i] <-  sapply(output.return[,i], function(x)
+            format(as.numeric(as.character(x)), big.mark = big.mark,
+                   digits = digits[i], nsmall = digits[i], scientific = FALSE))
+          if(stats[i] == "exp.estimate" && nrow(output.return) > 1) {
+            output.return[-1,i] <- sapply(output.return[-1,i], function(x)
+              format(as.numeric(as.character(x)), digits = digits[i],
+                     big.mark = big.mark, nsmall = digits[i], scientific = FALSE))
+          }
+        }
+      }
     }
     
      
@@ -472,8 +498,8 @@ tableRegression <- function(model,
 # broom:::confint.geeglm
 
 confint.geeglm <- function(object, parm, level = 0.95, ...) {
-  cc <- coef(summary(object))
-  mult <- qnorm((1+level)/2)
+  cc <- stats::coef(summary(object))
+  mult <- stats::qnorm((1+level)/2)
   citab <- with(as.data.frame(cc),
                 cbind(lwr=Estimate-mult*Std.err,
                       upr=Estimate+mult*Std.err))

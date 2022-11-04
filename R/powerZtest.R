@@ -16,6 +16,8 @@
 #' 
 #' @return Object of class "power.htest", a list of the arguments 
 #' (including the computed one) augmented with method and note elements.
+#' 
+#' @author Felix Hofmann
 #' @export
 #'
 #' @examples
