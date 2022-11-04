@@ -31,6 +31,9 @@ check-cran: $(TAR)
 check: $(TAR)
 	$(RSCRIPT) -e "devtools::check_built(path = './$(TAR)', cran = FALSE)"
 
+install: $(TAR)
+	$(RSCRIPT) -e "install.packages('$(TAR)', repos = NULL, type = 'source')"
+
 covr: 
 	$(RSCRIPT) -e "covr::package_coverage()"
 
