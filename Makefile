@@ -1,7 +1,7 @@
 include Makefile.defs
 
 PACKAGE = biostatUZH
-VERSION = 2.2.2
+VERSION = 2.2.3
 TAR = $(PACKAGE)_$(VERSION).tar.gz
 
 
@@ -22,16 +22,16 @@ lib: update-src
 test-package:
 	$(RSCRIPT) -e "devtools::test('.')"
 
-$(TAR): update-src
+tarball: update-src
 	$(RSCRIPT) -e "devtools::build(path = '.', args = '--compact-vignettes=both')"
 
-check-cran: $(TAR)
+check-cran: tarball
 	$(RSCRIPT) -e "devtools::check_built(path = './$(TAR)', cran = TRUE)"
 
-check: $(TAR)
+check: tarball
 	$(RSCRIPT) -e "devtools::check_built(path = './$(TAR)', cran = FALSE)"
 
-install: $(TAR)
+install: tarball
 	$(RSCRIPT) -e "install.packages('$(TAR)', repos = NULL, type = 'source')"
 
 covr: 

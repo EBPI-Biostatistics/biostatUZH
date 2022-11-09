@@ -1,17 +1,20 @@
+# v2.2.3
+  - Added implementation of the Gail-Simon test for qualitative interaction in the function `gailSimon()`.
+
 # v2.2.2
-  - Made `behrens.test` a generic with a `default` method and a method for `formula` objects.
-  - Added function `formatPvalStrict` which allows the user to fix the number of digits after
+  - Made `behrens.test()` a generic with a `default` method and a method for `formula` objects.
+  - Added function `formatPvalStrict()` which allows the user to fix the number of digits after
   the decimal point.
-  - Added an argument `strict` to the function `tableRegression` which indicates whether *p*-values should be formatted with `formatPvalStrict` or `formatPval`.
+  - Added an argument `strict` to the function `tableRegression()` which indicates whether *p*-values should be formatted with `formatPvalStrict()` or `formatPval()`.
 
 # v2.2.1
-  - Renamed function `behrensTest` to `behrens.test` and return an object of class `htest` such that the print methods from the `stats`-package can be used on it.
+  - Renamed function `behrensTest()` to `behrens.test()` and return an object of class `htest` such that the print methods from the `stats`-package can be used on it.
 
 # v2.2
-  - Added function `power.z.test` which is based on `power.t.test`.
+  - Added function `power.z.test()` which is based on `power.t.test()`.
 
 # v2.1
-  - The package now reexports the functions `ci2p`, `ci2estimate`, `ci2se`, `ci2z`, `z2p`, `p2z` from ReplicationSuccess
+  - The package now reexports the functions `ci2p()`, `ci2estimate()`, `ci2se()`, `ci2z()`, `z2p()`, `p2z()` from ReplicationSuccess
 
 # v2.0.4
   - Transfer ownership from https://github.com/felix-hof/biostatUZH to https://github.com/EBPI-Biostatistics/biostatUZH
