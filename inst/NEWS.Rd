@@ -6,29 +6,35 @@
 \name{NEWS}
 \title{News for Package 'biostatUZH'}
 
+\section{Changes in biostatUZH version 2.2.3 (2022-11-09)}{
+  \itemize{
+    \item Added implementation of the Gail-Simon test for qualitative interaction in the function \code{gailSimon()}.
+  }
+}
+
 \section{Changes in biostatUZH version 2.2.2 (2022-11-04)}{
   \itemize{
-    \item Made \code{behrens.test} a generic with a \code{default} method and a method for \code{formula} objects.
-    \item Added function \code{formatPvalStrict} which allows the user to fix the number of digits after the decimal point.
-    \item Added an argument \code{strict} to the function \code{tableRegression} which indicates whether *p*-values should be formatted with \code{formatPvalStrict} or \code{formatPval}.
+    \item Made \code{behrens.test()} a generic with a \code{default} method and a method for \code{formula} objects.
+    \item Added function \code{formatPvalStrict()} which allows the user to fix the number of digits after the decimal point.
+    \item Added an argument \code{strict} to the function \code{tableRegression()} which indicates whether *p*-values should be formatted with \code{formatPvalStrict()} or \code{formatPval()}.
   }
 }
 
 \section{Changes in biostatUZH version 2.2.1 (2022-11-01)}{
   \itemize{
-    \item Renamed function \code{behrensTest} to \code{behrens.test} and return an object of class \code{htest} such that the print methods from the \pkg{stats}-package can be used on it.
+    \item Renamed function \code{behrensTest()} to \code{behrens.test()} and return an object of class \code{htest} such that the print methods from the \pkg{stats}-package can be used on it.
   }
 }
 
 \section{Changes in biostatUZH version 2.2 (2022-10-24)}{
   \itemize{
-    \item Added the function \code{power.z.test} that allows sample size calculations based on normal approximations.
+    \item Added the function \code{power.z.test()} that allows sample size calculations based on normal approximations.
   }
 }
 
 \section{Changes in biostatUZH version 2.1 (2022-09-28)}{
   \itemize{
-    \item The package now reexports the functions \code{ci2p}, \code{ci2estimate}, \code{ci2se}, \code{ci2z}, \code{z2p}, \code{p2z} from ReplicationSuccess
+    \item The package now reexports the functions \code{ci2p()}, \code{ci2estimate()}, \code{ci2se()}, \code{ci2z()}, \code{z2p()}, \code{p2z()} from ReplicationSuccess
   }
 }
 
@@ -41,14 +47,14 @@
 
 \section{Changes in biostatUZH version 2.0.3 (2022-03-07)}{
   \itemize{
-    \item allow NAs in formatPval() function
+    \item allow NAs in \code{formatPval()} function
   }
 }
 
 \section{Changes in biostatUZH version 2.0.2 (2021-10-27)}{
   \itemize{
     \item update links in documentation
-    \item fix errors in tableRegression() input checks
+    \item fix errors in \code{tableRegression()} input checks
     \item restore commit history from R-forge
   }
 }
