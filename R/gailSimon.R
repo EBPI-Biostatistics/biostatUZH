@@ -9,8 +9,8 @@
 #' @param se A numeric vector of the same length as \code{thetahat}. Contains 
 #' the standard errors of the corresponding effect estimates in each subgroup.
 #'
-#' @return A numeric vector of length 1 containing the p-value according 
-#' to the Gail-Simon test.
+#' @return A named numeric vector of length 2 containing the p-value and the 
+#' corresponding test statistic of the Gail-Simon test.
 #' 
 #' @references 
 #' Gail, M., & Simon, R. (1985). Testing for Qualitative Interactions between 
@@ -32,11 +32,15 @@ gailSimon <- function(thetahat, se){
             is.numeric(se), length(se) > 1,
             !any(is.na(se)),
             length(thetahat) == length(se))
+  
+  dname <- paste(deparse1(substitute(thetahat)), "and", 
+                 deparse1(substitute(se)))
+  
   nSubgroups <- length(thetahat)
   myrange <- 1L:(nSubgroups - 1L)
   Qplus <- sum((thetahat >= 0) * (thetahat/se)^2)
   Qminus <- sum((thetahat < 0) * (thetahat/se)^2)
   minQ <- min(Qplus, Qminus)
   pval <- sum(stats::dbinom(x = myrange, size = nSubgroups - 1L, prob = 0.5) * (1 - stats::pchisq(minQ, df = myrange)))
-  return(pval)
+  return(c("p-value" = pval, "statistic" = minQ))
 }

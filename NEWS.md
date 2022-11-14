@@ -1,3 +1,6 @@
+# v2.2.4
+  - Minor fix: return both, *p*-value and test statistic in `gailSimon()`.
+
 # v2.2.3
   - Added implementation of the Gail-Simon test for qualitative interaction in the function `gailSimon()`.
 

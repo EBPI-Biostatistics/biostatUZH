@@ -6,6 +6,12 @@
 \name{NEWS}
 \title{News for Package 'biostatUZH'}
 
+\section{Changes in biostatUZH version 2.2.3 (2022-11-14)}{
+  \itemize{
+    \item Minor change: return both, \emph{p}-value and test statistic in \code{gailSimon()} instead of \emph{p}-value only.
+  }
+}
+
 \section{Changes in biostatUZH version 2.2.3 (2022-11-09)}{
   \itemize{
     \item Added implementation of the Gail-Simon test for qualitative interaction in the function \code{gailSimon()}.
@@ -16,7 +22,7 @@
   \itemize{
     \item Made \code{behrens.test()} a generic with a \code{default} method and a method for \code{formula} objects.
     \item Added function \code{formatPvalStrict()} which allows the user to fix the number of digits after the decimal point.
-    \item Added an argument \code{strict} to the function \code{tableRegression()} which indicates whether *p*-values should be formatted with \code{formatPvalStrict()} or \code{formatPval()}.
+    \item Added an argument \code{strict} to the function \code{tableRegression()} which indicates whether \emph{p}-values should be formatted with \code{formatPvalStrict()} or \code{formatPval()}.
   }
 }
 
