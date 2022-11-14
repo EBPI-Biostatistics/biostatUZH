@@ -10,12 +10,12 @@ gailSimon(thetahat, se)
 \item{thetahat}{A numeric vector of length > 1. Denotes the effect estimates
 in the different subgroups.}
 
-\item{se}{A numeric vector of length \code{thetahat}. Contains the standard
-errors of the corresponding effect estimates in each subgroup.}
+\item{se}{A numeric vector of the same length as \code{thetahat}. Contains 
+the standard errors of the corresponding effect estimates in each subgroup.}
 }
 \value{
-A numeric vector of length 1 which contains the corresponding p-value
-according to the Gail-Simon test.
+A named numeric vector of length 2 containing the p-value and the 
+corresponding test statistic according to the Gail-Simon test.
 }
 \description{
 This function computes the p-value of the Gail-Simon test for

@@ -1,7 +1,7 @@
 Package: biostatUZH
 Title: Misc Tools of the Department of Biostatistics, EBPI, University of Zurich
-Version: 2.2.3
-Date: 2022-11-09
+Version: 2.2.4
+Date: 2022-11-14
 Authors@R: c(person(given = "Leonhard",
                     family = "Held",
                     role = c("aut"),
