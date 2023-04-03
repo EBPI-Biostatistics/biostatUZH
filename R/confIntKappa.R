@@ -7,9 +7,10 @@
 #' weight \eqn{kappa} coefficient, based on all pairwise complete observations
 #' in \code{data}.
 #' 
-#' @param data m x n matrix or data.frame containing data from m subjects and n raters.
+#' @param data m x n matrix or data.frame containing data from m subjects and n raters. 
+#' If data represents ordered rating, variables should be numeric. 
 #' @param type String defining the type of confidence interval.
-#' If not equal to "not Cohen" (default), the weighted
+#' If equal to "not Cohen" (default), the weighted
 #' version for ordered ratings is computed.
 #' If "Cohen", Cohen's unweighted \eqn{kappa} is computed, i.e.
 #' ratings are assumed to be nominal. 
