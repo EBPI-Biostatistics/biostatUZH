@@ -29,7 +29,7 @@ Covered topics:
 
 Install the package
 ```r
-devtools::install_github(repo = "EBPI-Biostatistics/biostatUZH", build_vignettes = TRUE)
+remotes::install_github(repo = "EBPI-Biostatistics/biostatUZH", build_vignettes = TRUE)
 ```
 
 Load package and list all provided functions
