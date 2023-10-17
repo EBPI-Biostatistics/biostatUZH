@@ -15,7 +15,7 @@ the standard errors of the corresponding effect estimates in each subgroup.}
 }
 \value{
 A named numeric vector of length 2 containing the p-value and the 
-corresponding test statistic according to the Gail-Simon test.
+corresponding test statistic of the Gail-Simon test.
 }
 \description{
 This function computes the p-value of the Gail-Simon test for
