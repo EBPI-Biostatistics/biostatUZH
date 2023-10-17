@@ -1,7 +1,7 @@
 Package: biostatUZH
 Title: Misc Tools of the Department of Biostatistics, EBPI, University of Zurich
-Version: 2.2.4
-Date: 2022-11-14
+Version: 2.2.5
+Date: 2023-10-17
 Authors@R: c(person(given = "Leonhard",
                     family = "Held",
                     role = c("aut"),
@@ -67,6 +67,6 @@ Suggests:
     testthat (>= 3.0.0)
 Enhances: ellipse, coxphf
 LazyData: true
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Encoding: UTF-8
 Config/testthat/edition: 3

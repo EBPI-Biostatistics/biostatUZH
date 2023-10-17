@@ -1,3 +1,6 @@
+# v2.2.5
+  - Added function confIntRateRatio.
+
 # v2.2.4
   - Minor fix: return both, *p*-value and test statistic in `gailSimon()`.
 
