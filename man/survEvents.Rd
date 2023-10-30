@@ -6,7 +6,7 @@
 \usage{
 survEvents(
   HR,
-  alpha = 0.05,
+  sig.level = 0.05,
   power = NULL,
   n.events = NULL,
   alloc.ratio = 1,
@@ -17,7 +17,7 @@ survEvents(
 \arguments{
 \item{HR}{Hazard ratio of experimental group vs. control group.}
 
-\item{alpha}{Significance level with default 0.05.}
+\item{sig.level}{Significance level with default 0.05.}
 
 \item{power}{Desired power.}
 
@@ -26,21 +26,23 @@ survEvents(
 \item{alloc.ratio}{Allocation ratio: Ratio of the number of patients in the
 experimental group divided by the number of patients in the control group.}
 
-\item{non.inf.margin}{Non-inferiority margin. Default is 0 and implies a superiority trial.}
+\item{non.inf.margin}{Non-inferiority margin. Default is 0 and implies a
+superiority trial.}
 
-\item{alternative}{"two.sided" (default) or "one.sided". Specifies whether the
-alternative hypothesis is one- or two-sided.}
+\item{alternative}{"two.sided" (default) or "one.sided". Specifies whether
+the alternative hypothesis is one- or two-sided.}
 }
 \value{
-If \code{power} is specified, the function returns the required total number of events.
-If \code{n.events} is specified, the function returns the power.
+If \code{power} is specified, the function returns the required total
+number of events. If \code{n.events} is specified, the function returns the
+power.
 }
 \description{
-For a given hazard ratio, significance level, and power, 
+For a given hazard ratio, significance level, and power,
 the function returns the required total number of events. \cr
 }
 \details{
-For a given hazard ratio, significance level, and number of events, 
+For a given hazard ratio, significance level, and number of events,
 the function returns the corresponding power.
 }
 \note{
@@ -48,16 +50,16 @@ Replaces \code{\link{NumEvents}}.
 }
 \examples{
 
-survEvents(HR = 0.65, alpha = 0.05, power = 0.9, alloc.ratio = 1,
+survEvents(HR = 0.65, sig.level = 0.05, power = 0.9, alloc.ratio = 1,
            non.inf.margin = 0, alternative = "two.sided")
 
-survEvents(HR = 0.65, alpha = 0.05, power = 0.9, alloc.ratio = 1,
+survEvents(HR = 0.65, sig.level = 0.05, power = 0.9, alloc.ratio = 1,
            non.inf.margin = .5, alternative = "one.sided")
 
-survEvents(HR = 0.65, alpha = 0.05, n.events = 35, alloc.ratio = 1,
+survEvents(HR = 0.65, sig.level = 0.05, n.events = 35, alloc.ratio = 1,
            non.inf.margin = 0, alternative = "two.sided")
 
-survEvents(HR = 0.65, alpha = 0.05, n.events = 35, alloc.ratio = 1,
+survEvents(HR = 0.65, sig.level = 0.05, n.events = 35, alloc.ratio = 1,
            non.inf.margin = 1, alternative = "one.sided")
 
 }
