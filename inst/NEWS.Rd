@@ -6,7 +6,19 @@
 \name{NEWS}
 \title{News for Package 'biostatUZH'}
 
-\section{Changes in biostatUZH version 2.2.3 (2022-11-14)}{
+\section{Changes in biostatUZH version 2.2.6 (2023-10-30)}{
+  \itemize{
+    \item Renamed argument \code{alpha} of function \code{survEvent()} to \code{sig.level}. This fixes a small inconsistency in argument naming.
+  }
+}
+
+\section{Changes in biostatUZH version 2.2.5 (2023-10-17)}{
+  \itemize{
+    \item Added function \code{confIntRateRatio}.
+  }
+}
+
+\section{Changes in biostatUZH version 2.2.4 (2022-11-14)}{
   \itemize{
     \item Minor change: return both, \emph{p}-value and test statistic in \code{gailSimon()} instead of \emph{p}-value only.
   }

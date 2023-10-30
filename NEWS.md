@@ -1,3 +1,6 @@
+# v2.2.6
+  - Renamed argument `alpha` of function `survEvent()` to `sig.level`. This fixes a small inconsistency in argument naming.
+
 # v2.2.5
   - Added function confIntRateRatio.
 
