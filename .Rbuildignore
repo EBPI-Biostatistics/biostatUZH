@@ -12,3 +12,4 @@ WISHLIST
 
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^Meta$

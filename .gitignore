@@ -1,18 +1,8 @@
-/lib/*
-/lib_legacy/*
-/scratch/*
+# Built Packages (source or binary)
+/lib*
 
-# project file
-*\.Rproj
-
-# DESCRIPTION-r file
-DESCRIPTION-r
-
-# Built manual
-biostat_*.pdf
-
-# MacOS .ds_file
-.DS_Store
+# Backup files
+*\.bak
 
 # History files
 .Rhistory
@@ -35,10 +25,31 @@ biostat_*.pdf
 
 # RStudio files
 .Rproj.user/
+# .Rproj
 
-# produced vignettes
-vignettes/*.html
-vignettes/*.pdf
+# produced vignettes and auxiliary files from the compilation
+# vignettes/*.html
+# vignettes/*.pdf
+vignettes/*.log
+vignettes/*.aux
+vignettes/*.bbl
+vignettes/*.blg
+vignettes/*.dvi
+vignettes/*.fdb_latexmk
+vignettes/*.fls
+vignettes/*.out
+vignettes/*concordance.tex
+vignettes/figure/*
+vignettes/cache/*
+# do not track the intermediate .tex file
+vignettes/ReplicationSuccess.tex
+
+# Don't track intermediate files of vignettes
+inst/doc/*\.R
+inst/doc/*\.Rnw
+
+# Manual
+/manual*
 
 # OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
 .httr-oauth
@@ -54,12 +65,12 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 
-# don't track built vignettes
-inst/doc
-vignettes/*.html
-vignettes/*.R
-vignettes/*.pdf
-
-# don't track the papers/ directory
+# Scratch directory
+scratch/
 papers/
 sampleSizeConnor/
+
+# Vignette related things
+package.R
+/doc/
+/Meta/
