@@ -99,4 +99,25 @@ Data sets: \cr
 \seealso{
 \url{https://www.biostat.uzh.ch}
 }
+\author{
+\strong{Maintainer}: Felix Hofmann \email{felix.hofmann2@uzh.ch} (\href{https://orcid.org/0000-0002-3891-6239}{ORCID})
+
+Authors:
+\itemize{
+  \item Leonhard Held \email{leonhard.held@uzh.ch} (\href{https://orcid.org/0000-0002-8686-5325}{ORCID})
+  \item Florian Gerber \email{florian.gerber@uzh.ch} (\href{https://orcid.org/0000-0001-8545-5263}{ORCID})
+  \item Kaspar Rufibach \email{kaspar.rufibach@gmail.com}
+  \item Sarah R. Haile \email{sarah.haile@uzh.ch}
+  \item Sebastian Meyer \email{seb.meyer@fau.de} (\href{https://orcid.org/0000-0002-1791-9449}{ORCID})
+  \item Sina Rueeger
+  \item Simon Schwab \email{simon.schwab@uzh.ch} (\href{https://orcid.org/0000-0002-1588-2689}{ORCID})
+}
+
+Other contributors:
+\itemize{
+  \item Daniel Sabanes Bove [contributor]
+  \item Uriah Daugaard [contributor]
+}
+
+}
 \keyword{package}
