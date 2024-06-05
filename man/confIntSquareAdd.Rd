@@ -32,15 +32,10 @@ The function returns a confidence interval of the same level
 as the confidence intervals for theta1 and theta2
 }
 \examples{
-theta1 <- 20
-lower1 <- 15
-upper1 <- 25
-theta2 <- 15
-lower2 <- 10
-upper2 <- 20
-result <- confIntSquareAdd(theta1, lower1, upper1, theta2, lower2, upper2)
-print(result)
-
+ci1 <- wilson(x=11, n=12)
+ci2 <- wilson(x=1, n=12)
+confIntSquareAdd(theta1 = ci1[2], lower1=ci1[1], upper1=ci1[3],
+                 theta2 = ci2[2], lower2=ci2[1], upper2=ci2[3]) 
 }
 \references{
 Newcombe, R.G. (1998). Interval estimation for the difference 
