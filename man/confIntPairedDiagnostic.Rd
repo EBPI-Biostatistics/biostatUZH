@@ -8,6 +8,7 @@ data}
 confIntPairedDiagnostic(
   diseased,
   nonDiseased,
+  names = c(1, 2),
   conf.level = 0.95,
   adjust = FALSE
 )
@@ -20,25 +21,32 @@ population. First row and first column refers to negative test results.}
 non-diseased population. First row and first column refers to negative test
 results.}
 
+\item{names}{Vector of length 2. Names of first and second diagnostic tests.
+First name refers to the test in the columns; second name refers to the test
+in the rows.
+Default to c(1, 2).}
+
 \item{conf.level}{Confidence level for confidence interval. Default is 0.95.}
 
 \item{adjust}{Logical of length one indicating whether to compute adjusted
 CIs or not. Default is FALSE.}
 }
 \value{
-A data.frame containing the estimated confidence intervals for the
-measures of relative accuracy (column test vs. row test).
+A data.frame containing the estimated sensitivity, specificity,
+LR+ and LR- in the two tests, as well as the ratio (first versus second test or
+equivalently column test versus row test)
+with the corresponding confidence interval.
 }
 \description{
-Compute confidence intervals for relative fractions. Specifically,
-confidence intervals for the relative true positive, true negative, false
-positive and false negative fraction are provided.
+Compute confidence intervals for relative sensitivity, relative specificity and
+relative likelihood ratios.
 }
 \examples{
 
 ## Calculate confidence intervals for data from a study performing the
-## Exercise stress test (EST) and the determination of chest pain
-## history (CPH) for patients with suspected or probably coronary
+## the determination of chest pain
+## history (CPH) and the
+## Exercise stress test (EST) for patients with suspected or probably coronary
 ## heart disease (CHD).
 
 diseased <- matrix(c(25, 183, 29, 786), ncol = 2, nrow = 2, byrow = TRUE)
@@ -46,7 +54,8 @@ nonDiseased <- matrix(c(151, 176, 46, 69), ncol = 2, nrow = 2, byrow = TRUE)
 colnames(diseased) <- colnames(nonDiseased) <- c("CPH=0", "CPH=1")
 rownames(diseased) <- rownames(nonDiseased) <- c("EST=0", "EST=1")
 
-confIntPairedDiagnostic(diseased = diseased, nonDiseased = nonDiseased)
+confIntPairedDiagnostic(diseased = diseased, nonDiseased = nonDiseased,
+names = c("CPH", "EST"))
 
 }
 \references{
